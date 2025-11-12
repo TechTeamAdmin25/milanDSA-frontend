@@ -109,13 +109,13 @@ export function TeamSphere() {
   const [popupPosition, setPopupPosition] = useState<{ x: number; y: number } | null>(null);
   const convenorRefs = React.useRef<{ [key: string]: HTMLDivElement | null }>({});
 
-  // Mobile pagination state - EDIT HERE: Change 7 to adjust items per page
+  // Mobile pagination state - EDIT HERE: Change 5 to adjust items per page
   const [corePage, setCorePage] = useState(0);
   const [clubPage, setClubPage] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState({ core: false, club: false });
   const [mobileView, setMobileView] = useState<'club' | 'core'>('club'); // Toggle between club and core views
   const [isViewTransitioning, setIsViewTransitioning] = useState(false);
-  const itemsPerPage = 7;
+  const itemsPerPage = 5;
 
   useEffect(() => {
     // Calculate dimensions based on viewport
