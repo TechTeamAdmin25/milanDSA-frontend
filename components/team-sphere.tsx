@@ -2,7 +2,7 @@
 
 import SphereImageGrid, { ImageData } from "@/components/ui/img-sphere";
 import React, { useState, useEffect } from 'react';
-import { ChevronRight, ChevronDown, ChevronUp, X } from 'lucide-react';
+import { ChevronRight, ChevronDown, ChevronUp, X, RefreshCw } from 'lucide-react';
 
 // ==========================================
 // IMAGE DATA CONFIGURATION
@@ -113,6 +113,8 @@ export function TeamSphere() {
   const [corePage, setCorePage] = useState(0);
   const [clubPage, setClubPage] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState({ core: false, club: false });
+  const [mobileView, setMobileView] = useState<'club' | 'core'>('club'); // Toggle between club and core views
+  const [isViewTransitioning, setIsViewTransitioning] = useState(false);
   const itemsPerPage = 7;
 
   useEffect(() => {
@@ -231,7 +233,7 @@ export function TeamSphere() {
               className="text-gray-600 group-hover:text-gray-900 transition-colors"
             />
           </div>
-          <span className="text-gray-700 text-sm">{item}</span>
+          <span className="text-gray-700 text-base">{item}</span>
         </button>
         <div
           className={`overflow-visible transition-all duration-300 ease-in-out ${
@@ -274,7 +276,7 @@ export function TeamSphere() {
                   onMouseLeave={disableHover ? undefined : handleMouseLeave}
                 >
                   <div
-                    className="text-gray-600 text-sm cursor-pointer hover:text-gray-900 transition-colors flex items-center"
+                    className="text-gray-600 text-base cursor-pointer hover:text-gray-900 transition-colors flex items-center"
                     onClick={() => {
                       // Close any previously opened modal and open new one
                       if (selectedConvenor?.id === convenorImage.id) {
@@ -396,6 +398,39 @@ export function TeamSphere() {
         .arrow-transition {
           transition: transform 0.3s ease-out, opacity 0.2s ease-out;
         }
+        /* View toggle transitions */
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateX(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+        @keyframes fadeOut {
+          from {
+            opacity: 1;
+            transform: translateX(0);
+          }
+          to {
+            opacity: 0;
+            transform: translateX(-10px);
+          }
+        }
+        .view-content-enter {
+          animation: fadeIn 0.3s ease-out forwards;
+        }
+        .view-content-exit {
+          animation: fadeOut 0.2s ease-in forwards;
+        }
+        .refresh-icon {
+          transition: transform 0.3s ease-out;
+        }
+        .refresh-icon:hover {
+          transform: rotate(180deg);
+        }
       `}</style>
       {/* MOBILE VIEW: Fixed container, no scrolling */}
       <main className="w-full h-screen flex flex-col justify-end items-center bg-gradient-to-br from-gray-50 to-gray-100 relative overflow-hidden md:min-h-screen md:justify-center md:items-center md:pt-22">
@@ -405,65 +440,68 @@ export function TeamSphere() {
         <h1 className="absolute top-18 left-4 text-6xl font-bold text-gray-900 tracking-tight md:top-15 md:left-10 md:text-[10rem]">Our</h1>
         <h1 className="absolute top-30 left-5 text-6xl font-bold text-gray-900 tracking-tight md:top-46 md:left-12 md:text-[10rem]">Team</h1>
 
-      {/* MOBILE: Convenor Lists - Positioned between text and sphere */}
+      {/* MOBILE: Convenor Lists - Toggle between Club and Core views */}
       {/* EDIT HERE: Adjust itemsPerPage (line 115) to change how many items show per page */}
-      {/* EDIT HERE: Adjust mt-24 and mb-2 to change vertical spacing */}
-      <div className="flex md:hidden w-full px-4 gap-4 mt-24 mb-0">
-        {/* Core Team Convenors - Left Side */}
-        <div className="flex-1 flex flex-col">
-          <h2 className="text-sm font-bold text-gray-900 mb-2">Core Team Convenors</h2>
-          <div className="space-y-1 relative min-h-[200px]">
-            {coreTeamRoles
-              .slice(corePage * itemsPerPage, (corePage + 1) * itemsPerPage)
-              .map((role, index) => (
-                <div key={`${corePage}-${role}`} className="pagination-item-enter" style={{ animationDelay: `${index * 0.03}s` }}>
-                  {renderExpandableItem(role, 'core', true)}
-                </div>
-              ))}
+      {/* EDIT HERE: Adjust mt-24 and mb-0 to change vertical spacing */}
+      <div className="flex md:hidden w-full px-4 mt-24 mb-0 justify-end">
+        {/* Single column that toggles between views - Right aligned */}
+        <div className="flex flex-col items-end max-w-[50%]">
+          {/* Small dim indicator text above heading */}
+          <div className="text-xs font-medium text-gray-400 mb-1 mr-3">
+            {mobileView === 'core' ? 'Open Clubs ⤵' : 'Open Core team ⤵'}
           </div>
-          {coreTeamRoles.length > itemsPerPage && (
+
+          {/* Header with toggle icon - switches between Core and Club headings */}
+          <div className="flex items-center gap-2 mb-2">
+            {mobileView === 'core' ? (
+              <h2 className="text-base font-bold text-gray-900">Core Team Convenors</h2>
+            ) : (
+              <h2 className="text-base font-bold text-gray-900">Club Convenors</h2>
+            )}
             <button
               onClick={() => {
-                const maxPage = Math.ceil(coreTeamRoles.length / itemsPerPage) - 1;
-                setIsTransitioning(prev => ({ ...prev, core: true }));
+                setIsViewTransitioning(true);
                 setTimeout(() => {
-                  if (corePage < maxPage) {
-                    setCorePage(prev => prev + 1);
-                  } else {
-                    setCorePage(0);
-                  }
+                  setMobileView(prev => prev === 'club' ? 'core' : 'club');
                   setTimeout(() => {
-                    setIsTransitioning(prev => ({ ...prev, core: false }));
+                    setIsViewTransitioning(false);
                   }, 50);
                 }, 200);
               }}
-              className="mt-2 flex items-center justify-center gap-1 text-gray-600 hover:text-gray-900 transition-colors text-xs"
+              className="p-1 hover:bg-gray-100 rounded transition-colors"
+              aria-label="Toggle between Club and Core views"
             >
-              <span className="arrow-transition">{corePage < Math.ceil(coreTeamRoles.length / itemsPerPage) - 1 ? 'More' : 'Back'}</span>
-              <div className="arrow-transition inline-flex">
-                {corePage < Math.ceil(coreTeamRoles.length / itemsPerPage) - 1 ? (
-                  <ChevronDown size={14} className="arrow-transition" />
-                ) : (
-                  <ChevronUp size={14} className="arrow-transition" />
-                )}
-              </div>
+              <RefreshCw size={16} className="text-gray-600 refresh-icon" />
             </button>
-          )}
-        </div>
-
-        {/* Club Convenors - Right Side */}
-        <div className="flex-1 flex flex-col">
-          <h2 className="text-sm font-bold text-gray-900 mb-2">Club Convenors</h2>
-          <div className="space-y-1 relative min-h-[200px]">
-            {clubConvenors
-              .slice(clubPage * itemsPerPage, (clubPage + 1) * itemsPerPage)
-              .map((club, index) => (
-                <div key={`${clubPage}-${club}`} className="pagination-item-enter" style={{ animationDelay: `${index * 0.03}s` }}>
-                  {renderExpandableItem(club, 'club', true)}
-                </div>
-              ))}
           </div>
-          {clubConvenors.length > itemsPerPage && (
+
+          {/* Content area with smooth transitions - Right aligned */}
+          <div className="space-y-1 relative min-h-[200px] w-full">
+            {mobileView === 'club' ? (
+              <div key="club-view" className="view-content-enter">
+                {clubConvenors
+                  .slice(clubPage * itemsPerPage, (clubPage + 1) * itemsPerPage)
+                  .map((club, index) => (
+                    <div key={`${clubPage}-${club}`} className="pagination-item-enter" style={{ animationDelay: `${index * 0.03}s` }}>
+                      {renderExpandableItem(club, 'club', true)}
+                    </div>
+                  ))}
+              </div>
+            ) : (
+              <div key="core-view" className="view-content-enter">
+                {coreTeamRoles
+                  .slice(corePage * itemsPerPage, (corePage + 1) * itemsPerPage)
+                  .map((role, index) => (
+                    <div key={`${corePage}-${role}`} className="pagination-item-enter" style={{ animationDelay: `${index * 0.03}s` }}>
+                      {renderExpandableItem(role, 'core', true)}
+                    </div>
+                  ))}
+              </div>
+            )}
+          </div>
+
+          {/* Pagination button - shows for active view, right aligned */}
+          {mobileView === 'club' && clubConvenors.length > itemsPerPage && (
             <button
               onClick={() => {
                 const maxPage = Math.ceil(clubConvenors.length / itemsPerPage) - 1;
@@ -479,11 +517,40 @@ export function TeamSphere() {
                   }, 50);
                 }, 200);
               }}
-              className="mt-2 flex items-center justify-center gap-1 text-gray-600 hover:text-gray-900 transition-colors text-xs"
+              className="mt-2 flex items-center gap-1 text-gray-600 hover:text-gray-900 transition-colors text-sm self-end"
             >
               <span className="arrow-transition">{clubPage < Math.ceil(clubConvenors.length / itemsPerPage) - 1 ? 'More' : 'Back'}</span>
               <div className="arrow-transition inline-flex">
                 {clubPage < Math.ceil(clubConvenors.length / itemsPerPage) - 1 ? (
+                  <ChevronDown size={14} className="arrow-transition" />
+                ) : (
+                  <ChevronUp size={14} className="arrow-transition" />
+                )}
+              </div>
+            </button>
+          )}
+
+          {mobileView === 'core' && coreTeamRoles.length > itemsPerPage && (
+            <button
+              onClick={() => {
+                const maxPage = Math.ceil(coreTeamRoles.length / itemsPerPage) - 1;
+                setIsTransitioning(prev => ({ ...prev, core: true }));
+                setTimeout(() => {
+                  if (corePage < maxPage) {
+                    setCorePage(prev => prev + 1);
+                  } else {
+                    setCorePage(0);
+                  }
+                  setTimeout(() => {
+                    setIsTransitioning(prev => ({ ...prev, core: false }));
+                  }, 50);
+                }, 200);
+              }}
+              className="mt-2 flex items-center gap-1 text-gray-600 hover:text-gray-900 transition-colors text-sm self-end"
+            >
+              <span className="arrow-transition">{corePage < Math.ceil(coreTeamRoles.length / itemsPerPage) - 1 ? 'More' : 'Back'}</span>
+              <div className="arrow-transition inline-flex">
+                {corePage < Math.ceil(coreTeamRoles.length / itemsPerPage) - 1 ? (
                   <ChevronDown size={14} className="arrow-transition" />
                 ) : (
                   <ChevronUp size={14} className="arrow-transition" />
