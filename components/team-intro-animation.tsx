@@ -15,13 +15,13 @@ export function TeamIntroAnimation({ onComplete }: TeamIntroAnimationProps) {
   const managersTextRef = useRef<HTMLDivElement>(null);
 
   // Director image refs
-  const nishaRef = useRef<HTMLImageElement>(null);
-  const princeRef = useRef<HTMLImageElement>(null);
-  const pradeepRef = useRef<HTMLImageElement>(null);
+  const nishaRef = useRef<HTMLDivElement>(null);
+  const princeRef = useRef<HTMLDivElement>(null);
+  const pradeepRef = useRef<HTMLDivElement>(null);
 
   // Manager image refs
-  const dhandayuthapaniRef = useRef<HTMLImageElement>(null);
-  const rajivRef = useRef<HTMLImageElement>(null);
+  const dhandayuthapaniRef = useRef<HTMLDivElement>(null);
+  const rajivRef = useRef<HTMLDivElement>(null);
 
   const [animationComplete, setAnimationComplete] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -56,33 +56,46 @@ export function TeamIntroAnimation({ onComplete }: TeamIntroAnimationProps) {
       });
 
       // Initial setup - hide everything except Nisha and Directors text and OUR TEAM
-      gsap.set([princeRef.current, pradeepRef.current], {
+      gsap.set([
+        princeRef.current?.querySelector('img'),
+        pradeepRef.current?.querySelector('img')
+      ], {
         opacity: 0,
         scale: 0.8,
         x: 0,
-        y: 0,
-        zIndex: 1
+        y: 0
       });
 
-      gsap.set([managersTextRef.current, dhandayuthapaniRef.current, rajivRef.current], {
+      gsap.set([
+        managersTextRef.current,
+        dhandayuthapaniRef.current?.querySelector('img'),
+        rajivRef.current?.querySelector('img')
+      ], {
         opacity: 0,
         y: 50
       });
 
-      gsap.set(nishaRef.current, {
-        zIndex: 3
+      // Hide name/designation texts initially
+      gsap.set([
+        princeRef.current?.querySelector('.name-text'),
+        pradeepRef.current?.querySelector('.name-text'),
+        nishaRef.current?.querySelector('.name-text'),
+        dhandayuthapaniRef.current?.querySelector('.name-text'),
+        rajivRef.current?.querySelector('.name-text')
+      ], {
+        opacity: 0
       });
 
       // Set initial position for Our and Team text (top center, stacked vertically)
       gsap.set(ourTextRef.current, {
-        top: "13%",
+        top: "2%",
         left: "50%",
         x: "-50%",
         y: 0,
         opacity: 0
       });
       gsap.set(teamTextRef.current, {
-        top: "25%",
+        top: "13%",
         left: "50%",
         x: "-50%",
         y: 0,
@@ -102,18 +115,26 @@ export function TeamIntroAnimation({ onComplete }: TeamIntroAnimationProps) {
         duration: 0.8,
         ease: "back.out(1.7)"
       }, "-=0.5")
-      .from(nishaRef.current, {
+      .from(nishaRef.current?.querySelector('img') || [], {
         opacity: 0,
         scale: 0.5,
         duration: 1,
         ease: "back.out(1.7)"
-      }, "-=0.6");
+      }, "-=0.6")
+      .to(nishaRef.current?.querySelector('.name-text') || [], {
+        opacity: 1,
+        duration: 0.5,
+        ease: "power2.out"
+      }, "-=0.3");
 
       // STAGE 2: Prince and Pradeep come from behind Nisha and position left/right
       const isMobileView = window.innerWidth < 768;
-      const moveDistance = isMobileView ? -180 : -220;
+      const moveDistance = isMobileView ? -250 : -350;
 
-      tl.to([princeRef.current, pradeepRef.current], {
+      tl.to([
+        princeRef.current?.querySelector('img'),
+        pradeepRef.current?.querySelector('img')
+      ], {
         opacity: 1,
         scale: 1,
         duration: 0.8,
@@ -128,11 +149,24 @@ export function TeamIntroAnimation({ onComplete }: TeamIntroAnimationProps) {
         x: -moveDistance,
         duration: 0.8,
         ease: "power3.out"
-      }, "-=0.8");
+      }, "-=0.8")
+      .to([
+        princeRef.current?.querySelector('.name-text'),
+        pradeepRef.current?.querySelector('.name-text')
+      ], {
+        opacity: 1,
+        duration: 0.5,
+        ease: "power2.out"
+      }, "-=0.4");
 
-      // STAGE 3: Move directors up, show managers
-      tl.to([nishaRef.current, princeRef.current, pradeepRef.current, directorsTextRef.current], {
-        y: -200,
+      // STAGE 3: Move directors up, show managers (reduced gap)
+      tl.to([
+        nishaRef.current,
+        princeRef.current,
+        pradeepRef.current,
+        directorsTextRef.current
+      ], {
+        y: -180,
         duration: 1,
         ease: "power3.inOut"
       }, "+=0.5")
@@ -163,13 +197,25 @@ export function TeamIntroAnimation({ onComplete }: TeamIntroAnimationProps) {
         duration: 0.8,
         ease: "back.out(1.7)"
       }, "-=0.5")
-      .to([dhandayuthapaniRef.current, rajivRef.current], {
+      .to([
+        dhandayuthapaniRef.current?.querySelector('img'),
+        rajivRef.current?.querySelector('img')
+      ], {
         opacity: 1,
         y: 0,
         duration: 0.8,
         ease: "back.out(1.7)",
         stagger: 0.2
-      }, "-=0.4");
+      }, "-=0.4")
+      .to([
+        dhandayuthapaniRef.current?.querySelector('.name-text'),
+        rajivRef.current?.querySelector('.name-text')
+      ], {
+        opacity: 1,
+        duration: 0.5,
+        ease: "power2.out",
+        stagger: 0.1
+      }, "-=0.3");
 
       // Hold for a moment before exit
       tl.to({}, { duration: 1 });
@@ -180,24 +226,58 @@ export function TeamIntroAnimation({ onComplete }: TeamIntroAnimationProps) {
         duration: 1,
         ease: "power2.inOut"
       })
-      // Images collect together first (move to center-right)
+      // First, hide all name texts
+      .to([
+        nishaRef.current?.querySelector('.name-text'),
+        princeRef.current?.querySelector('.name-text'),
+        pradeepRef.current?.querySelector('.name-text'),
+        dhandayuthapaniRef.current?.querySelector('.name-text'),
+        rajivRef.current?.querySelector('.name-text')
+      ], {
+        opacity: 0,
+        duration: 0.3,
+        ease: "power2.in"
+      }, "-=0.8")
+      // Images collect together first (gather in center) - animate the container divs
       .to([nishaRef.current, princeRef.current, pradeepRef.current, dhandayuthapaniRef.current, rajivRef.current], {
-        x: window.innerWidth * 0.3,
-        y: -window.innerHeight * 0.15,
-        scale: 0.6,
-        duration: 0.6,
+        x: 0,
+        y: 0,
+        duration: 0.8,
         ease: "power2.inOut"
       }, "-=0.5")
-      // Then slide to top right corner with stagger effect
+      // Scale down images as they gather
+      .to([
+        nishaRef.current?.querySelector('img'),
+        princeRef.current?.querySelector('img'),
+        pradeepRef.current?.querySelector('img'),
+        dhandayuthapaniRef.current?.querySelector('img'),
+        rajivRef.current?.querySelector('img')
+      ], {
+        scale: 0.4,
+        duration: 0.6,
+        ease: "power2.inOut"
+      }, "-=0.4")
+      // Then slide to top right corner and fade out
       .to([nishaRef.current, princeRef.current, pradeepRef.current, dhandayuthapaniRef.current, rajivRef.current], {
         x: window.innerWidth * 1.2,
         y: -window.innerHeight * 0.8,
+        duration: 0.8,
+        ease: "power3.in",
+        stagger: 0.05
+      })
+      .to([
+        nishaRef.current?.querySelector('img'),
+        princeRef.current?.querySelector('img'),
+        pradeepRef.current?.querySelector('img'),
+        dhandayuthapaniRef.current?.querySelector('img'),
+        rajivRef.current?.querySelector('img')
+      ], {
         scale: 0.1,
         opacity: 0,
-        duration: 0.7,
+        duration: 0.8,
         ease: "power3.in",
-        stagger: 0.06
-      })
+        stagger: 0.05
+      }, "-=0.8")
       // Directors and Managers text vanish
       .to([directorsTextRef.current, managersTextRef.current], {
         opacity: 0,
@@ -260,7 +340,7 @@ export function TeamIntroAnimation({ onComplete }: TeamIntroAnimationProps) {
       </h1>
 
       {/* Directors Section */}
-      <div className="absolute top-[55%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
+      <div className="absolute top-[48%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
         {/* Directors Text */}
         <div ref={directorsTextRef} className="mb-6 md:mb-8">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800">
@@ -271,33 +351,48 @@ export function TeamIntroAnimation({ onComplete }: TeamIntroAnimationProps) {
         {/* Directors Images Container */}
         <div className="relative flex items-center justify-center">
           {/* Prince - Left */}
-          <img
-            ref={princeRef}
-            src="/Directors_Images/PrinceKalyanasundaram.png"
-            alt="Prince Kalyanasundaram"
-            className="absolute w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full object-cover shadow-2xl border-2 md:border-4 border-white"
-          />
+          <div ref={princeRef} className="absolute flex flex-col items-center">
+            <img
+              src="/Directors_Images/PrinceKalyanasundaram.png"
+              alt="Prince Kalyanasundaram"
+              className="w-32 h-32 sm:w-40 sm:h-40 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full object-cover shadow-2xl border-2 md:border-4 border-white"
+            />
+            <div className="name-text mt-3 text-center px-2">
+              <p className="text-sm sm:text-base md:text-lg font-semibold text-gray-900">Dr. Prince Kalyanasundaram</p>
+              <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-700">Deputy Director<br/>Directorate of Student Affairs</p>
+            </div>
+          </div>
 
           {/* Nisha - Center (on top) */}
-          <img
-            ref={nishaRef}
-            src="/Directors_Images/NishaAshokan.png"
-            alt="Nisha Ashokan"
-            className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full object-cover shadow-2xl border-2 md:border-4 border-white relative z-10"
-          />
+          <div ref={nishaRef} className="flex flex-col items-center relative z-10">
+            <img
+              src="/Directors_Images/NishaAshokan.png"
+              alt="Nisha Ashokan"
+              className="w-40 h-40 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full object-cover shadow-2xl border-2 md:border-4 border-white"
+            />
+            <div className="name-text mt-3 text-center px-2">
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-gray-900">Dr. Nisha Ashokan</p>
+              <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-700">Director<br/>Directorate of Student Affairs</p>
+            </div>
+          </div>
 
           {/* Pradeep - Right */}
-          <img
-            ref={pradeepRef}
-            src="/Directors_Images/SPradeep.png"
-            alt="S Pradeep"
-            className="absolute w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full object-cover shadow-2xl border-2 md:border-4 border-white"
-          />
+          <div ref={pradeepRef} className="absolute flex flex-col items-center">
+            <img
+              src="/Directors_Images/SPradeep.png"
+              alt="S Pradeep"
+              className="w-32 h-32 sm:w-40 sm:h-40 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full object-cover shadow-2xl border-2 md:border-4 border-white"
+            />
+            <div className="name-text mt-3 text-center px-2">
+              <p className="text-sm sm:text-base md:text-lg font-semibold text-gray-900">Dr. S. Pradeep</p>
+              <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-700">Assistant Director<br/>Directorate of Student Affairs</p>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Managers Section */}
-      <div className="absolute top-[65%] left-1/2 transform -translate-x-1/2 flex flex-col items-center mt-8 md:mt-12">
+      {/* Managers Section - moved closer to directors */}
+      <div className="absolute top-[55%] left-1/2 transform -translate-x-1/2 flex flex-col items-center mt-4 md:mt-6">
         {/* Managers Text */}
         <div ref={managersTextRef} className="mb-4 md:mb-6">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800">
@@ -307,18 +402,28 @@ export function TeamIntroAnimation({ onComplete }: TeamIntroAnimationProps) {
 
         {/* Managers Images */}
         <div className="flex gap-8 sm:gap-12 md:gap-16">
-          <img
-            ref={dhandayuthapaniRef}
-            src="/Managers_Images/Dhandayuthapani.png"
-            alt="Dhandayuthapani"
-            className="w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 rounded-full object-cover shadow-2xl border-2 md:border-4 border-white"
-          />
-          <img
-            ref={rajivRef}
-            src="/Managers_Images/RajivD.png"
-            alt="Rajiv D"
-            className="w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 rounded-full object-cover shadow-2xl border-2 md:border-4 border-white"
-          />
+          <div ref={dhandayuthapaniRef} className="flex flex-col items-center">
+            <img
+              src="/Managers_Images/Dhandayuthapani.png"
+              alt="Dhandayuthapani"
+              className="w-32 h-32 sm:w-36 sm:h-36 md:w-48 md:h-48 lg:w-56 lg:h-56 rounded-full object-cover shadow-2xl border-2 md:border-4 border-white"
+            />
+            <div className="name-text mt-3 text-center px-2">
+              <p className="text-sm sm:text-base md:text-lg font-semibold text-gray-900">Dhandayuthapani B</p>
+              <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-700">Event Manager</p>
+            </div>
+          </div>
+          <div ref={rajivRef} className="flex flex-col items-center">
+            <img
+              src="/Managers_Images/RajivD.png"
+              alt="Rajiv D"
+              className="w-32 h-32 sm:w-36 sm:h-36 md:w-48 md:h-48 lg:w-56 lg:h-56 rounded-full object-cover shadow-2xl border-2 md:border-4 border-white"
+            />
+            <div className="name-text mt-3 text-center px-2">
+              <p className="text-sm sm:text-base md:text-lg font-semibold text-gray-900">Rajiv D</p>
+              <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-700">Event Manager</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

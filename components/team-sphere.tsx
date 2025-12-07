@@ -113,7 +113,7 @@ export function TeamSphere() {
   const [corePage, setCorePage] = useState(0);
   const [clubPage, setClubPage] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState({ core: false, club: false });
-  const [mobileView, setMobileView] = useState<'club' | 'core' | 'directors'>('directors'); // Toggle between club, core, and directors views
+  const [mobileView, setMobileView] = useState<'club' | 'core' | 'directors' | 'managers'>('directors'); // Toggle between club, core, directors, and managers views
   const [isViewTransitioning, setIsViewTransitioning] = useState(false);
   const itemsPerPage = 5;
 
@@ -222,6 +222,20 @@ export function TeamSphere() {
       name: 'S Pradeep',
       role: 'Assistant Director',
       image: '/Directors_Images/SPradeep.png'
+    }
+  ];
+
+  // Managers data
+  const managers = [
+    {
+      name: 'Dhandayuthapani B',
+      role: 'Event Manager',
+      image: '/Managers_Images/Dhandayuthapani.png'
+    },
+    {
+      name: 'Rajiv D',
+      role: 'Assistant Manager',
+      image: '/Managers_Images/RajivD.png'
     }
   ];
 
@@ -467,13 +481,15 @@ export function TeamSphere() {
         <div className="flex flex-col items-end max-w-[50%]">
           {/* Small dim indicator text above heading */}
           <div className="text-xs font-medium text-gray-400 mb-1 mr-3">
-            {mobileView === 'directors' ? 'Open Core team ⤵' : mobileView === 'core' ? 'Open Clubs ⤵' : 'Open Directors ⤵'}
+            {mobileView === 'directors' ? 'Open Managers ⤵' : mobileView === 'managers' ? 'Open Core team ⤵' : mobileView === 'core' ? 'Open Clubs ⤵' : 'Open Directors ⤵'}
           </div>
 
-          {/* Header with toggle icon - switches between Directors, Core and Club headings */}
+          {/* Header with toggle icon - switches between Directors, Managers, Core and Club headings */}
           <div className="flex items-center gap-2 mb-2">
             {mobileView === 'directors' ? (
               <h2 className="text-base font-bold text-gray-900">Directors</h2>
+            ) : mobileView === 'managers' ? (
+              <h2 className="text-base font-bold text-gray-900">Managers</h2>
             ) : mobileView === 'core' ? (
               <h2 className="text-base font-bold text-gray-900">Core Team Convenors</h2>
             ) : (
@@ -484,7 +500,8 @@ export function TeamSphere() {
                 setIsViewTransitioning(true);
                 setTimeout(() => {
                   setMobileView(prev => {
-                    if (prev === 'directors') return 'core';
+                    if (prev === 'directors') return 'managers';
+                    if (prev === 'managers') return 'core';
                     if (prev === 'core') return 'club';
                     return 'directors';
                   });
@@ -494,7 +511,7 @@ export function TeamSphere() {
                 }, 200);
               }}
               className="p-1 hover:bg-gray-100 rounded transition-colors"
-              aria-label="Toggle between Directors, Core and Club views"
+              aria-label="Toggle between Directors, Managers, Core and Club views"
             >
               <RefreshCw size={16} className="text-gray-600 refresh-icon" />
             </button>
@@ -531,6 +548,40 @@ export function TeamSphere() {
                       >
                         <span className="mr-2">⤷</span>
                         <span>{director.role}</span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : mobileView === 'managers' ? (
+              <div key="managers-view" className="view-content-enter">
+                {managers.map((manager, index) => {
+                  const managerId = `mobile-manager-${index}`;
+                  return (
+                    <div key={managerId} className="pagination-item-enter mb-3" style={{ animationDelay: `${index * 0.03}s` }}>
+                      <div
+                        className="text-gray-600 text-base cursor-pointer hover:text-gray-900 transition-colors flex items-center"
+                        onClick={() => {
+                          // Create a mock ImageData object for the modal
+                          const managerImageData = {
+                            id: managerId,
+                            src: manager.image,
+                            alt: manager.name,
+                            title: manager.name,
+                            description: manager.role
+                          };
+                          // Close any previously opened modal and open new one
+                          if (selectedConvenor?.id === managerImageData.id) {
+                            setSelectedConvenor(null);
+                          } else {
+                            setSelectedConvenor(managerImageData);
+                            // Close sphere modal when manager is clicked
+                            setSelectedSphereImage(null);
+                          }
+                        }}
+                      >
+                        <span className="mr-2">⤷</span>
+                        <span>{manager.role}</span>
                       </div>
                     </div>
                   );
@@ -646,14 +697,14 @@ export function TeamSphere() {
         />
       </div>
 
-      {/* Directors, Core Team Convenors & Club Convenors - DESKTOP VIEW ONLY */}
+      {/* Directors, Managers, Core Team Convenors & Club Convenors - DESKTOP VIEW ONLY */}
       {/* Desktop: Fixed position on right side with hover preview */}
       {/* EDIT HERE: Adjust maxHeight values to change container size if needed */}
       <div className="hidden md:flex fixed right-6 top-1/2 -translate-y-1/2 flex-row gap-12 max-w-2xl" style={{ maxHeight: 'calc(100vh - 4rem)' }}>
-        {/* Directors */}
+        {/* Directors & Managers */}
         <div className="flex flex-col">
           <h2 className="text-2xl font-bold text-gray-900 mb-4 flex-shrink-0">Directors</h2>
-          <div className="space-y-2">
+          <div className="space-y-2 mb-10">
             {directors.map((director, index) => {
               const directorId = `director-${index}`;
               const isHovered = hoveredConvenor === directorId;
@@ -705,6 +756,65 @@ export function TeamSphere() {
                   >
                     <span className="mr-2">⤷</span>
                     <span>{director.role}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <h2 className="text-2xl font-bold text-gray-900 mb-4 ml-25 flex-shrink-0">Managers</h2>
+          <div className="space-y-2 ml-25">
+            {managers.map((manager, index) => {
+              const managerId = `manager-${index}`;
+              const isHovered = hoveredConvenor === managerId;
+
+              const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                setPopupPosition({
+                  x: rect.left - 120, // Position to the left (96px image + 24px margin)
+                  y: rect.top + rect.height / 2
+                });
+                setHoveredConvenor(managerId);
+              };
+
+              const handleMouseLeave = () => {
+                setHoveredConvenor(null);
+                setPopupPosition(null);
+              };
+
+              return (
+                <div
+                  key={managerId}
+                  ref={(el) => {
+                    convenorRefs.current[managerId] = el;
+                  }}
+                  className="relative flex items-center min-h-[1.5rem]"
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  <div
+                    className="text-gray-600 text-base cursor-pointer hover:text-gray-900 transition-colors flex items-center"
+                    onClick={() => {
+                      // Create a mock ImageData object for the modal
+                      const managerImageData = {
+                        id: managerId,
+                        src: manager.image,
+                        alt: manager.name,
+                        title: manager.name,
+                        description: manager.role
+                      };
+                      // Close any previously opened modal and open new one
+                      if (selectedConvenor?.id === managerImageData.id) {
+                        setSelectedConvenor(null);
+                      } else {
+                        setSelectedConvenor(managerImageData);
+                        // Close sphere modal when manager is clicked
+                        setSelectedSphereImage(null);
+                      }
+                    }}
+                  >
+                    <span className="mr-2">⤷</span>
+                    <span>{manager.role}</span>
                   </div>
                 </div>
               );

@@ -133,9 +133,18 @@ export default function ThamanPlaceOrder() {
 
       console.log('✅ [PAYMENT] Order created:', orderData.orderId)
 
-      // Step 2: Configure Razorpay options
+      // Step 2: Validate Razorpay key configuration
+      const razorpayKeyId = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID
+      if (!razorpayKeyId) {
+        console.error('❌ [PAYMENT] Razorpay key not configured. Please set NEXT_PUBLIC_RAZORPAY_KEY_ID in .env.local')
+        setPaymentError('Payment gateway is not properly configured. Please contact support.')
+        setIsLoading(false)
+        return
+      }
+
+      // Step 3: Configure Razorpay options
       const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_test_RnY2idphrq5amv',
+        key: razorpayKeyId,
         amount: orderData.amount,
         currency: orderData.currency,
         name: 'MILAN 26',
@@ -203,7 +212,7 @@ export default function ThamanPlaceOrder() {
         },
       }
 
-      // Step 4: Open Razorpay checkout
+      // Step 5: Open Razorpay checkout
       console.log('🔓 [PAYMENT] Opening Razorpay checkout...')
       const razorpay = new (window as any).Razorpay(options)
 
