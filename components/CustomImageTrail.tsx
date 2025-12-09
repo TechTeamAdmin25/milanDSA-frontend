@@ -260,7 +260,7 @@ class CustomImageTrailVariant {
     // Find ALL currently visible images on screen (opacity > 0)
     const visibleImages = this.images.filter(img => {
       const opacity = gsap.getProperty(img.DOM.el, 'opacity');
-      return opacity > 0;
+      return opacity && Number(opacity as number) > 0;
     });
 
     if (visibleImages.length === 0) return;

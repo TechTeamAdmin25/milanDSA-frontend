@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { supabase } from '@/lib/supabase'
 import { Database } from '@/lib/database.types'
+import TicketQRModal from '@/components/ticket-qr-modal'
 
 type StudentDatabaseRow = Database['public']['Tables']['student_database']['Row']
 type TicketConfirmationRow = Database['public']['Tables']['ticket_confirmations']['Row']
@@ -16,7 +17,41 @@ export default function AccountPage() {
   const [loading, setLoading] = useState(true)
   const [dataLoaded, setDataLoaded] = useState(false)
   const [ticketsLoading, setTicketsLoading] = useState(true)
+  const [updating, setUpdating] = useState(false)
+  const [qrModalOpen, setQrModalOpen] = useState(false)
+  const [selectedTicket, setSelectedTicket] = useState<TicketConfirmationRow | null>(null)
   const router = useRouter()
+
+  // Function to refresh student data from database
+  const refreshStudentData = async () => {
+    try {
+      console.log('🔄 [ACCOUNT] Refreshing student data...')
+
+      const studentEmail = localStorage.getItem('studentEmail')
+      if (!studentEmail) {
+        router.push('/login')
+        return
+      }
+
+      const { data, error } = await supabase
+        .from('student_database')
+        .select('*')
+        .eq('email', studentEmail)
+        .single<StudentDatabaseRow>()
+
+      if (error) {
+        console.error('❌ [ACCOUNT] Error refreshing student data:', error)
+        return
+      }
+
+      console.log('✅ [ACCOUNT] Student data refreshed')
+      console.log('📱 [ACCOUNT] Phone number:', data?.phone_number)
+      console.log('📧 [ACCOUNT] Personal email:', data?.personal_email)
+      setStudent(data)
+    } catch (err) {
+      console.error('❌ [ACCOUNT] Error refreshing data:', err)
+    }
+  }
 
   const handleLogout = () => {
     // Clear session data
@@ -57,6 +92,8 @@ export default function AccountPage() {
         }
 
         console.log('✅ [ACCOUNT] Student data loaded:', data?.full_name)
+        console.log('📱 [ACCOUNT] Phone number:', data?.phone_number)
+        console.log('📧 [ACCOUNT] Personal email:', data?.personal_email)
         setStudent(data)
 
         // Small delay to show the yellow box animation after data is loaded
@@ -114,6 +151,72 @@ export default function AccountPage() {
         return 'bg-red-100 text-red-800 border-red-200'
       default:
         return 'bg-gray-100 text-gray-800 border-gray-200'
+    }
+  }
+
+  // Handle opening QR modal
+  const handleViewQR = (ticket: TicketConfirmationRow) => {
+    setSelectedTicket(ticket)
+    setQrModalOpen(true)
+  }
+
+  // Handle RSVP - Open camera to scan QR code
+  const handleRSVP = () => {
+    console.log('📱 [ACCOUNT] RSVP button clicked - Opening QR scanner')
+    // For now, redirect directly to RSVP page
+    // In production, this would open a QR scanner first
+    router.push('/rsvp?source=station_qr')
+  }
+
+  // Handle updating student fields
+  const handleUpdateField = async (field: 'phone_number' | 'personal_email', value: string) => {
+    if (!student) return
+
+    console.log('🔄 [ACCOUNT] Starting update for field:', field, 'with value:', value)
+    setUpdating(true)
+    try {
+      console.log('📡 [ACCOUNT] Calling API to update student record with ID:', student.id)
+
+      const response = await fetch('/api/update-student', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          studentId: student.id,
+          field,
+          value
+        })
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        console.error('❌ [ACCOUNT] API error:', result.error)
+        alert('Failed to update. Please try again.')
+        return
+      }
+
+      console.log('✅ [ACCOUNT] API update successful, returned data:', result.data)
+
+      // Update local state with the returned data
+      if (result.data) {
+        setStudent(result.data)
+        console.log('✅ [ACCOUNT] Local state updated with API data')
+      } else {
+        // Fallback: refresh data from database
+        console.log('⚠️ [ACCOUNT] No data returned, refreshing from database...')
+        await refreshStudentData()
+      }
+
+      // Show success message
+      const fieldName = field === 'phone_number' ? 'Phone number' : 'Personal email'
+      alert(`${fieldName} updated successfully!`)
+    } catch (err) {
+      console.error('❌ [ACCOUNT] Error:', err)
+      alert('Failed to update. Please try again.')
+    } finally {
+      setUpdating(false)
     }
   }
 
@@ -180,48 +283,123 @@ export default function AccountPage() {
               </div>
 
               {/* All other student data */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 pt-6 border-t-2 border-black/20">
-                {student.email && (
-                  <div className="space-y-1">
-                    <p className="text-lg font-semibold text-black/60 uppercase tracking-wide">Email : </p>
-                    <p className="text-base md:text-md text-black font-medium">{student.email}</p>
-                  </div>
-                )}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 pt-6 border-t-2 border-black/20">
+                {/* Column 1 */}
+                <div className="space-y-4">
+                  {student.email && (
+                    <div className="space-y-1">
+                      <p className="text-lg font-semibold text-black/60 uppercase tracking-wide">Email : </p>
+                      <p className="text-base md:text-md text-black font-medium">{student.email}</p>
+                    </div>
+                  )}
 
-                {student.program && (
-                  <div className="space-y-1">
-                    <p className="text-lg font-semibold text-black/60 uppercase tracking-wide">Program : </p>
-                    <p className="text-base md:text-md text-black font-medium">{student.program}</p>
-                  </div>
-                )}
+                  {student.program && (
+                    <div className="space-y-1">
+                      <p className="text-lg font-semibold text-black/60 uppercase tracking-wide">Program : </p>
+                      <p className="text-base md:text-md text-black font-medium">{student.program}</p>
+                    </div>
+                  )}
 
-                {student.department && (
-                  <div className="space-y-1">
-                    <p className="text-lg font-bold text-black/60 uppercase tracking-wide">Department : </p>
-                    <p className="text-base md:text-md text-black font-medium">{student.department}</p>
-                  </div>
-                )}
+                  {student.department && (
+                    <div className="space-y-1">
+                      <p className="text-lg font-bold text-black/60 uppercase tracking-wide">Department : </p>
+                      <p className="text-base md:text-md text-black font-medium">{student.department}</p>
+                    </div>
+                  )}
+                </div>
 
-                {student.specialization && (
-                  <div className="space-y-1">
-                    <p className="text-lg font-semibold text-black/60 uppercase tracking-wide">Specialization : </p>
-                    <p className="text-base md:text-md text-black font-medium">{student.specialization}</p>
-                  </div>
-                )}
+                {/* Column 2 */}
+                <div className="space-y-4">
+                  {student.specialization && (
+                    <div className="space-y-1">
+                      <p className="text-lg font-semibold text-black/60 uppercase tracking-wide">Specialization : </p>
+                      <p className="text-base md:text-md text-black font-medium">{student.specialization}</p>
+                    </div>
+                  )}
 
-                {student.semester && (
-                  <div className="space-y-1">
-                    <p className="text-lg font-semibold text-black/60 uppercase tracking-wide">Semester</p>
-                    <p className="text-base md:text-md text-black font-medium">{student.semester}</p>
-                  </div>
-                )}
+                  {student.semester && (
+                    <div className="space-y-1">
+                      <p className="text-lg font-semibold text-black/60 uppercase tracking-wide">Semester</p>
+                      <p className="text-base md:text-md text-black font-medium">{student.semester}</p>
+                    </div>
+                  )}
 
-                {student.batch && (
+                  {student.batch && (
+                    <div className="space-y-1">
+                      <p className="text-lg font-semibold text-black/60 uppercase tracking-wide">Batch : </p>
+                      <p className="text-base md:text-md text-black font-medium">{student.batch}</p>
+                    </div>
+                  )}
+                </div>
+
+                {/* Column 3 - Editable fields */}
+                <div className="space-y-4">
                   <div className="space-y-1">
-                    <p className="text-lg font-semibold text-black/60 uppercase tracking-wide">Batch : </p>
-                    <p className="text-base md:text-md text-black font-medium">{student.batch}</p>
+                    <p className="text-lg font-semibold text-black/60 uppercase tracking-wide">Phone Number</p>
+                    <div className="flex items-center gap-2">
+                      <p className="text-base md:text-md text-black font-medium flex-1">
+                        {student.phone_number || 'Not provided'}
+                      </p>
+                      <button
+                        className="text-black/60 hover:text-black transition-colors disabled:opacity-50"
+                        disabled={updating}
+                        onClick={() => {
+                          const newPhone = prompt('Enter your phone number (leave empty to clear):', student.phone_number || '');
+                          if (newPhone !== null) {
+                            if (newPhone.trim() === '') {
+                              // Clear the field
+                              handleUpdateField('phone_number', '');
+                            } else {
+                              // Basic phone number validation
+                              if (!/^\+?[\d\s\-\(\)]+$/.test(newPhone.trim())) {
+                                alert('Please enter a valid phone number');
+                                return;
+                              }
+                              handleUpdateField('phone_number', newPhone);
+                            }
+                          }
+                        }}
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
+                      </button>
+                    </div>
                   </div>
-                )}
+
+                  <div className="space-y-1">
+                    <p className="text-lg font-semibold text-black/60 uppercase tracking-wide">Personal Email</p>
+                    <div className="flex items-center gap-2">
+                      <p className="text-base md:text-md text-black font-medium flex-1">
+                        {student.personal_email || 'Not provided'}
+                      </p>
+                      <button
+                        className="text-black/60 hover:text-black transition-colors disabled:opacity-50"
+                        disabled={updating}
+                        onClick={() => {
+                          const newEmail = prompt('Enter your personal email (leave empty to clear):', student.personal_email || '');
+                          if (newEmail !== null) {
+                            if (newEmail.trim() === '') {
+                              // Clear the field
+                              handleUpdateField('personal_email', '');
+                            } else {
+                              // Basic email validation
+                              if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newEmail.trim())) {
+                                alert('Please enter a valid email address');
+                                return;
+                              }
+                              handleUpdateField('personal_email', newEmail);
+                            }
+                          }
+                        }}
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {/* Logout button in bottom right corner */}
@@ -318,8 +496,8 @@ export default function AccountPage() {
                         </div>
                       </div>
 
-                      {/* Right: Status Badge */}
-                      <div className="flex-shrink-0">
+                      {/* Right: Status Badge and QR Button */}
+                      <div className="flex-shrink-0 flex flex-col md:flex-row items-end md:items-center gap-3">
                         <span className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold border ${getStatusColor(ticket.payment_status)}`}>
                           {ticket.payment_status === 'completed' && (
                             <svg className="w-4 h-4 mr-1.5" fill="currentColor" viewBox="0 0 20 20">
@@ -339,6 +517,16 @@ export default function AccountPage() {
                           )}
                           {ticket.payment_status.charAt(0).toUpperCase() + ticket.payment_status.slice(1)}
                         </span>
+
+                        {/* View QR Button - Only show for completed tickets */}
+                        {ticket.payment_status === 'completed' && (
+                          <button
+                            onClick={() => handleViewQR(ticket)}
+                            className="bg-black text-yellow-200 font-semibold py-2 px-4 rounded-full hover:bg-black/80 transition-colors duration-200 shadow-md text-sm"
+                          >
+                            View QR
+                          </button>
+                        )}
                       </div>
                     </div>
 
@@ -348,6 +536,21 @@ export default function AccountPage() {
                         <p className="text-xs text-black/40">
                           Payment ID: <span className="font-mono">{ticket.razorpay_payment_id}</span>
                         </p>
+                      </div>
+                    )}
+
+                    {/* RSVP Button - Bottom right corner for completed tickets */}
+                    {ticket.payment_status === 'completed' && (
+                      <div className="mt-4 flex justify-end">
+                        <button
+                          onClick={() => handleRSVP()}
+                          className="bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold py-2 px-6 rounded-full hover:from-purple-700 hover:to-blue-700 transition-all duration-200 shadow-md flex items-center gap-2"
+                        >
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          RSVP
+                        </button>
                       </div>
                     )}
                   </motion.div>
@@ -360,6 +563,24 @@ export default function AccountPage() {
 
       {/* Bottom padding */}
       <div className="h-20"></div>
+
+      {/* QR Modal */}
+      <TicketQRModal
+        isOpen={qrModalOpen}
+        onClose={() => setQrModalOpen(false)}
+        ticket={selectedTicket}
+        studentData={student ? {
+          full_name: student.full_name,
+          email: student.email,
+          registration_number: student.registration_number,
+          batch: student.batch,
+          program: student.program,
+          department: student.department,
+          semester: student.semester,
+          phone_number: student.phone_number,
+          personal_email: student.personal_email,
+        } : undefined}
+      />
     </div>
   )
 }

@@ -91,14 +91,65 @@ export async function POST(request: NextRequest) {
 
     paymentLogger.success(`Student found: ${student.full_name || 'Unknown'}`)
 
-    // 4. Generate unique identifiers
+    // 4. Check if student already has a completed ticket (ONE TICKET PER STUDENT)
+    paymentLogger.info('Checking if student already has a completed ticket...')
+
+    const { data: existingCompletedTicket, error: ticketCheckError } = await supabase
+      .from('ticket_confirmations')
+      .select('id, booking_reference, event_name, created_at')
+      .eq('email', studentEmail)
+      .eq('payment_status', 'completed')
+      .single()
+
+    if (ticketCheckError && ticketCheckError.code !== 'PGRST116') { // PGRST116 is "no rows returned"
+      paymentLogger.error('Error checking existing tickets', {
+        error: ticketCheckError.message,
+        email: studentEmail,
+      })
+
+      return NextResponse.json(
+        {
+          success: false,
+          message: 'Unable to verify ticket status. Please try again.',
+          code: 'TICKET_CHECK_ERROR',
+        },
+        { status: 500 }
+      )
+    }
+
+    if (existingCompletedTicket) {
+      paymentLogger.warning('Student already has a completed ticket - blocking new purchase', {
+        email: studentEmail,
+        existingBookingRef: existingCompletedTicket.booking_reference,
+        existingEvent: existingCompletedTicket.event_name,
+        existingPurchaseDate: existingCompletedTicket.created_at,
+      })
+
+      return NextResponse.json(
+        {
+          success: false,
+          message: 'You have already purchased a ticket for MILAN 26\'. Only one ticket per student is allowed.',
+          code: 'ALREADY_HAS_TICKET',
+          existingTicket: {
+            bookingReference: existingCompletedTicket.booking_reference,
+            eventName: existingCompletedTicket.event_name,
+            purchaseDate: existingCompletedTicket.created_at,
+          },
+        },
+        { status: 400 }
+      )
+    }
+
+    paymentLogger.success('✓ Student eligible for ticket purchase')
+
+    // 6. Generate unique identifiers
     const receiptId = generateReceiptId(eventName, studentEmail)
     const bookingReference = generateBookingReference(eventName)
 
     paymentLogger.info(`Receipt ID: ${receiptId}`)
     paymentLogger.info(`Booking Reference: ${bookingReference}`)
 
-    // 5. Create Razorpay order
+    // 7. Create Razorpay order
     const notes = {
       event_name: eventName,
       event_date: eventDate || '',
@@ -114,7 +165,7 @@ export async function POST(request: NextRequest) {
 
     paymentLogger.success(`Razorpay order created: ${order.id}`)
 
-    // 6. Create initial booking record in database (status: pending)
+    // 8. Create initial booking record in database (status: pending)
     paymentLogger.info('Creating initial booking record...')
 
     const { data: booking, error: bookingError } = await supabase
@@ -148,7 +199,7 @@ export async function POST(request: NextRequest) {
 
     paymentLogger.info(`====== CREATE ORDER COMPLETED in ${duration}ms ======`)
 
-    // 7. Return success response
+    // 9. Return success response
     return NextResponse.json({
       success: true,
       orderId: order.id,
