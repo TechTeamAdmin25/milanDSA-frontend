@@ -48,6 +48,7 @@ export default function ExplorePage() {
   const [isExitingSelection, setIsExitingSelection] = useState(false)
   const [selectedDisplayPositions, setSelectedDisplayPositions] = useState<PlacedImage[]>([])
   const [shouldResetPan, setShouldResetPan] = useState(false)
+  const [currentScale, setCurrentScale] = useState(0.3)
 
   // Check authentication
   useEffect(() => {
@@ -234,21 +235,6 @@ export default function ExplorePage() {
     // The DraggableCanvas will handle the actual zoom reset
   }
 
-
-  // Helper function for overlap detection
-  const rectanglesOverlap = (
-    x1: number, y1: number, w1: number, h1: number,
-    x2: number, y2: number, w2: number, h2: number,
-    padding: number = 30
-  ): boolean => {
-    return !(
-      x1 + w1 + padding < x2 ||
-      x2 + w2 + padding < x1 ||
-      y1 + h1 + padding < y2 ||
-      y2 + h2 + padding < y1
-    )
-  }
-
   // Handle post click for selection
   const handlePostClick = (post: Post) => {
     if (isImageSelected && selectedPost?.id === post.id) {
@@ -295,65 +281,15 @@ export default function ExplorePage() {
       ...centerImage,
       x: selectedImageData.x,
       y: selectedImageData.y,
-      width: centerDims.width * 0.2,
-      height: centerDims.height * 0.2
+      width: centerDims.width,
+      height: centerDims.height
     })
 
-    // 3. Add all other images (shrunk to 20% size) avoiding overlaps
+    // 3. Add all other images (keeping their original positions and full sizes)
     const otherImages = placedImages.filter(p =>
       p.post.id !== post.id && p.post.id !== centerImage.post.id
     )
-
-    for (const img of otherImages) {
-      const shrunkWidth = img.width * 0.2
-      const shrunkHeight = img.height * 0.2
-
-      let placed = false
-      let attempts = 0
-      const maxAttempts = 50
-
-      while (!placed && attempts < maxAttempts) {
-        // Try original position first, then random positions
-        const testX = attempts === 0 ? img.x : (Math.random() - 0.5) * 1200
-        const testY = attempts === 0 ? img.y : (Math.random() - 0.5) * 900
-
-        // Check overlap with all placed images
-        let hasOverlap = false
-        for (const placedImg of newPositions) {
-          if (rectanglesOverlap(
-            testX, testY, shrunkWidth, shrunkHeight,
-            placedImg.x, placedImg.y, placedImg.width, placedImg.height,
-            30
-          )) {
-            hasOverlap = true
-            break
-          }
-        }
-
-        if (!hasOverlap) {
-          newPositions.push({
-            ...img,
-            x: testX,
-            y: testY,
-            width: shrunkWidth,
-            height: shrunkHeight
-          })
-          placed = true
-        }
-        attempts++
-      }
-
-      // If couldn't place after max attempts, place it anyway (far away)
-      if (!placed) {
-        newPositions.push({
-          ...img,
-          x: img.x,
-          y: img.y,
-          width: shrunkWidth,
-          height: shrunkHeight
-        })
-      }
-    }
+    newPositions.push(...otherImages)
 
     setSelectedDisplayPositions(newPositions)
   }
@@ -574,6 +510,7 @@ export default function ExplorePage() {
         onResetZoom={handleResetZoom}
         resetPan={shouldResetPan}
         panOffset={isImageSelected ? { x: 0, y: -40 } : { x: 0, y: 0 }}
+        onScaleChange={setCurrentScale}
       >
         {loading ? (
           <div className="absolute inset-0 flex items-center justify-center">
@@ -691,11 +628,14 @@ export default function ExplorePage() {
                   <div className="relative w-full h-full">
                     {/* Main image container */}
                     <div
-                      className={`absolute inset-0 overflow-hidden border-2 shadow-lg transition-all duration-300 ${
+                      className={`absolute inset-0 overflow-hidden shadow-lg transition-all duration-300 ${
                         isSelected
                           ? 'border-[#ecff13]'
                           : 'border-gray-300 group-hover:shadow-xl'
                       }`}
+                      style={{
+                        borderWidth: isSelected ? Math.max(2, 4 / currentScale) : 2
+                      }}
                     >
                       <Image
                         src={placed.post.image_url}
@@ -710,9 +650,10 @@ export default function ExplorePage() {
                     {/* Yellow outline effect on hover */}
                     {!isSelected && (
                       <div
-                        className="absolute inset-0 border-4 rounded-lg border-[#ecff13] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                        className="absolute inset-0 rounded-lg border-[#ecff13] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                         style={{
-                          margin: '-6px'
+                          borderWidth: Math.max(1, 3 / currentScale),
+                          margin: `-${Math.max(3, 5 / currentScale)}px`
                         }}
                       />
                     )}

@@ -11,9 +11,10 @@ interface DraggableCanvasProps {
   onResetZoom?: () => void;
   resetPan?: boolean;
   panOffset?: { x: number; y: number };
+  onScaleChange?: (scale: number) => void;
 }
 
-export default function DraggableCanvas({ children, className = '', onClickOutside, isSelectionMode = false, targetZoom, onResetZoom, resetPan, panOffset }: DraggableCanvasProps) {
+export default function DraggableCanvas({ children, className = '', onClickOutside, isSelectionMode = false, targetZoom, onResetZoom, resetPan, panOffset, onScaleChange }: DraggableCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [pan, setPan] = useState({ x: 0, y: 0 })
   const [scale, setScale] = useState(0.3)
@@ -31,6 +32,11 @@ export default function DraggableCanvas({ children, className = '', onClickOutsi
     }
   }, [targetZoom])
 
+  // Report scale changes
+  useEffect(() => {
+    onScaleChange?.(scale)
+  }, [scale, onScaleChange])
+
   // Reset pan when resetPan changes
   useEffect(() => {
     if (resetPan !== prevResetPan.current && resetPan) {
@@ -38,7 +44,7 @@ export default function DraggableCanvas({ children, className = '', onClickOutsi
       setPan(panOffset || { x: 0, y: 0 })
     }
     // Always update the ref to track the current value
-    prevResetPan.current = resetPan
+      prevResetPan.current = resetPan
   }, [resetPan, panOffset])
 
   const [isDragging, setIsDragging] = useState(false)
