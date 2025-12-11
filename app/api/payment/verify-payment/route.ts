@@ -137,6 +137,8 @@ export async function POST(request: NextRequest) {
         )
       }
 
+      const validStudent = student as any
+
       // Check if student already has a completed ticket (ONE TICKET PER STUDENT)
       paymentLogger.info('Checking if student already has a completed ticket...')
 
@@ -164,11 +166,12 @@ export async function POST(request: NextRequest) {
       }
 
       if (existingCompletedTicket) {
+        const validTicket = existingCompletedTicket as any
         paymentLogger.warning('Student already has a completed ticket during verification - blocking', {
           email: studentEmail,
-          existingBookingRef: existingCompletedTicket.booking_reference,
-          existingEvent: existingCompletedTicket.event_name,
-          existingPurchaseDate: existingCompletedTicket.created_at,
+          existingBookingRef: validTicket.booking_reference,
+          existingEvent: validTicket.event_name,
+          existingPurchaseDate: validTicket.created_at,
         })
 
         return NextResponse.json(
@@ -177,9 +180,9 @@ export async function POST(request: NextRequest) {
             message: 'You have already purchased a ticket for MILAN 26\'. Only one ticket per student is allowed.',
             code: 'ALREADY_HAS_TICKET',
             existingTicket: {
-              bookingReference: existingCompletedTicket.booking_reference,
-              eventName: existingCompletedTicket.event_name,
-              purchaseDate: existingCompletedTicket.created_at,
+              bookingReference: validTicket.booking_reference,
+              eventName: validTicket.event_name,
+              purchaseDate: validTicket.created_at,
             },
           },
           { status: 400 }
@@ -196,10 +199,10 @@ export async function POST(request: NextRequest) {
       // Create ticket object for QR generation
       const ticketForQR = {
         id: '', // Will be set after insert
-        name: student.full_name || 'Unknown',
-        registration_number: student.registration_number || 'Unknown',
+        name: validStudent.full_name || 'Unknown',
+        registration_number: validStudent.registration_number || 'Unknown',
         email: studentEmail,
-        batch: student.batch || null,
+        batch: validStudent.batch || null,
         event_name: eventName,
         event_date: eventDate || null,
         ticket_price: ticketPrice,
@@ -208,6 +211,7 @@ export async function POST(request: NextRequest) {
         razorpay_signature: razorpay_signature,
         payment_status: 'completed' as const,
         booking_reference: bookingReference,
+        qr_code_data: null, // Will be set after QR generation
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       }
@@ -216,7 +220,7 @@ export async function POST(request: NextRequest) {
       paymentLogger.info('Generating QR code data for new booking...')
       let qrCodeData
       try {
-        qrCodeData = generateQRCodeData(student, ticketForQR)
+        qrCodeData = generateQRCodeData(validStudent, ticketForQR)
         paymentLogger.success('QR code data generated for new booking')
       } catch (error) {
         paymentLogger.error('Failed to generate QR code data for new booking', {
@@ -237,10 +241,10 @@ export async function POST(request: NextRequest) {
       const { data: newBooking, error: insertError } = await supabase
         .from('ticket_confirmations')
         .insert({
-          name: student.full_name || 'Unknown',
-          registration_number: student.registration_number || 'Unknown',
+          name: validStudent.full_name || 'Unknown',
+          registration_number: validStudent.registration_number || 'Unknown',
           email: studentEmail,
-          batch: student.batch || null,
+          batch: validStudent.batch || null,
           event_name: eventName,
           event_date: eventDate || null,
           ticket_price: ticketPrice,
@@ -249,7 +253,7 @@ export async function POST(request: NextRequest) {
           razorpay_signature: razorpay_signature,
           payment_status: 'completed',
           booking_reference: bookingReference,
-          qr_code_data: qrCodeData,
+          qr_code_data: null, // Will be updated after insert
         })
         .select()
         .single()

@@ -8,6 +8,7 @@ import {
 } from '@/lib/razorpay'
 import { Database } from '@/lib/database.types'
 
+
 // Create Supabase admin client for server-side operations
 const getSupabaseAdmin = () => {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
@@ -89,7 +90,9 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    paymentLogger.success(`Student found: ${student.full_name || 'Unknown'}`)
+    // TypeScript guard: student is guaranteed to exist here
+    const validStudent = student as any
+    paymentLogger.success(`Student found: ${validStudent.full_name || 'Unknown'}`)
 
     // 4. Check if student already has a completed ticket (ONE TICKET PER STUDENT)
     paymentLogger.info('Checking if student already has a completed ticket...')
@@ -118,11 +121,12 @@ export async function POST(request: NextRequest) {
     }
 
     if (existingCompletedTicket) {
+      const validTicket = existingCompletedTicket as any
       paymentLogger.warning('Student already has a completed ticket - blocking new purchase', {
         email: studentEmail,
-        existingBookingRef: existingCompletedTicket.booking_reference,
-        existingEvent: existingCompletedTicket.event_name,
-        existingPurchaseDate: existingCompletedTicket.created_at,
+        existingBookingRef: validTicket.booking_reference,
+        existingEvent: validTicket.event_name,
+        existingPurchaseDate: validTicket.created_at,
       })
 
       return NextResponse.json(
@@ -131,9 +135,9 @@ export async function POST(request: NextRequest) {
           message: 'You have already purchased a ticket for MILAN 26\'. Only one ticket per student is allowed.',
           code: 'ALREADY_HAS_TICKET',
           existingTicket: {
-            bookingReference: existingCompletedTicket.booking_reference,
-            eventName: existingCompletedTicket.event_name,
-            purchaseDate: existingCompletedTicket.created_at,
+            bookingReference: validTicket.booking_reference,
+            eventName: validTicket.event_name,
+            purchaseDate: validTicket.created_at,
           },
         },
         { status: 400 }
@@ -154,8 +158,8 @@ export async function POST(request: NextRequest) {
       event_name: eventName,
       event_date: eventDate || '',
       student_email: studentEmail,
-      student_name: student.full_name || '',
-      registration_number: student.registration_number || '',
+      student_name: validStudent.full_name || '',
+      registration_number: validStudent.registration_number || '',
       booking_reference: bookingReference,
     }
 
@@ -168,13 +172,13 @@ export async function POST(request: NextRequest) {
     // 8. Create initial booking record in database (status: pending)
     paymentLogger.info('Creating initial booking record...')
 
-    const { data: booking, error: bookingError } = await supabase
+    const { data: booking, error: bookingError } = await (supabase as any)
       .from('ticket_confirmations')
       .insert({
-        name: student.full_name || 'Unknown',
-        registration_number: student.registration_number || 'Unknown',
+        name: validStudent.full_name || 'Unknown',
+        registration_number: validStudent.registration_number || 'Unknown',
         email: studentEmail,
-        batch: student.batch || null,
+        batch: validStudent.batch || null,
         event_name: eventName,
         event_date: eventDate || null,
         ticket_price: ticketPrice,
@@ -207,10 +211,10 @@ export async function POST(request: NextRequest) {
       currency: order.currency,
       bookingReference,
       studentData: {
-        name: student.full_name || 'Unknown',
-        email: student.email,
-        registrationNumber: student.registration_number || '',
-        batch: student.batch || '',
+        name: validStudent.full_name || 'Unknown',
+        email: validStudent.email,
+        registrationNumber: validStudent.registration_number || '',
+        batch: validStudent.batch || '',
       },
     })
   } catch (error) {
