@@ -1,13 +1,39 @@
 'use client'
 
 import Image from "next/image"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
+import Script from "next/script"
+
+// Razorpay types
+interface RazorpayResponse {
+  razorpay_payment_id: string
+  razorpay_order_id: string
+  razorpay_signature: string
+}
+
+interface RazorpayError {
+  code: string
+  description: string
+  source: string
+  step: string
+  reason: string
+  metadata: {
+    order_id: string
+    payment_id?: string
+  }
+}
 
 export default function ThamanPlaceOrder() {
   const [showFullDescription, setShowFullDescription] = useState(false)
   const [showFullTips, setShowFullTips] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [isLoading, setIsLoading] = useState(false)
+  const [paymentError, setPaymentError] = useState<string | null>(null)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [razorpayLoaded, setRazorpayLoaded] = useState(false)
+  const router = useRouter()
 
   // Event data extracted from database
   const eventData = {
@@ -23,7 +49,8 @@ export default function ThamanPlaceOrder() {
     genres: "Film Music, Pop, Classical Fusion",
     location: "Main Stage: MILAN 26",
     venue: "Main Stage",
-    price: "₹1500",
+    price: 1500, // Price in rupees (number for calculations)
+    priceDisplay: "₹1500",
     priceRange: "₹1500 onwards",
     availability: "Filling Fast",
     bookingStatus: "Bookings are filling fast for this event",
@@ -42,6 +69,13 @@ export default function ThamanPlaceOrder() {
     ]
   }
 
+  // Check login status on mount
+  useEffect(() => {
+    const studentEmail = localStorage.getItem('studentEmail')
+    setIsLoggedIn(!!studentEmail)
+    console.log('📝 [AUTH] Login status checked:', !!studentEmail)
+  }, [])
+
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % eventData.images.length)
   }
@@ -50,8 +84,168 @@ export default function ThamanPlaceOrder() {
     setCurrentImageIndex((prev) => (prev - 1 + eventData.images.length) % eventData.images.length)
   }
 
+  // Payment handler
+  const handleBookNow = async () => {
+    console.log('💰 [PAYMENT] Book Now clicked')
+    setPaymentError(null)
+
+    // Check if user is logged in
+    const studentEmail = localStorage.getItem('studentEmail')
+    if (!studentEmail) {
+      console.log('❌ [AUTH] User not logged in, redirecting to login')
+      router.push('/login')
+      return
+    }
+
+    // Check if Razorpay is loaded
+    if (!razorpayLoaded || typeof window === 'undefined' || !(window as any).Razorpay) {
+      console.log('⏳ [PAYMENT] Razorpay not loaded yet, waiting...')
+      setPaymentError('Payment gateway is loading. Please wait and try again.')
+      return
+    }
+
+    setIsLoading(true)
+    console.log('📝 [PAYMENT] Creating order for:', studentEmail)
+
+    try {
+      // Step 1: Create order on backend
+      console.log('🔄 [PAYMENT] Calling create-order API...')
+      const orderResponse = await fetch('/api/payment/create-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          eventName: eventData.name,
+          eventDate: eventData.date,
+          ticketPrice: eventData.price,
+          studentEmail,
+        }),
+      })
+
+      const orderData = await orderResponse.json()
+      console.log('📝 [PAYMENT] Order response:', orderData)
+
+      if (!orderData.success) {
+        console.error('❌ [PAYMENT] Order creation failed:', orderData.message)
+        setPaymentError(orderData.message || 'Failed to create order')
+        setIsLoading(false)
+        return
+      }
+
+      console.log('✅ [PAYMENT] Order created:', orderData.orderId)
+
+      // Step 2: Validate Razorpay key configuration
+      const razorpayKeyId = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID
+      if (!razorpayKeyId) {
+        console.error('❌ [PAYMENT] Razorpay key not configured. Please set NEXT_PUBLIC_RAZORPAY_KEY_ID in .env.local')
+        setPaymentError('Payment gateway is not properly configured. Please contact support.')
+        setIsLoading(false)
+        return
+      }
+
+      // Step 3: Configure Razorpay options
+      const options = {
+        key: razorpayKeyId,
+        amount: orderData.amount,
+        currency: orderData.currency,
+        name: 'MILAN 26',
+        description: `${eventData.name} Ticket`,
+        image: '/Sprites/MilanLogo.png',
+        order_id: orderData.orderId,
+        prefill: {
+          name: orderData.studentData?.name || '',
+          email: orderData.studentData?.email || studentEmail,
+        },
+        notes: {
+          event_name: eventData.name,
+          booking_reference: orderData.bookingReference,
+        },
+        theme: {
+          color: '#EAB308',
+        },
+        handler: async function (response: RazorpayResponse) {
+          console.log('✅ [PAYMENT] Payment successful, verifying...')
+          console.log('📝 [PAYMENT] Payment ID:', response.razorpay_payment_id)
+          console.log('📝 [PAYMENT] Order ID:', response.razorpay_order_id)
+
+          // Step 3: Verify payment on backend
+          try {
+            console.log('🔄 [PAYMENT] Calling verify-payment API...')
+            const verifyResponse = await fetch('/api/payment/verify-payment', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+                eventName: eventData.name,
+                eventDate: eventData.date,
+                ticketPrice: eventData.price,
+                studentEmail,
+              }),
+            })
+
+            const verifyData = await verifyResponse.json()
+            console.log('📝 [PAYMENT] Verify response:', verifyData)
+
+            if (verifyData.success) {
+              console.log('🎉 [PAYMENT] Payment verified! Booking Reference:', verifyData.bookingReference)
+              alert(`🎉 Payment Successful!\n\nBooking Reference: ${verifyData.bookingReference}\n\nYou can view your ticket in your account page.`)
+              router.push('/account')
+            } else {
+              console.error('❌ [PAYMENT] Verification failed:', verifyData.message)
+              setPaymentError(verifyData.message || 'Payment verification failed')
+            }
+          } catch (error) {
+            console.error('❌ [PAYMENT] Verification error:', error)
+            setPaymentError('Payment verification failed. Please contact support.')
+          }
+
+          setIsLoading(false)
+        },
+        modal: {
+          ondismiss: function () {
+            console.log('⚠️ [PAYMENT] Payment modal closed by user')
+            setIsLoading(false)
+          },
+          escape: true,
+          backdropclose: false,
+        },
+      }
+
+      // Step 5: Open Razorpay checkout
+      console.log('🔓 [PAYMENT] Opening Razorpay checkout...')
+      const razorpay = new (window as any).Razorpay(options)
+
+      razorpay.on('payment.failed', function (response: { error: RazorpayError }) {
+        console.error('❌ [PAYMENT] Payment failed:', response.error)
+        setPaymentError(`Payment failed: ${response.error.description}`)
+        setIsLoading(false)
+      })
+
+      razorpay.open()
+    } catch (error) {
+      console.error('❌ [PAYMENT] Error:', error)
+      setPaymentError('Something went wrong. Please try again.')
+      setIsLoading(false)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-white">
+      {/* Load Razorpay Script */}
+      <Script
+        src="https://checkout.razorpay.com/v1/checkout.js"
+        strategy="lazyOnload"
+        onLoad={() => {
+          console.log('✅ [RAZORPAY] Checkout script loaded')
+          setRazorpayLoaded(true)
+        }}
+        onError={() => {
+          console.error('❌ [RAZORPAY] Failed to load checkout script')
+          setPaymentError('Failed to load payment gateway. Please refresh the page.')
+        }}
+      />
+
       {/* Header with Share Icon - Add padding top to avoid header overlap */}
       <div className="container mx-auto px-4 py-6 pt-24">
         <div className="flex items-center justify-between">
@@ -252,9 +446,47 @@ export default function ThamanPlaceOrder() {
                 </div>
               </div>
 
+              {/* Error Message */}
+              {paymentError && (
+                <div className="flex items-start gap-2 p-3 bg-red-50 border border-red-200 rounded-lg">
+                  <svg className="w-5 h-5 text-red-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                  </svg>
+                  <p className="text-sm text-red-800">{paymentError}</p>
+                </div>
+              )}
+
+              {/* Login Prompt */}
+              {!isLoggedIn && (
+                <div className="flex items-start gap-2 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                  <svg className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                  </svg>
+                  <p className="text-sm text-blue-800">Please <Link href="/login" className="underline font-medium">login</Link> to book tickets.</p>
+                </div>
+              )}
+
               {/* Book Now Button */}
-              <button className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-6 rounded-full text-lg transition-colors shadow-lg">
-                Book Now
+              <button
+                onClick={handleBookNow}
+                disabled={isLoading}
+                className={`w-full font-bold py-4 px-6 rounded-full text-lg transition-all shadow-lg ${
+                  isLoading
+                    ? 'bg-gray-400 cursor-not-allowed'
+                    : 'bg-red-600 hover:bg-red-700 text-white hover:shadow-xl'
+                }`}
+              >
+                {isLoading ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Processing...
+                  </span>
+                ) : (
+                  'Book Now'
+                )}
               </button>
             </div>
           </div>

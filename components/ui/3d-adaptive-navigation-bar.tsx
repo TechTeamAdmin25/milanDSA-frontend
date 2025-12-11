@@ -205,6 +205,11 @@ export const PillBase: React.FC = () => {
 
   const activeItem = navItems.find(item => item.id === activeSection)
 
+  // Don't render navigation on operator pages
+  if (pathname?.startsWith('/operator')) {
+    return null;
+  }
+
   return (
 
     <motion.nav

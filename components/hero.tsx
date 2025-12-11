@@ -1,13 +1,10 @@
 'use client'
 
-import { useRef } from "react"
-import Image from "next/image"
-import { ImageTrail } from "@/components/ui/image-trail"
+import CustomImageTrail from "@/components/CustomImageTrail"
+import './ImageTrail.css'
 
 export function Hero() {
-  const ref = useRef<HTMLDivElement>(null)
-
-  // Unsplash images that definitely exist
+  // Unsplash images that definitely exist - more images for longer trail
   const images = [
     "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05",
     "https://images.unsplash.com/photo-1441974231531-c6227db76b6e",
@@ -15,29 +12,26 @@ export function Hero() {
     "https://images.unsplash.com/photo-1472214103451-9374bd1c798e",
     "https://images.unsplash.com/photo-1469474968028-56623f02e42e",
     "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d",
+    "https://images.unsplash.com/photo-1506905925346-21bda4d32df4",
+    "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429",
+    "https://images.unsplash.com/photo-1464822759844-d150f38e8c1b",
+    "https://images.unsplash.com/photo-1471115853179-bb1d604434e0",
+    "https://images.unsplash.com/photo-1506905925346-21bda4d32df4",
+    "https://images.unsplash.com/photo-1418065460487-3e41a6c84d09",
+    "https://images.unsplash.com/photo-1472214103451-9374bd1c798e",
+    "https://images.unsplash.com/photo-1441974231531-c6227db76b6e",
+    "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429",
   ].map(url => `${url}?auto=format&fit=crop&w=800&q=80`)
 
   return (
     <div className="flex w-full h-screen justify-center items-center bg-white dark:bg-black relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-full z-0" ref={ref}>
-        <ImageTrail containerRef={ref}>
-          {images.map((url, index) => (
-            <div
-              key={index}
-              className="flex relative overflow-hidden w-70 h-70 rounded-lg"
-            >
-              <Image
-                src={url}
-                alt={`Trail image ${index + 1}`}
-                fill
-                className="object-cover hover:scale-110 transition-transform"
-                sizes="(max-width: 768px) 100vw, 800px"
-              />
+      {/* Image trail container - positioned to cover entire screen */}
+      <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
+        <div className="w-full h-full">
+          <CustomImageTrail items={images} />
             </div>
-          ))}
-        </ImageTrail>
       </div>
-      <h1 className="text-center text-7xl md:text-9xl font-bold z-10 select-none bg-clip-text text-transparent bg-gradient-to-r from-neutral-950 to-neutral-500 dark:from-neutral-50 dark:to-neutral-400">
+      <h1 className="text-center text-7xl md:text-9xl font-bold z-10 select-none bg-clip-text text-transparent bg-gradient-to-r from-neutral-950 to-neutral-500 dark:from-neutral-50 dark:to-neutral-400 pointer-events-none">
         Welcome to <br/>
         MILAN 26&apos;
       </h1>
