@@ -13,6 +13,7 @@ export async function GET(request: NextRequest) {
     let query = supabase
       .from('explore_posts_manager')
       .select('*')
+      .eq('upload_status', 'approved') // Only show approved posts
       .order('created_at', { ascending: false });
 
     // Filter by hashtag if provided
@@ -30,10 +31,11 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Get total count
+    // Get total count (only approved posts)
     const { count } = await supabase
       .from('explore_posts_manager')
-      .select('*', { count: 'exact', head: true });
+      .select('*', { count: 'exact', head: true })
+      .eq('upload_status', 'approved');
 
     return NextResponse.json({
       success: true,
@@ -48,4 +50,3 @@ export async function GET(request: NextRequest) {
     );
   }
 }
-

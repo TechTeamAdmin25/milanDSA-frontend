@@ -230,6 +230,7 @@ export interface Database {
           image_url: string
           posted_by: string
           hashtags: Json
+          upload_status: 'pending' | 'approved' | 'denied'
           created_at: string
         }
         Insert: {
@@ -237,6 +238,7 @@ export interface Database {
           image_url: string
           posted_by: string
           hashtags?: Json
+          upload_status?: 'pending' | 'approved' | 'denied'
           created_at?: string
         }
         Update: {
@@ -244,6 +246,7 @@ export interface Database {
           image_url?: string
           posted_by?: string
           hashtags?: Json
+          upload_status?: 'pending' | 'approved' | 'denied'
           created_at?: string
         }
       }

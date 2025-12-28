@@ -15,6 +15,15 @@ export async function POST(request: NextRequest) {
     console.log(`[${timestamp}] 📧 Email received: ${email}`)
     console.log(`[${timestamp}] 🔑 Password received: ${'*'.repeat(password.length)}`)
 
+    // SKIP ACADEMIA FOR ADMIN - redirect to admin auth
+    if (email === 'admin' || email === 'admin@srmist.edu.in') {
+      console.log(`[${timestamp}] 🛑 ADMIN LOGIN DETECTED - SKIPPING ACADEMIA PROCESS`)
+      return NextResponse.json(
+        { message: 'Please use the admin login page at /admin/login' },
+        { status: 403 }
+      )
+    }
+
     if (!email || !password) {
       console.log(`[${timestamp}] ❌ VALIDATION FAILED: Missing email or password`)
       return NextResponse.json(
