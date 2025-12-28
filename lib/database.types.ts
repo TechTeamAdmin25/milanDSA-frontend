@@ -6,9 +6,6 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[]
 
-export type ticket_status = 'available' | 'sold' | 'reserved'
-export type event_type = 'pro_show' | 'workshop' | 'competition' | 'general'
-export type rsvp_status = 'pending' | 'ready' | 'printed'
 
 export interface Database {
   public: {
@@ -227,132 +224,6 @@ export interface Database {
           updated_at?: string
         }
       }
-      ticket_confirmations: {
-        Row: {
-          id: string
-          name: string
-          registration_number: string
-          email: string
-          batch: string | null
-          event_name: string
-          event_date: string | null
-          ticket_price: number
-          razorpay_order_id: string
-          razorpay_payment_id: string | null
-          razorpay_signature: string | null
-          payment_status: 'pending' | 'completed' | 'failed'
-          booking_reference: string
-          qr_code_data: Json | null
-          created_at: string
-          updated_at: string
-        }
-        Insert: {
-          id?: string
-          name: string
-          registration_number: string
-          email: string
-          batch?: string | null
-          event_name: string
-          event_date?: string | null
-          ticket_price: number
-          razorpay_order_id: string
-          razorpay_payment_id?: string | null
-          razorpay_signature?: string | null
-          payment_status?: 'pending' | 'completed' | 'failed'
-          booking_reference: string
-          qr_code_data?: Json | null
-          created_at?: string
-          updated_at?: string
-        }
-        Update: {
-          id?: string
-          name?: string
-          registration_number?: string
-          email?: string
-          batch?: string | null
-          event_name?: string
-          event_date?: string | null
-          ticket_price?: number
-          razorpay_order_id?: string
-          razorpay_payment_id?: string | null
-          razorpay_signature?: string | null
-          payment_status?: 'pending' | 'completed' | 'failed'
-          booking_reference?: string
-          qr_code_data?: Json | null
-          created_at?: string
-          updated_at?: string
-        }
-      }
-      operator_data: {
-        Row: {
-          id: string
-          username: string
-          password: string
-          station_number: number
-          printed_tickets: number
-          created_at: string
-          updated_at: string
-        }
-        Insert: {
-          id?: string
-          username: string
-          password: string
-          station_number: number
-          printed_tickets?: number
-          created_at?: string
-          updated_at?: string
-        }
-        Update: {
-          id?: string
-          username?: string
-          password?: string
-          station_number?: number
-          printed_tickets?: number
-          created_at?: string
-          updated_at?: string
-        }
-      }
-      rsvp_confirmations: {
-        Row: {
-          id: string
-          full_name: string
-          registration_number: string
-          email: string
-          ticket_reference: string
-          event_name: string
-          rsvp_status: rsvp_status
-          printed_by: string | null
-          printed_at: string | null
-          created_at: string
-          updated_at: string
-        }
-        Insert: {
-          id?: string
-          full_name: string
-          registration_number: string
-          email: string
-          ticket_reference: string
-          event_name: string
-          rsvp_status?: rsvp_status
-          printed_by?: string | null
-          printed_at?: string | null
-          created_at?: string
-          updated_at?: string
-        }
-        Update: {
-          id?: string
-          full_name?: string
-          registration_number?: string
-          email?: string
-          ticket_reference?: string
-          event_name?: string
-          rsvp_status?: rsvp_status
-          printed_by?: string | null
-          printed_at?: string | null
-          created_at?: string
-          updated_at?: string
-        }
-      }
       explore_posts_manager: {
         Row: {
           id: string
@@ -392,9 +263,7 @@ export interface Database {
       }
     }
     Enums: {
-      ticket_status: ticket_status
-      event_type: event_type
-      rsvp_status: rsvp_status
+      [_ in never]: never
     }
     CompositeTypes: {
       [_ in never]: never
