@@ -54,7 +54,8 @@ export async function POST(request: NextRequest) {
       .insert({
         image_url: publicUrl,
         posted_by: postedBy,
-        hashtags: hashtags
+        hashtags: hashtags,
+        upload_status: 'pending' // New posts require admin approval
       })
       .select()
       .single();
@@ -81,4 +82,3 @@ export async function POST(request: NextRequest) {
     );
   }
 }
-

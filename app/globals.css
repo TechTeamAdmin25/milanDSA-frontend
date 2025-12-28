@@ -126,4 +126,10 @@
       cursor: none !important;
     }
   }
+
+  /* Restore normal cursor on admin pages */
+  body:has([data-admin-page]) *,
+  body:has([data-admin-page]) {
+    cursor: auto !important;
+  }
 }
