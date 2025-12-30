@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { KineticCursor } from '@/components/ui/kinetic-cursor'
 import { PillBase } from '@/components/ui/3d-adaptive-navigation-bar'
+import { MobileHeader } from '@/components/ui/mobile-header'
 
 export function ConditionalLayout() {
   const pathname = usePathname()
@@ -21,7 +22,7 @@ export function ConditionalLayout() {
   }
 
   if (!isDesktop) {
-    return null
+    return <MobileHeader />
   }
 
   return (
