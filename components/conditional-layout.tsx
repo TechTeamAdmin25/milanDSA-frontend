@@ -1,17 +1,28 @@
-'use client';
+'use client'
 
-import { usePathname } from 'next/navigation';
-import { KineticCursor } from '@/components/ui/kinetic-cursor';
-import { PillBase } from '@/components/ui/3d-adaptive-navigation-bar';
+import { usePathname } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { KineticCursor } from '@/components/ui/kinetic-cursor'
+import { PillBase } from '@/components/ui/3d-adaptive-navigation-bar'
+import { MobileHeader } from '@/components/ui/mobile-header'
 
 export function ConditionalLayout() {
-  const pathname = usePathname();
+  const pathname = usePathname()
+  const [isDesktop, setIsDesktop] = useState(false)
 
-  // Hide custom cursor and navigation on admin pages
-  const isAdminPage = pathname?.startsWith('/admin');
+  useEffect(() => {
+    const update = () => setIsDesktop(window.innerWidth >= 1024)
+    update()
+    window.addEventListener('resize', update)
+    return () => window.removeEventListener('resize', update)
+  }, [])
 
-  if (isAdminPage) {
-    return null;
+  if (pathname?.startsWith('/admin')) {
+    return null
+  }
+
+  if (!isDesktop) {
+    return <MobileHeader />
   }
 
   return (
@@ -21,5 +32,5 @@ export function ConditionalLayout() {
         <PillBase />
       </header>
     </>
-  );
+  )
 }

@@ -1,40 +1,49 @@
 'use client'
 
-import CustomImageTrail from "@/components/CustomImageTrail"
-import './ImageTrail.css'
+import Image from "next/image"
 
 export function Hero() {
-  // Unsplash images that definitely exist - more images for longer trail
-  const images = [
-    "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05",
-    "https://images.unsplash.com/photo-1441974231531-c6227db76b6e",
-    "https://images.unsplash.com/photo-1426604966848-d7adac402bff",
-    "https://images.unsplash.com/photo-1472214103451-9374bd1c798e",
-    "https://images.unsplash.com/photo-1469474968028-56623f02e42e",
-    "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d",
-    "https://images.unsplash.com/photo-1506905925346-21bda4d32df4",
-    "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429",
-    "https://images.unsplash.com/photo-1464822759844-d150f38e8c1b",
-    "https://images.unsplash.com/photo-1471115853179-bb1d604434e0",
-    "https://images.unsplash.com/photo-1506905925346-21bda4d32df4",
-    "https://images.unsplash.com/photo-1418065460487-3e41a6c84d09",
-    "https://images.unsplash.com/photo-1472214103451-9374bd1c798e",
-    "https://images.unsplash.com/photo-1441974231531-c6227db76b6e",
-    "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429",
-  ].map(url => `${url}?auto=format&fit=crop&w=800&q=80`)
-
   return (
-    <div className="flex w-full h-screen justify-center items-center bg-white dark:bg-black relative overflow-hidden">
-      {/* Image trail container - positioned to cover entire screen */}
-      <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
-        <div className="w-full h-full">
-          <CustomImageTrail items={images} />
-            </div>
+    <section className="relative h-screen w-full overflow-hidden">
+      <Image
+        src="/milan/hero-main.jpg"
+        alt="Milan SRM Cultural Fest"
+        fill
+        priority
+        className="object-cover"
+      />
+
+      <div className="absolute inset-0 bg-black/55" />
+
+      <div className="relative z-10 flex h-full flex-col items-center justify-center text-center px-6">
+        <p className="tracking-widest text-sm md:text-base text-neutral-200">
+          DIRECTORATE OF STUDENT AFFAIRS
+        </p>
+
+        <h1 className="mt-4 text-6xl md:text-8xl font-extrabold text-white">
+          MILAN 2026
+        </h1>
+
+        <p className="mt-6 max-w-2xl text-base md:text-lg text-neutral-200">
+          SRM Institute of Science and Technology’s National Cultural Festival
+        </p>
+
+        <div className="mt-10 flex gap-4">
+          <a
+            href="/events"
+            className="rounded-md bg-white px-6 py-3 text-sm font-semibold text-black"
+          >
+            Explore Events
+          </a>
+
+          <a
+            href="/gallery"
+            className="rounded-md border border-white/70 px-6 py-3 text-sm font-semibold text-white"
+          >
+            View Gallery
+          </a>
+        </div>
       </div>
-      <h1 className="text-center text-7xl md:text-9xl font-bold z-10 select-none bg-clip-text text-transparent bg-gradient-to-r from-neutral-950 to-neutral-500 dark:from-neutral-50 dark:to-neutral-400 pointer-events-none">
-        Welcome to <br/>
-        MILAN 26&apos;
-      </h1>
-    </div>
+    </section>
   )
 }
