@@ -4,7 +4,8 @@
 import React, { useState, useRef, useMemo, useEffect } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { motion, AnimatePresence, useSpring } from 'framer-motion'
-import { Home, Image as ImageIcon, Users, Calendar, Menu } from 'lucide-react'
+// ADDED: Handshake and Compass imports
+import { Home, Image as ImageIcon, Users, Calendar, Menu, Handshake, Compass } from 'lucide-react'
 
 interface NavItem {
   label: string
@@ -39,12 +40,13 @@ export const PillBase = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [expanded])
 
+  // FIX: Added icons to Sponsors and Explore
   const navItems: NavItem[] = useMemo(() => [
     { label: 'Home', id: 'home', path: '/', icon: Home },
     { label: 'Gallery', id: 'gallery', path: '/gallery', icon: ImageIcon },
     { label: 'Team', id: 'team', path: '/team', icon: Users },
-    { label: 'Sponsors', id: 'sponsors', path: '/sponsors' },
-    { label: 'Explore', id: 'explore', path: '/explore' },
+    { label: 'Sponsors', id: 'sponsors', path: '/sponsors', icon: Handshake },
+    { label: 'Explore', id: 'explore', path: '/explore', icon: Compass },
     { label: 'Events', id: 'events', path: '/events', icon: Calendar },
   ], [])
 
@@ -60,7 +62,8 @@ export const PillBase = () => {
 
   useEffect(() => {
     if (expanded) {
-      width.set(isMobile ? 260 : 520)
+      // Adjusted width to fit the extra items
+      width.set(isMobile ? 260 : 650) 
       height.set(isMobile ? navItems.length * 50 + 24 : 56)
     } else {
       width.set(160)
