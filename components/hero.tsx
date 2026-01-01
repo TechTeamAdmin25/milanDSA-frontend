@@ -31,14 +31,15 @@ export function Hero() {
         <div className="mt-10 flex gap-4">
           <a
             href="/events"
-            className="rounded-md bg-white px-6 py-3 text-sm font-semibold text-black"
+            className="group relative inline-flex items-center justify-center rounded-full bg-white px-8 py-3 text-sm font-semibold text-black transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.5)] active:scale-95"
           >
-            Explore Events
+            <span className="relative z-10">Explore Events</span>
+            <div className="absolute inset-0 -z-10 rounded-full bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 opacity-0 blur-lg transition-opacity duration-500 group-hover:opacity-75" />
           </a>
 
           <a
             href="/gallery"
-            className="rounded-md border border-white/70 px-6 py-3 text-sm font-semibold text-white"
+            className="group inline-flex items-center justify-center rounded-full border border-white/70 bg-black/20 px-8 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:scale-105 active:scale-95"
           >
             View Gallery
           </a>

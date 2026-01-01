@@ -12,8 +12,8 @@ export function MobileHeader() {
     }`
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur">
-      <nav className="flex h-14 items-center justify-around">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10 shadow-lg">
+      <nav className="flex h-16 items-center justify-around">
         <Link href="/" className={linkClass("/")}>
           Home
         </Link>
