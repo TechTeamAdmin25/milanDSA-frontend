@@ -29,6 +29,8 @@ export const PillBase = () => {
     { label: 'Home', id: 'home', path: '/' },
     { label: 'Gallery', id: 'gallery', path: '/gallery' },
     { label: 'Team', id: 'team', path: '/team' },
+    { label: 'Sponsors', id: 'sponsors', path: '/sponsors' },
+    { label: 'Explore', id: 'explore', path: '/explore' },
     { label: 'Events', id: 'events', path: '/events' },
   ], [])
 

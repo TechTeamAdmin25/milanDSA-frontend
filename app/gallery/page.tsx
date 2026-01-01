@@ -1,4 +1,4 @@
-import ImageGallery from "@/components/ui/image-gallery";
+import { BentoGalleryGrid } from "@/components/ui/bento-gallery-grid";
 
 const galleryImages = [
   // Concert
@@ -19,17 +19,27 @@ const galleryImages = [
   "https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&h=800&w=800&auto=format&fit=crop",
   // Fashion
   "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&h=800&w=800&auto=format&fit=crop",
+  // Additional images for grid effect
+  "https://images.unsplash.com/photo-1514525253440-b393452e372e?q=80&h=800&w=800&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1459749411177-0473ef71607b?q=80&h=800&w=800&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&h=800&w=800&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&h=800&w=800&auto=format&fit=crop",
+   "https://images.unsplash.com/photo-1563841930606-67e26ce48b15?q=80&h=800&w=800&auto=format&fit=crop",
 ];
 
 export default function GalleryPage() {
   return (
-    <div className="h-screen bg-background pt-24 overflow-hidden flex flex-col">
-      <ImageGallery
-        title="Festival Moments"
-        description=""
-        images={galleryImages}
-        className="flex-1"
-      />
+    <div className="min-h-screen bg-background pt-24 pb-12">
+      <div className="container mx-auto px-4 mb-8">
+        <h1 className="text-4xl font-bold tracking-tight mb-2">Festival Moments</h1>
+        <p className="text-muted-foreground">Capturing the spirit of Milan through the years.</p>
+      </div>
+      <div className="container mx-auto">
+        <BentoGalleryGrid
+          images={galleryImages}
+          className=""
+        />
+      </div>
     </div>
   );
 }
