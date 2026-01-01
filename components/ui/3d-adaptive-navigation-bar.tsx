@@ -52,7 +52,6 @@ export const PillBase: React.FC = () => {
     const baseItems: NavItem[] = [
       { label: 'Home', id: 'home', path: '/' },
       { label: 'Team', id: 'team', path: '/team' },
-      { label: 'Sponsors', id: 'sponsors', path: '/sponsors' },
       { label: 'Gallery', id: 'gallery', path: '/gallery' },
       { label: 'Explore', id: 'explore', path: '/explore' },
       { label: 'Tickets', id: 'tickets', path: '/tickets' },
