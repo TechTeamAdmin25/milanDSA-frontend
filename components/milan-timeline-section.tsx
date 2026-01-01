@@ -9,22 +9,22 @@ const editions = [
   {
     year: "Milan '25",
     facts: ['National Participation', 'Multiple Stages', 'Expanded Footfall'],
-    image: '/milan/timeline/2025.jpg'
+    image: '/milan/timeline/2025.png'
   },
   {
     year: "Milan '24",
     facts: ['Four-Day Fest', 'Inter-College Events', 'Large Campus Activation'],
-    image: '/milan/timeline/2024.jpg'
+    image: '/milan/timeline/2024.png'
   },
   {
     year: "Milan '23",
     facts: ['Full-Scale Return', 'High Student Turnout', 'Cultural Showcase'],
-    image: '/milan/timeline/2023.jpg'
+    image: '/milan/timeline/2023.png'
   },
   {
     year: "Milan '22",
     facts: ['Rebuild Edition', 'Multi-Disciplinary Events', 'Strong Foundations'],
-    image: '/milan/timeline/2022.jpg'
+    image: '/milan/timeline/2022.png'
   }
 ]
 
