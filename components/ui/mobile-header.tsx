@@ -23,6 +23,9 @@ export function MobileHeader() {
         <Link href="/team" className={linkClass("/team")}>
           Team
         </Link>
+        <Link href="/sponsors" className={linkClass("/sponsors")}>
+          Sponsors
+        </Link>
         <Link href="/events" className={linkClass("/events")}>
           Events
         </Link>
