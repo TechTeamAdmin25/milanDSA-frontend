@@ -43,6 +43,8 @@ export const PillBase = () => {
     { label: 'Home', id: 'home', path: '/', icon: Home },
     { label: 'Gallery', id: 'gallery', path: '/gallery', icon: ImageIcon },
     { label: 'Team', id: 'team', path: '/team', icon: Users },
+    { label: 'Sponsors', id: 'sponsors', path: '/sponsors' },
+    { label: 'Explore', id: 'explore', path: '/explore' },
     { label: 'Events', id: 'events', path: '/events', icon: Calendar },
   ], [])
 
