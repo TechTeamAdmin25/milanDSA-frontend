@@ -120,12 +120,7 @@
     font-family: var(--font-grotesk), sans-serif;
   }
 
-  /* Hide default cursor when custom cursor is active */
-  @media (hover: hover) and (pointer: fine) {
-    * {
-      cursor: none !important;
-    }
-  }
+  /* I REMOVED THE CURSOR:NONE CODE FROM HERE */
 
   /* Restore normal cursor on admin pages */
   body:has([data-admin-page]) *,
