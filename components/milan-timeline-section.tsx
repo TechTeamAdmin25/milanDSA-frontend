@@ -8,22 +8,22 @@ import * as THREE from 'three'
 const editions = [
   {
     year: "Milan '25",
-    facts: ['National Participation', 'Multiple Stages', 'Expanded Footfall'],
+    facts: ['Time Travel Theme', '₹15 Lakh Prize Pool', '40+ Electrifying Events'],
     image: '/milan/timeline/2025.png'
   },
   {
     year: "Milan '24",
-    facts: ['Four-Day Fest', 'Inter-College Events', 'Large Campus Activation'],
+    facts: ['Streets Theme', '50,000+ Participants', '150+ Events'],
     image: '/milan/timeline/2024.png'
   },
   {
     year: "Milan '23",
-    facts: ['Full-Scale Return', 'High Student Turnout', 'Cultural Showcase'],
+    facts: ['₹9 Lakh Prize Pool', 'Celebrity Guests', 'Dynamic Student Showcases'],
     image: '/milan/timeline/2023.png'
   },
   {
     year: "Milan '22",
-    facts: ['Rebuild Edition', 'Multi-Disciplinary Events', 'Strong Foundations'],
+    facts: ['Legacy Rebuilt', 'South India Talent Hub', 'Multi-Disciplinary Arts'],
     image: '/milan/timeline/2022.png'
   }
 ]
@@ -154,7 +154,7 @@ export function MilanTimelineSection() {
         </svg>
       </div>
 
-      <div className="relative z-30 max-w-6xl mx-auto flex flex-col gap-40 px-6">
+      <div className="relative z-30 max-w-7xl mx-auto flex flex-col gap-32 px-6">
         {editions.map((item, index) => {
           const left = index % 2 === 0
           return (
@@ -162,30 +162,44 @@ export function MilanTimelineSection() {
               key={item.year}
               initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className={`flex flex-col md:flex-row items-center gap-12 ${
-                left ? 'md:flex-row-reverse text-right' : ''
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8 }}
+              className={`flex flex-col md:flex-row items-center gap-12 md:gap-24 ${
+                left ? 'md:flex-row-reverse' : ''
               }`}
             >
-              <div className="w-full md:w-1/2">
-                <h3 className="text-4xl md:text-5xl font-extrabold">
-                  {item.year}
-                </h3>
-                <ul className={`mt-6 space-y-2 text-sm text-white/70 ${left ? 'ml-auto' : ''}`}>
-                  {item.facts.map(f => (
-                    <li key={f}>{f}</li>
-                  ))}
-                </ul>
+              {/* Content Side */}
+              <div className={`w-full md:w-1/2 flex flex-col justify-center ${left ? 'text-right items-end' : 'text-left items-start'}`}>
+                <div className="space-y-6">
+                    <h3 className="text-5xl md:text-7xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white via-purple-200 to-purple-400">
+                    {item.year}
+                    </h3>
+                    <div className={`h-1 w-24 bg-purple-500 rounded-full ${left ? 'ml-auto' : ''}`} />
+                    <ul className="space-y-4">
+                    {item.facts.map((f, i) => (
+                        <li key={f} className="text-lg md:text-xl text-neutral-300 font-light tracking-wide flex items-center gap-3">
+                            {!left && <span className="h-1.5 w-1.5 rounded-full bg-purple-500" />}
+                            {f}
+                            {left && <span className="h-1.5 w-1.5 rounded-full bg-purple-500" />}
+                        </li>
+                    ))}
+                    </ul>
+                </div>
               </div>
 
-              <div className="relative w-full md:w-1/2 aspect-[4/3]">
-                <Image
-                  src={item.image}
-                  alt={item.year}
-                  fill
-                  className="object-cover rounded-lg"
-                />
+              {/* Image Side */}
+              <div className="relative w-full md:w-1/2 group">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm shadow-2xl skew-y-1 transition-transform duration-700 group-hover:skew-y-0 group-hover:scale-[1.02]">
+                    <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+                    <Image
+                    src={item.image}
+                    alt={item.year}
+                    fill
+                    className="object-cover"
+                    />
+                </div>
+                {/* Decorative border offset */}
+                <div className={`absolute inset-0 border-2 border-purple-500/30 rounded-2xl -z-10 translate-x-4 translate-y-4 transition-transform duration-500 group-hover:translate-x-2 group-hover:translate-y-2 ${left ? '-skew-y-1' : 'skew-y-1'}`} />
               </div>
             </motion.div>
           )

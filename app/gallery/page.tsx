@@ -32,7 +32,7 @@ export default function GalleryPage() {
     <div className="min-h-screen bg-background pt-24 pb-12">
       <div className="container mx-auto px-4 mb-8">
         <h1 className="text-4xl font-bold tracking-tight mb-2">Festival Moments</h1>
-        <p className="text-muted-foreground">Capturing the spirit of Milan through the years.</p>
+        <p className="text-muted-foreground">The MILAN Gallery captures memorable moments from previous editions, featuring standout performances and vibrant student participation throughout the fest. Each frame tells a story of celebration, collaboration and campus life.</p>
       </div>
       <div className="container mx-auto">
         <BentoGalleryGrid

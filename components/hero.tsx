@@ -1,50 +1,106 @@
 'use client'
 
+import { motion } from "framer-motion"
 import Image from "next/image"
+import { ArrowRight, GalleryHorizontal } from "lucide-react"
 
 export function Hero() {
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      <Image
-        src="/milan/hero-main.png"
-        alt="Milan SRM Cultural Fest"
-        fill
-        priority
-        className="object-cover"
-      />
+      {/* Background Image with Scale Animation */}
+      <motion.div 
+        initial={{ scale: 1.1 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 1.5, ease: "easeOut" }}
+        className="absolute inset-0 h-full w-full"
+      >
+        <Image
+          src="/milan/hero-main.png"
+          alt="Milan SRM Cultural Fest"
+          fill
+          priority
+          className="object-cover"
+        />
+      </motion.div>
 
-      <div className="absolute inset-0 bg-black/55" />
+      {/* Gradient Overlay for better text readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-900/20 via-transparent to-transparent" />
 
-      <div className="relative z-10 flex h-full flex-col items-center justify-center text-center px-6">
-        <p className="tracking-widest text-sm md:text-base text-neutral-200">
-          DIRECTORATE OF STUDENT AFFAIRS
-        </p>
+      <div className="relative z-10 flex h-full flex-col items-center justify-center text-center px-4 md:px-6">
+        
+        {/* Animated Badge */}
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="mb-6 inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-1.5 backdrop-blur-md"
+        >
+          <span className="text-xs font-medium tracking-widest text-neutral-200 uppercase">
+            Directorate of Student Affairs
+          </span>
+        </motion.div>
 
-        <h1 className="mt-4 text-6xl md:text-8xl font-extrabold text-white">
+        {/* Main Title with Gradient */}
+        <motion.h1 
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.4, type: "spring" }}
+          className="text-7xl md:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-br from-white via-neutral-200 to-neutral-500 drop-shadow-2xl"
+        >
           MILAN 2026
-        </h1>
+        </motion.h1>
 
-        <p className="mt-6 max-w-2xl text-base md:text-lg text-neutral-200">
-          SRM Institute of Science and Technology’s National Cultural Festival
-        </p>
+        {/* Description Text */}
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="mt-8 max-w-3xl"
+        >
+             <p className="text-lg md:text-xl text-neutral-300 leading-relaxed font-light max-w-2xl mx-auto">
+                The iconic national-level cultural festival of <span className="text-purple-300 font-medium">SRM IST</span>. 
+                A four-day extravaganza where <span className="text-white font-medium">creativity meets community spirit</span>, uniting talent from across India.
+            </p>
+        </motion.div>
 
-        <div className="mt-10 flex gap-4">
+        {/* Buttons */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          className="mt-12 flex flex-col sm:flex-row gap-4 sm:gap-6"
+        >
           <a
             href="/events"
-            className="group relative inline-flex items-center justify-center rounded-full bg-white px-8 py-3 text-sm font-semibold text-black transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.5)] active:scale-95"
+            className="group relative inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-base font-bold text-black transition-all hover:scale-105 hover:bg-neutral-100 active:scale-95"
           >
-  <span className="relative z-10">Explore Events</span>
-            <div className="absolute inset-0 -z-10 rounded-full bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 opacity-0 blur-lg transition-opacity duration-500 group-hover:opacity-75" />
+            Explore Events
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            <div className="absolute inset-0 -z-10 rounded-full bg-white blur-xl opacity-0 transition-opacity group-hover:opacity-30" />
           </a>
 
           <a
             href="/gallery"
-            className="group inline-flex items-center justify-center rounded-full border border-white/70 bg-black/20 px-8 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:scale-105 active:scale-95"
+            className="group inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white/5 px-8 py-4 text-base font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/50 hover:scale-105 active:scale-95"
           >
+            <GalleryHorizontal className="h-4 w-4" />
             View Gallery
           </a>
-        </div>
+        </motion.div>
       </div>
+
+      {/* Scroll Indicator */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 1.5 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce"
+      >
+        <div className="h-10 w-6 rounded-full border-2 border-white/30 flex justify-center p-1">
+          <div className="h-2 w-1.5 rounded-full bg-white" />
+        </div>
+      </motion.div>
     </section>
   )
 }

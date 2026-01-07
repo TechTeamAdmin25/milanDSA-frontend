@@ -2,110 +2,156 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
+
+const people = [
+  {
+    name: "Dr. Prince Kalyanasundaram",
+    role: "Deputy Director",
+    subRole: "Directorate of Student Affairs",
+    image: "/Directors_Images/PrinceKalyanasundaram.png",
+    type: "director"
+  },
+  {
+    name: "Dr. Nisha Ashokan",
+    role: "Director",
+    subRole: "Directorate of Student Affairs",
+    image: "/Directors_Images/NishaAshokan.png",
+    type: "director",
+    featured: true
+  },
+  {
+    name: "Dr. S. Pradeep",
+    role: "Assistant Director",
+    subRole: "Directorate of Student Affairs",
+    image: "/Directors_Images/SPradeep.png",
+    type: "director"
+  },
+  {
+    name: "Dhandayuthapani B",
+    role: "Event Manager",
+    image: "/Managers_Images/Dhandayuthapani.png",
+    type: "manager"
+  },
+  {
+    name: "Rajiv D",
+    role: "Event Manager",
+    image: "/Managers_Images/RajivD.png",
+    type: "manager"
+  }
+];
 
 export function DirectorsManagersSection() {
+  const directors = people.filter(p => p.type === "director");
+  const managers = people.filter(p => p.type === "manager");
+
   return (
-    <section className="relative w-full min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex flex-col items-center justify-center py-20 px-4">
-     
-      {/* Main content container */}
-      <div className="relative w-full max-w-6xl mx-auto">
+    <section className="relative w-full py-24 bg-white dark:bg-neutral-950 overflow-hidden">
+        {/* Background Decorative Elements */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-purple-200/30 dark:bg-purple-900/10 rounded-full blur-[100px]" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-200/30 dark:bg-blue-900/10 rounded-full blur-[100px]" />
+        </div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        
         {/* Directors Section */}
-        <div className="relative flex flex-col items-center mb-16">
-          {/* Directors Text */}
-          <div className="mb-8 md:mb-12">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 text-center">
-              Directors
+        <div className="mb-24">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 to-neutral-500 dark:from-white dark:to-neutral-400">
+              The Visionaries
             </h2>
-          </div>
+            <p className="mt-4 text-neutral-600 dark:text-neutral-400">Guiding the spirit of Milan</p>
+          </motion.div>
 
-          {/* Directors Images Container - simple flex layout */}
-          <div className="flex items-center justify-center gap-8 sm:gap-12 md:gap-16 lg:gap-20">
-            {/* Prince - Left */}
-            <div className="flex flex-col items-center">
-              <Image
-                src="/Directors_Images/PrinceKalyanasundaram.png"
-                alt="Prince Kalyanasundaram"
-                width={256}
-                height={256}
-                className="w-32 h-32 sm:w-40 sm:h-40 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full object-cover shadow-2xl border-2 md:border-4 border-white"
-              />
-              <div className="mt-3 text-center px-2">
-                <p className="text-sm sm:text-base md:text-lg font-semibold text-gray-900">Dr. Prince Kalyanasundaram</p>
-                <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-700">Deputy Director<br/>Directorate of Student Affairs</p>
-              </div>
-            </div>
-
-            {/* Nisha - Center */}
-            <div className="flex flex-col items-center">
-              <Image
-                src="/Directors_Images/NishaAshokan.png"
-                alt="Nisha Ashokan"
-                width={288}
-                height={288}
-                className="w-40 h-40 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full object-cover shadow-2xl border-2 md:border-4 border-white"
-              />
-              <div className="mt-3 text-center px-2">
-                <p className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-gray-900">Dr. Nisha Ashokan</p>
-                <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-700">Director<br/>Directorate of Student Affairs</p>
-              </div>
-            </div>
-
-            {/* Pradeep - Right */}
-            <div className="flex flex-col items-center">
-              <Image
-                src="/Directors_Images/SPradeep.png"
-                alt="S Pradeep"
-                width={256}
-                height={256}
-                className="w-32 h-32 sm:w-40 sm:h-40 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full object-cover shadow-2xl border-2 md:border-4 border-white"
-              />
-              <div className="mt-3 text-center px-2">
-                <p className="text-sm sm:text-base md:text-lg font-semibold text-gray-900">Dr. S. Pradeep</p>
-                <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-700">Assistant Director<br/>Directorate of Student Affairs</p>
-              </div>
-            </div>
+          <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16">
+             {/* Render Featured (Middle) Director First on Mobile if needed, but here we keep logical order or specific design */}
+             {/* We can map them. The middle one in the array (Nisha) is featured. */}
+             {/* Let's reorder for visual hierarchy: Prince, Nisha (Center/Largest), Pradeep */}
+             
+             {/* Re-arranging for display: Prince, Nisha, Pradeep. */}
+             {directors.map((person, idx) => (
+               <motion.div
+                 key={person.name}
+                 initial={{ opacity: 0, scale: 0.9 }}
+                 whileInView={{ opacity: 1, scale: 1 }}
+                 transition={{ duration: 0.5, delay: idx * 0.1 }}
+                 viewport={{ once: true }}
+                 className={`flex flex-col items-center group ${person.featured ? 'order-first md:order-none' : ''}`}
+               >
+                 <div className={`relative ${person.featured ? 'w-56 h-56 md:w-72 md:h-72' : 'w-44 h-44 md:w-56 md:h-56'} mb-6`}>
+                   <div className="absolute inset-0 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 blur-lg opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
+                   <Image
+                     src={person.image}
+                     alt={person.name}
+                     fill
+                     className={`rounded-full object-cover border-4 border-white dark:border-neutral-800 shadow-xl transition-transform duration-500 group-hover:scale-105`}
+                   />
+                 </div>
+                 <div className="text-center">
+                   <h3 className={`font-bold text-neutral-900 dark:text-white ${person.featured ? 'text-xl md:text-2xl' : 'text-lg md:text-xl'}`}>
+                     {person.name}
+                   </h3>
+                   <p className="text-purple-600 dark:text-purple-400 font-medium mt-1">{person.role}</p>
+                   {person.subRole && (
+                     <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">{person.subRole}</p>
+                   )}
+                 </div>
+               </motion.div>
+             ))}
           </div>
         </div>
 
         {/* Managers Section */}
-        <div className="relative flex flex-col items-center">
-          {/* Managers Text */}
-          <div className="mb-6 md:mb-8">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 text-center">
-              Managers
+        <div>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+             <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white">
+              Event Managers
             </h2>
-          </div>
+          </motion.div>
 
-          {/* Managers Images */}
-          <div className="flex gap-8 sm:gap-12 md:gap-16 lg:gap-20">
-            <div className="flex flex-col items-center">
-              <Image
-                src="/Managers_Images/Dhandayuthapani.png"
-                alt="Dhandayuthapani"
-                width={224}
-                height={224}
-                className="w-32 h-32 sm:w-36 sm:h-36 md:w-48 md:h-48 lg:w-56 lg:h-56 rounded-full object-cover shadow-2xl border-2 md:border-4 border-white"
-              />
-              <div className="mt-3 text-center px-2">
-                <p className="text-sm sm:text-base md:text-lg font-semibold text-gray-900">Dhandayuthapani B</p>
-                <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-700">Event Manager</p>
-              </div>
-            </div>
-            <div className="flex flex-col items-center">
-              <Image
-                src="/Managers_Images/RajivD.png"
-                alt="Rajiv D"
-                width={224}
-                height={224}
-                className="w-32 h-32 sm:w-36 sm:h-36 md:w-48 md:h-48 lg:w-56 lg:h-56 rounded-full object-cover shadow-2xl border-2 md:border-4 border-white"
-              />
-              <div className="mt-3 text-center px-2">
-                <p className="text-sm sm:text-base md:text-lg font-semibold text-gray-900">Rajiv D</p>
-                <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-700">Event Manager</p>
-              </div>
-            </div>
+          <div className="flex flex-wrap justify-center gap-12 md:gap-24">
+            {managers.map((person, idx) => (
+              <motion.div
+                key={person.name}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                viewport={{ once: true }}
+                className="flex flex-col items-center group"
+              >
+                <div className="relative w-40 h-40 md:w-48 md:h-48 mb-6">
+                   <div className="absolute inset-0 rounded-full bg-gradient-to-br from-pink-500 to-orange-500 blur-lg opacity-20 group-hover:opacity-40 transition-opacity duration-500" />
+                   <Image
+                     src={person.image}
+                     alt={person.name}
+                     fill
+                     className="rounded-full object-cover border-4 border-white dark:border-neutral-800 shadow-lg transition-transform duration-500 group-hover:scale-105"
+                   />
+                </div>
+                <div className="text-center">
+                  <h3 className="text-lg md:text-xl font-bold text-neutral-900 dark:text-white">
+                    {person.name}
+                  </h3>
+                  <p className="text-pink-600 dark:text-pink-400 font-medium mt-1">{person.role}</p>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
+
       </div>
     </section>
   );

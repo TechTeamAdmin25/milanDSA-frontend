@@ -91,8 +91,7 @@ export function SponsorsSection() {
             Our Sponsors
           </h1>
           <p className="text-lg md:text-xl text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed">
-            Milan 2026 is made possible by the generous support of our partners. 
-            We are proud to collaborate with brands that share our vision for creativity and culture.
+            MILAN is powered each year by collaborations with leading brands that enhance the festival experience. In 2025, Blinkit partnered with MILAN as a key sponsor, offering greater convenience, visibility, and engagement.
           </p>
         </motion.div>
       </section>
@@ -100,7 +99,7 @@ export function SponsorsSection() {
       {/* Marquee Section */}
       <section className="py-12 border-y border-neutral-200 dark:border-white/5 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm">
         <ScrollVelocity velocity={3} className="text-neutral-800 dark:text-neutral-200 opacity-80 hover:opacity-100 transition-opacity">
-          PAST SPONSORS • RED BULL • COKE STUDIO • SPOTIFY • AMAZON • GOOGLE • 
+          PAST SPONSORS • BLINKIT • RED BULL • COKE STUDIO • SPOTIFY • AMAZON • GOOGLE • 
         </ScrollVelocity>
       </section>
 
