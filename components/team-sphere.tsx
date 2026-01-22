@@ -113,7 +113,7 @@ export function TeamSphere() {
   // Mobile pagination state - EDIT HERE: Change 5 to adjust items per page
   const [corePage, setCorePage] = useState(0);
   const [clubPage, setClubPage] = useState(0);
-  const [mobileView, setMobileView] = useState<'club' | 'core' | 'directors' | 'managers'>('directors'); // Toggle between club, core, directors, and managers views
+  const [mobileView, setMobileView] = useState<'club' | 'core'>('core'); // Toggle between club and core views
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isViewTransitioning, setIsViewTransitioning] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -209,38 +209,7 @@ export function TeamSphere() {
     'Rotaract Club'
   ];
 
-  // Directors data
-  const directors = [
-    {
-      name: 'Nisha Ashokan',
-      role: 'Director - Directorate Student Affairs',
-      image: '/Directors_Images/NishaAshokan.png'
-    },
-    {
-      name: 'Prince Kalyanasundaram',
-      role: 'Deputy Director',
-      image: '/Directors_Images/PrinceKalyanasundaram.png'
-    },
-    {
-      name: 'S Pradeep',
-      role: 'Assistant Director',
-      image: '/Directors_Images/SPradeep.png'
-    }
-  ];
 
-  // Managers data
-  const managers = [
-    {
-      name: 'Dhandayuthapani B',
-      role: 'Event Manager',
-      image: '/Managers_Images/Dhandayuthapani.png'
-    },
-    {
-      name: 'Rajiv D',
-      role: 'Assistant Manager',
-      image: '/Managers_Images/RajivD.png'
-    }
-  ];
 
   // Get random image from sphere for convenor
   const getRandomImage = (convenorId: string): ImageData => {
@@ -475,7 +444,9 @@ export function TeamSphere() {
         {/* Mobile: text-5xl (reduced from 10rem), Desktop: text-[10rem] */}
         {/* Adjust text-5xl value to make text smaller/larger on mobile */}
         <h1 className="absolute top-18 left-4 text-6xl font-bold text-gray-900 tracking-tight md:top-15 md:left-10 md:text-[10rem] z-50 animate-in fade-in duration-1000">Our</h1>
-        <h1 className="absolute top-30 left-5 text-6xl font-bold text-gray-900 tracking-tight md:top-46 md:left-12 md:text-[10rem] z-50 animate-in fade-in duration-1000">Team</h1>
+        <h1 className="absolute top-30 left-5 text-6xl font-bold text-gray-900 tracking-tight md:top-46 md:left-12 md:text-[10rem] z-50 animate-in fade-in duration-1000">
+          Team<span className="text-purple-600">.</span>
+        </h1>
 
       {/* MOBILE: Convenor Lists - Toggle between Club and Core views */}
       {/* EDIT HERE: Adjust itemsPerPage (line 115) to change how many items show per page */}
@@ -485,16 +456,12 @@ export function TeamSphere() {
         <div className="flex flex-col items-end max-w-[50%]">
           {/* Small dim indicator text above heading */}
           <div className="text-xs font-medium text-gray-400 mb-1 mr-3">
-            {mobileView === 'directors' ? 'Open Managers ⤵' : mobileView === 'managers' ? 'Open Core team ⤵' : mobileView === 'core' ? 'Open Clubs ⤵' : 'Open Directors ⤵'}
+            {mobileView === 'core' ? 'Open Clubs ⤵' : 'Open Core Team ⤵'}
           </div>
 
-          {/* Header with toggle icon - switches between Directors, Managers, Core and Club headings */}
+          {/* Header with toggle icon - switches between Core and Club headings */}
           <div className="flex items-center gap-2 mb-2">
-            {mobileView === 'directors' ? (
-              <h2 className="text-base font-bold text-gray-900">Directors</h2>
-            ) : mobileView === 'managers' ? (
-              <h2 className="text-base font-bold text-gray-900">Managers</h2>
-            ) : mobileView === 'core' ? (
+            {mobileView === 'core' ? (
               <h2 className="text-base font-bold text-gray-900">Core Team Convenors</h2>
             ) : (
               <h2 className="text-base font-bold text-gray-900">Club Convenors</h2>
@@ -504,10 +471,8 @@ export function TeamSphere() {
                 setIsViewTransitioning(true);
                 setTimeout(() => {
                   setMobileView(prev => {
-                    if (prev === 'directors') return 'managers';
-                    if (prev === 'managers') return 'core';
                     if (prev === 'core') return 'club';
-                    return 'directors';
+                    return 'core';
                   });
                   setTimeout(() => {
                     setIsViewTransitioning(false);
@@ -515,7 +480,7 @@ export function TeamSphere() {
                 }, 200);
               }}
               className="p-1 hover:bg-gray-100 rounded transition-colors"
-              aria-label="Toggle between Directors, Managers, Core and Club views"
+              aria-label="Toggle between Core and Club views"
             >
               <RefreshCw size={16} className="text-gray-600 refresh-icon" />
             </button>
@@ -523,75 +488,7 @@ export function TeamSphere() {
 
           {/* Content area with smooth transitions - Right aligned */}
           <div className="space-y-1 relative min-h-[200px] w-full">
-            {mobileView === 'directors' ? (
-              <div key="directors-view" className="view-content-enter">
-                {directors.map((director, index) => {
-                  const directorId = `mobile-director-${index}`;
-                  return (
-                    <div key={directorId} className="pagination-item-enter mb-3" style={{ animationDelay: `${index * 0.03}s` }}>
-                      <div
-                        className="text-gray-600 text-base cursor-pointer hover:text-gray-900 transition-colors flex items-center"
-                        onClick={() => {
-                          // Create a mock ImageData object for the modal
-                          const directorImageData = {
-                            id: directorId,
-                            src: director.image,
-                            alt: director.name,
-                            title: director.name,
-                            description: director.role
-                          };
-                          // Close any previously opened modal and open new one
-                          if (selectedConvenor?.id === directorImageData.id) {
-                            setSelectedConvenor(null);
-                          } else {
-                            setSelectedConvenor(directorImageData);
-                            // Close sphere modal when director is clicked
-                            setSelectedSphereImage(null);
-                          }
-                        }}
-                      >
-                        <span className="mr-2">⤷</span>
-                        <span>{director.role}</span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            ) : mobileView === 'managers' ? (
-              <div key="managers-view" className="view-content-enter">
-                {managers.map((manager, index) => {
-                  const managerId = `mobile-manager-${index}`;
-                  return (
-                    <div key={managerId} className="pagination-item-enter mb-3" style={{ animationDelay: `${index * 0.03}s` }}>
-                      <div
-                        className="text-gray-600 text-base cursor-pointer hover:text-gray-900 transition-colors flex items-center"
-                        onClick={() => {
-                          // Create a mock ImageData object for the modal
-                          const managerImageData = {
-                            id: managerId,
-                            src: manager.image,
-                            alt: manager.name,
-                            title: manager.name,
-                            description: manager.role
-                          };
-                          // Close any previously opened modal and open new one
-                          if (selectedConvenor?.id === managerImageData.id) {
-                            setSelectedConvenor(null);
-                          } else {
-                            setSelectedConvenor(managerImageData);
-                            // Close sphere modal when manager is clicked
-                            setSelectedSphereImage(null);
-                          }
-                        }}
-                      >
-                        <span className="mr-2">⤷</span>
-                        <span>{manager.role}</span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            ) : mobileView === 'club' ? (
+            {mobileView === 'club' ? (
               <div key="club-view" className="view-content-enter">
                 {clubConvenors
                   .slice(clubPage * itemsPerPage, (clubPage + 1) * itemsPerPage)
@@ -700,128 +597,10 @@ export function TeamSphere() {
         />
       </div>
 
-      {/* Directors, Managers, Core Team Convenors & Club Convenors - DESKTOP VIEW ONLY */}
+      {/* Core Team Convenors & Club Convenors - DESKTOP VIEW ONLY */}
       {/* Desktop: Fixed position on right side with hover preview */}
       {/* EDIT HERE: Adjust maxHeight values to change container size if needed */}
-      <div className="hidden md:flex fixed right-6 top-1/2 -translate-y-1/2 flex-row gap-12 max-w-2xl" style={{ maxHeight: 'calc(100vh - 4rem)' }}>
-        {/* Directors & Managers */}
-        <div className="flex flex-col">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4 flex-shrink-0">Directors</h2>
-          <div className="space-y-2 mb-10">
-            {directors.map((director, index) => {
-              const directorId = `director-${index}`;
-
-              const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-                const rect = e.currentTarget.getBoundingClientRect();
-                setPopupPosition({
-                  x: rect.left - 120, // Position to the left (96px image + 24px margin)
-                  y: rect.top + rect.height / 2
-                });
-                setHoveredConvenor(directorId);
-              };
-
-              const handleMouseLeave = () => {
-                setHoveredConvenor(null);
-                setPopupPosition(null);
-              };
-
-              return (
-                <div
-                  key={directorId}
-                  ref={(el) => {
-                    convenorRefs.current[directorId] = el;
-                  }}
-                  className="relative flex items-center min-h-[1.5rem]"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <div
-                    className="text-gray-600 text-base cursor-pointer hover:text-gray-900 transition-colors flex items-center"
-                    onClick={() => {
-                      // Create a mock ImageData object for the modal
-                      const directorImageData = {
-                        id: directorId,
-                        src: director.image,
-                        alt: director.name,
-                        title: director.name,
-                        description: director.role
-                      };
-                      // Close any previously opened modal and open new one
-                      if (selectedConvenor?.id === directorImageData.id) {
-                        setSelectedConvenor(null);
-                      } else {
-                        setSelectedConvenor(directorImageData);
-                        // Close sphere modal when director is clicked
-                        setSelectedSphereImage(null);
-                      }
-                    }}
-                  >
-                    <span className="mr-2">⤷</span>
-                    <span>{director.role}</span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          <h2 className="text-2xl font-bold text-gray-900 mb-4 ml-25 flex-shrink-0">Managers</h2>
-          <div className="space-y-2 ml-25">
-            {managers.map((manager, index) => {
-              const managerId = `manager-${index}`;
-
-              const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-                const rect = e.currentTarget.getBoundingClientRect();
-                setPopupPosition({
-                  x: rect.left - 120, // Position to the left (96px image + 24px margin)
-                  y: rect.top + rect.height / 2
-                });
-                setHoveredConvenor(managerId);
-              };
-
-              const handleMouseLeave = () => {
-                setHoveredConvenor(null);
-                setPopupPosition(null);
-              };
-
-              return (
-                <div
-                  key={managerId}
-                  ref={(el) => {
-                    convenorRefs.current[managerId] = el;
-                  }}
-                  className="relative flex items-center min-h-[1.5rem]"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <div
-                    className="text-gray-600 text-base cursor-pointer hover:text-gray-900 transition-colors flex items-center"
-                    onClick={() => {
-                      // Create a mock ImageData object for the modal
-                      const managerImageData = {
-                        id: managerId,
-                        src: manager.image,
-                        alt: manager.name,
-                        title: manager.name,
-                        description: manager.role
-                      };
-                      // Close any previously opened modal and open new one
-                      if (selectedConvenor?.id === managerImageData.id) {
-                        setSelectedConvenor(null);
-                      } else {
-                        setSelectedConvenor(managerImageData);
-                        // Close sphere modal when manager is clicked
-                        setSelectedSphereImage(null);
-                      }
-                    }}
-                  >
-                    <span className="mr-2">⤷</span>
-                    <span>{manager.role}</span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+      <div className="hidden md:flex absolute right-6 top-1/2 -translate-y-1/2 flex-row gap-12 max-w-2xl" style={{ maxHeight: 'calc(100vh - 4rem)' }}>
 
         {/* Core Team Convenors & Club Convenors */}
         <div className="flex flex-col gap-6">

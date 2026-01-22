@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Upload, Plus, Sparkles, Search, TrendingUp, X } from "lucide-react";
+import { Plus, Sparkles, Search, TrendingUp, X } from "lucide-react";
 import { ExploreFeed, Post } from "@/components/explore/explore-feed";
 import { UploadModal } from "@/components/explore/upload-modal";
 import { AIGeneratorModal } from "@/components/explore/ai-generator-modal";
@@ -37,7 +37,7 @@ export default function ExplorePage() {
   
   // Data State
   const [posts, setPosts] = useState<Post[]>([]);
-  const [totalPosts, setTotalPosts] = useState(0);
+  // const [totalPosts, setTotalPosts] = useState(0);
   const [trendingHashtags, setTrendingHashtags] = useState<TrendingHashtag[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
@@ -62,7 +62,7 @@ export default function ExplorePage() {
 
       if (postsData.success) {
         setPosts(postsData.posts);
-        setTotalPosts(postsData.total_count);
+        // setTotalPosts(postsData.total_count);
       }
 
       // Only fetch trending once or if needed
@@ -123,48 +123,88 @@ export default function ExplorePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-black text-neutral-900 dark:text-neutral-100 pt-20 pb-20">
+    <div className="min-h-screen bg-[#F5F5F7] text-neutral-900 pb-20 selection:bg-purple-200">
       
-      {/* Top Bar for Mobile / Desktop Filters */}
-      <div className="sticky top-20 z-40 bg-gray-50/80 dark:bg-black/80 backdrop-blur-md border-b border-gray-200 dark:border-neutral-800 px-4 py-3 mb-6">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-            {/* Search Bar */}
-            <form onSubmit={handleSearch} className="relative w-full md:w-96 group">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400 group-focus-within:text-purple-500 transition-colors" />
+      {/* Background Ambience */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-indigo-100/40 via-transparent to-transparent" />
+         <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-purple-100/40 via-transparent to-transparent" />
+      </div>
+
+      {/* Header Section */}
+      <div className="relative pt-32 pb-6 px-4 mb-4 flex flex-col items-center z-10">
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-10"
+        >
+            <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1, delay: 0.1 }}
+                className="mb-6 inline-block"
+            >
+                <span className="px-4 py-2 rounded-full border border-neutral-200 bg-white/50 backdrop-blur text-sm font-medium tracking-wide uppercase text-neutral-500 inline-flex items-center gap-2 shadow-sm">
+                    <Sparkles className="w-4 h-4 text-purple-500" />
+                    Discover More
+                </span>
+            </motion.div>
+
+             <h1 className="text-6xl md:text-8xl font-bold tracking-tighter text-neutral-900 mb-6">
+                Explore<span className="text-purple-500">.</span>
+            </h1>
+            <p className="text-xl text-neutral-500 font-light">
+                Discover the latest buzz, trends, and moments from Milan &apos;26
+            </p>
+        </motion.div>
+
+        {/* Search Bar */}
+        <div className="w-full max-w-2xl relative group z-20">
+             <div className="absolute inset-0 bg-gradient-to-r from-purple-200 to-blue-200 rounded-3xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity" />
+            <form onSubmit={handleSearch} className="relative flex items-center">
+                <Search className="absolute left-6 w-5 h-5 text-neutral-400 group-focus-within:text-purple-600 transition-colors" />
                 <input 
                     type="text" 
-                    placeholder="Search hashtags, events..." 
+                    placeholder="Search for hashtags, events, or people..." 
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-10 pr-10 py-2.5 rounded-full bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 outline-none transition-all text-sm"
+                    className="w-full pl-14 pr-12 py-5 rounded-3xl bg-white/70 backdrop-blur-xl border border-white/50 shadow-lg text-lg placeholder:text-neutral-400 focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/50 outline-none transition-all"
                 />
                 {searchQuery && (
-                    <button type="button" onClick={clearSearch} className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600">
-                        <X className="w-4 h-4" />
+                    <button type="button" onClick={clearSearch} className="absolute right-6 text-neutral-400 hover:text-neutral-600 transition-colors">
+                        <X className="w-5 h-5" />
                     </button>
                 )}
             </form>
+        </div>
 
-            {/* Trending Tags (Desktop) */}
-            <div className="hidden md:flex items-center gap-2 overflow-x-auto no-scrollbar">
-                <TrendingUp className="w-4 h-4 text-purple-500" />
-                {trendingHashtags.slice(0, 4).map(tag => (
-                    <button 
-                        key={tag.hashtag}
-                        onClick={() => { setSearchQuery(tag.hashtag); fetchPosts(tag.hashtag) }}
-                        className="px-3 py-1.5 rounded-full bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 text-xs hover:border-purple-500 hover:text-purple-500 transition-colors whitespace-nowrap"
-                    >
-                        #{tag.hashtag}
-                    </button>
-                ))}
-            </div>
-
-            {/* Mobile Trending Toggle */}
-             <button 
-                className="md:hidden self-start text-xs font-medium text-purple-500 flex items-center gap-1"
+        {/* Desktop Trending Tags */}
+        <div className="hidden md:flex items-center gap-3 mt-6">
+            <TrendingUp className="w-4 h-4 text-purple-500" />
+            <span className="text-sm font-medium text-neutral-500 mr-2">Trending:</span>
+            {trendingHashtags.slice(0, 4).map(tag => (
+                <button 
+                    key={tag.hashtag}
+                    onClick={() => { setSearchQuery(tag.hashtag); fetchPosts(tag.hashtag) }}
+                    className="px-3 py-1 bg-white/50 border border-neutral-200 rounded-full text-xs font-medium text-neutral-600 hover:bg-white hover:border-purple-300 hover:text-purple-600 transition-all"
+                >
+                    #{tag.hashtag}
+                </button>
+            ))}
+        </div>
+      </div>
+      
+      {/* Content Area */}
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
+        {/* Mobile Trending Toggle */}
+         <div className="md:hidden mb-6 flex justify-center">
+            <button 
+                className="inline-flex items-center gap-2 px-4 py-2 bg-white/50 rounded-full text-sm font-medium text-purple-600 border border-purple-100"
                 onClick={() => setMobileTrendingOpen(!mobileTrendingOpen)}
             >
-                <TrendingUp className="w-3 h-3" /> Trending
+                <TrendingUp className="w-4 h-4" /> 
+                <span>Trending Topics</span>
             </button>
         </div>
         

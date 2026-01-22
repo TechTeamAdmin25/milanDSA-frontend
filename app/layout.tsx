@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import localFont from "next/font/local"
 import "./globals.css"
 import { ConditionalLayout } from "@/components/conditional-layout"
+import { Footer } from "@/components/footer"
 
 const grotesk = localFont({
   src: [
@@ -28,6 +29,7 @@ export default function RootLayout({
       <body className="antialiased font-sans">
         <ConditionalLayout />
         {children}
+        <Footer />
       </body>
     </html>
   )

@@ -59,17 +59,17 @@ const velocity = [0.5, -0.5]
 
 export function GuestShowcase() {
   return (
-    <section className="relative w-full py-24 overflow-hidden bg-black text-white">
+    <section className="relative w-full py-24 overflow-hidden bg-white text-black">
       {/* Dynamic Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-neutral-800/50 via-neutral-950 to-neutral-950 -z-10" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-purple-50 via-white to-white -z-10" />
       
       <div className="w-full flex flex-col space-y-16">
         {/* Section Header */}
         <div className="text-center px-4">
-             <h2 className="text-3xl md:text-5xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-white to-neutral-500 mb-4">
+             <h2 className="text-3xl md:text-5xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-black to-neutral-600 mb-4">
                Past Speakers & Guests
              </h2>
-             <p className="text-neutral-400 max-w-2xl mx-auto">
+             <p className="text-neutral-600 max-w-2xl mx-auto">
                Inspiring minds that have graced our stages
              </p>
         </div>
@@ -81,8 +81,8 @@ export function GuestShowcase() {
 
         {/* Guest Cards - First Row (Left to Right) - Full Width */}
         <div className="w-full relative">
-          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
+          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
           
           <ScrollVelocity velocity={velocity[0]} className="py-4">
             {duplicatedGuests.map((guest, index) => (
@@ -109,8 +109,8 @@ export function GuestShowcase() {
 
         {/* Guest Cards - Second Row (Right to Left) - Full Width */}
         <div className="w-full relative">
-          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
+          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
 
           <ScrollVelocity velocity={velocity[1]} className="py-4">
             {duplicatedGuests.map((guest, index) => (

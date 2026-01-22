@@ -22,6 +22,8 @@ export function BentoGalleryGrid({ images, className }: BentoGalleryGridProps) {
   // 4: Wide (2x1)
   // 5: Small (1x1)
   // 6: Small (1x1)
+  // 5: Small (1x1)
+  // 6: Small (1x1)
   const getSpanClass = (index: number) => {
     const pattern = index % 7
     switch (pattern) {
@@ -35,6 +37,8 @@ export function BentoGalleryGrid({ images, className }: BentoGalleryGridProps) {
         return "col-span-1 row-span-1"
     }
   }
+
+  const isVideo = (src: string) => src.toLowerCase().endsWith('.mp4') || src.toLowerCase().endsWith('.webm');
 
   return (
     <>
@@ -57,13 +61,24 @@ export function BentoGalleryGrid({ images, className }: BentoGalleryGridProps) {
             transition={{ duration: 0.4, delay: idx * 0.05 }}
             onClick={() => setSelectedImage(src)}
           >
-            <Image
-              src={src}
-              alt={`Gallery image ${idx + 1}`}
-              fill
-              className="object-cover transition-transform duration-500 group-hover:scale-110"
-              sizes="(max-width: 768px) 50vw, 25vw"
-            />
+            {isVideo(src) ? (
+              <video
+                src={src}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                autoPlay
+                muted
+                loop
+                playsInline
+              />
+            ) : (
+              <Image
+                src={src}
+                alt={`Gallery image ${idx + 1}`}
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                sizes="(max-width: 768px) 50vw, 25vw"
+              />
+            )}
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
           </motion.div>
         ))}
@@ -82,13 +97,22 @@ export function BentoGalleryGrid({ images, className }: BentoGalleryGridProps) {
             <X className="h-8 w-8" />
           </button>
           <div className="relative w-full max-w-5xl h-[80vh]" onClick={e => e.stopPropagation()}>
-             <Image
-              src={selectedImage}
-              alt="Selected gallery image"
-              fill
-              className="object-contain"
-              priority
-            />
+             {isVideo(selectedImage) ? (
+                <video
+                  src={selectedImage}
+                  className="w-full h-full object-contain"
+                  controls
+                  autoPlay
+                />
+             ) : (
+                <Image
+                  src={selectedImage}
+                  alt="Selected gallery image"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+             )}
           </div>
         </div>
       )}

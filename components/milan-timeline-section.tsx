@@ -127,17 +127,18 @@ export function MilanTimelineSection() {
       <div className="absolute inset-0 flex justify-center pointer-events-none z-20">
         <svg
           width="600"
-          height="2000"
-          viewBox="0 0 600 2000"
+          height="3200"
+          viewBox="0 0 600 3200"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           className="opacity-80"
         >
           <motion.path
             d="M300 0
-               C 500 200, 100 400, 300 600
-               C 500 800, 100 1000, 300 1200
-               C 500 1400, 100 1600, 300 2000"
+               C 500 250, 100 550, 300 800
+               C 500 1050, 100 1350, 300 1600
+               C 500 1850, 100 2150, 300 2400
+               C 500 2650, 100 2950, 300 3200"
             stroke="url(#pulse)"
             strokeWidth="6"
             strokeLinecap="round"
@@ -145,7 +146,7 @@ export function MilanTimelineSection() {
             style={{ pathLength }}
           />
           <defs>
-            <linearGradient id="pulse" x1="0" y1="0" x2="0" y2="2000">
+            <linearGradient id="pulse" x1="0" y1="0" x2="0" y2="3200">
               <stop offset="0%" stopColor="#ffffff" />
               <stop offset="50%" stopColor="#a855f7" />
               <stop offset="100%" stopColor="#ffffff" />
@@ -176,7 +177,7 @@ export function MilanTimelineSection() {
                     </h3>
                     <div className={`h-1 w-24 bg-purple-500 rounded-full ${left ? 'ml-auto' : ''}`} />
                     <ul className="space-y-4">
-                    {item.facts.map((f, i) => (
+                    {item.facts.map((f) => (
                         <li key={f} className="text-lg md:text-xl text-neutral-300 font-light tracking-wide flex items-center gap-3">
                             {!left && <span className="h-1.5 w-1.5 rounded-full bg-purple-500" />}
                             {f}

@@ -20,7 +20,7 @@ interface TimelineProps {
   description?: string;
 }
 
-export const Timeline = ({ data, onActiveIndexChange, heading, description }: TimelineProps) => {
+export const Timeline = ({ data, onActiveIndexChange, heading, description, className }: TimelineProps & { className?: string }) => {
   const ref = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(0);
@@ -69,7 +69,7 @@ export const Timeline = ({ data, onActiveIndexChange, heading, description }: Ti
 
   return (
     <div
-      className="w-full bg-white dark:bg-neutral-950 font-sans md:px-10"
+      className={`w-full font-sans md:px-10 ${className || 'bg-white dark:bg-neutral-950'}`}
       ref={containerRef}
     >
       <div className="max-w-7xl mx-auto py-20 px-4 md:px-8 lg:px-10">
@@ -85,9 +85,9 @@ export const Timeline = ({ data, onActiveIndexChange, heading, description }: Ti
         {data.map((item, index) => (
           <div
             key={index}
-            className="relative pt- md:pt-80 min-h-[20vh] md:min-h-[120vh]"
+            className="relative pt-10 md:pt-20 min-h-[40vh] md:min-h-[60vh]"
           >
-            <div className="sticky top-75 z-40 flex flex-col md:flex-row gap-4 md:gap-10 items-start">
+            <div className="sticky top-40 z-40 flex flex-col md:flex-row gap-4 md:gap-10 items-start">
               {/* Timeline dot and title section */}
               <div className="flex items-start gap-4 md:gap-0 flex-shrink-0">
                 <div className="relative flex-shrink-0 w-10 h-10 flex items-center justify-center">
@@ -99,16 +99,16 @@ export const Timeline = ({ data, onActiveIndexChange, heading, description }: Ti
                     }`} />
                   </div>
                 </div>
-                <h3 className="md:hidden text-2xl font-bold text-black dark:text-black pt-1">
+                <h3 className="md:hidden text-2xl font-bold text-neutral-500 dark:text-neutral-500 pt-1">
                   {item.title}
                 </h3>
-                <h3 className="hidden md:block text-xl md:pl-20 md:text-5xl font-bold text-black dark:text-black md:pt-0">
+                <h3 className="hidden md:block text-xl md:pl-20 md:text-5xl font-bold text-neutral-500 dark:text-neutral-500 md:pt-0">
                   {item.title}
                 </h3>
               </div>
 
               {/* Content section - also sticky */}
-              <div className="flex-1 pl-15 md:pl-4 py-8 md:py-0 md:-mt-1 md:flex md:items-start">
+              <div className="flex-1 pl-15 md:pl-4 py-4 md:py-0 md:-mt-1 md:flex md:items-start">
                 <div className="w-full">
                   {item.content}
                 </div>

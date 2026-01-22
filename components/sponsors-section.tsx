@@ -1,8 +1,8 @@
 "use client";
 
-import { ReactNode } from "react";
+
 import { motion } from "framer-motion";
-import { Sparkles, Zap, Star, Globe, Award, Heart } from "lucide-react";
+import { Sparkles, Zap, Star, Globe, Heart } from "lucide-react";
 
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 import { ScrollVelocity } from "@/components/ui/scroll-velocity";
@@ -72,42 +72,63 @@ const GOLD_SPONSORS = [
 
 export function SponsorsSection() {
   return (
-    <main className="min-h-screen w-full bg-gradient-to-br from-gray-50 to-gray-100 dark:from-neutral-950 dark:to-neutral-900 text-neutral-900 dark:text-white overflow-x-hidden pt-24 pb-20">
+    <main className="min-h-screen w-full bg-[#F5F5F7] text-neutral-900 overflow-x-hidden selection:bg-purple-200">
+      
+      {/* Background Ambience */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-blue-100/40 via-transparent to-transparent" />
+         <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-purple-100/40 via-transparent to-transparent" />
+      </div>
+
       {/* Hero Header */}
-      <section className="relative px-6 py-20 md:py-32 flex flex-col items-center justify-center text-center">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-200/40 via-transparent to-transparent dark:from-neutral-800/40 dark:via-transparent dark:to-transparent -z-10" />
-        
+      <section className="relative min-h-[85vh] flex flex-col items-center justify-center px-6 text-center z-10 bg-neutral-950 w-full overflow-hidden">
+         {/* Abstract Glower */}
+         <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-purple-600/20 rounded-full blur-[100px] pointer-events-none" />
+         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-600/20 rounded-full blur-[100px] pointer-events-none" />
+
         <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1 }}
+          className="mb-8 relative z-10"
+        >
+           <span className="px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur text-sm font-medium tracking-wide uppercase text-neutral-300">
+             Official Partners
+           </span>
+        </motion.div>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-6xl md:text-8xl font-bold tracking-tighter text-white mb-8 relative z-10"
+        >
+           Our Sponsors<span className="text-blue-500">.</span>
+        </motion.h1>
+        
+        <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="max-w-4xl"
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="max-w-2xl mx-auto text-xl text-neutral-400 font-light leading-relaxed relative z-10"
         >
-          <div className="mb-6 flex items-center justify-center gap-2 text-sm font-medium tracking-widest text-neutral-500 dark:text-neutral-400 uppercase">
-            <Award className="h-4 w-4 text-yellow-500" />
-            <span>Official Partners</span>
-          </div>
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-neutral-900 to-neutral-600 dark:from-white dark:to-white/60 mb-8">
-            Our Sponsors
-          </h1>
-          <p className="text-lg md:text-xl text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed">
-            MILAN is powered each year by collaborations with leading brands that enhance the festival experience. In 2025, Blinkit partnered with MILAN as a key sponsor, offering greater convenience, visibility, and engagement.
-          </p>
-        </motion.div>
+          Powering the festival experience through strategic collaborations. <br className="hidden md:block" />
+          Meet the brands that make MILAN 2026 possible.
+        </motion.p>
       </section>
 
       {/* Marquee Section */}
-      <section className="py-12 border-y border-neutral-200 dark:border-white/5 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm">
-        <ScrollVelocity velocity={3} className="text-neutral-800 dark:text-neutral-200 opacity-80 hover:opacity-100 transition-opacity">
+      <section className="py-12 bg-neutral-950 rounded-b-[3rem] shadow-xl relative z-10 mb-12">
+        <ScrollVelocity velocity={1} className="text-neutral-400 font-medium opacity-60 hover:opacity-100 transition-opacity">
           PAST SPONSORS • BLINKIT • RED BULL • COKE STUDIO • SPOTIFY • AMAZON • GOOGLE • 
         </ScrollVelocity>
       </section>
 
-      {/* Title Sponsors Grid */}
-      <section className="px-6 py-24 max-w-7xl mx-auto">
-        <div className="mb-16 text-center">
-          <h2 className="text-3xl font-bold mb-4 text-neutral-900 dark:text-white">Title Sponsors</h2>
-          <div className="h-1 w-20 bg-gradient-to-r from-indigo-500 to-purple-500 mx-auto rounded-full" />
+      {/* Title Sponsors Grid (Light) */}
+      <section className="px-6 py-24 max-w-7xl mx-auto relative z-10">
+        <div className="mb-16 flex items-center justify-between">
+           <h2 className="text-3xl font-bold text-neutral-900">Title Sponsors</h2>
+           <div className="hidden md:block h-px flex-1 bg-neutral-200 ml-8" />
         </div>
         
         <BentoGrid className="lg:auto-rows-[20rem]">
@@ -117,11 +138,11 @@ export function SponsorsSection() {
         </BentoGrid>
       </section>
 
-      {/* Gold Sponsors Grid */}
-      <section className="px-6 py-12 max-w-7xl mx-auto">
-        <div className="mb-16 text-center">
-          <h2 className="text-3xl font-bold mb-4 text-neutral-900 dark:text-white">Associate Sponsors</h2>
-          <div className="h-1 w-20 bg-gradient-to-r from-yellow-500 to-orange-500 mx-auto rounded-full" />
+      {/* Associate Sponsors Grid (Light) */}
+      <section className="px-6 py-12 max-w-7xl mx-auto relative z-10">
+        <div className="mb-16 flex items-center justify-between">
+           <h2 className="text-3xl font-bold text-neutral-900">Associate Sponsors</h2>
+           <div className="hidden md:block h-px flex-1 bg-neutral-200 ml-8" />
         </div>
 
         <BentoGrid className="lg:auto-rows-[16rem]">
@@ -131,16 +152,16 @@ export function SponsorsSection() {
         </BentoGrid>
       </section>
 
-      {/* CTA Section */}
-      <section className="px-6 py-32 text-center">
-        <div className="max-w-3xl mx-auto bg-white dark:bg-neutral-800 rounded-3xl p-12 shadow-xl border border-neutral-100 dark:border-white/10">
-          <h3 className="text-3xl md:text-4xl font-bold mb-6 text-neutral-900 dark:text-white">Interested in sponsoring?</h3>
-          <p className="text-neutral-600 dark:text-neutral-300 mb-10 text-lg">
+      {/* CTA Section (Light) */}
+      <section className="px-6 py-32 text-center relative z-10 bg-[#F5F5F7]">
+        <div className="max-w-3xl mx-auto bg-white/60 backdrop-blur-xl rounded-[2.5rem] p-12 shadow-2xl border border-white/20">
+          <h3 className="text-3xl md:text-4xl font-bold mb-6 text-neutral-900">Partner With Us</h3>
+          <p className="text-neutral-500 mb-10 text-lg leading-relaxed">
             Connect with over 50,000 students and showcase your brand at one of India&apos;s largest cultural festivals.
           </p>
           <a
             href="mailto:sponsorship@milan.srm"
-            className="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white bg-black dark:bg-white dark:text-black transition-all duration-200 rounded-full hover:scale-105 hover:bg-neutral-800 dark:hover:bg-neutral-200"
+            className="inline-flex items-center justify-center px-10 py-5 text-base font-semibold text-white bg-neutral-900 rounded-full hover:scale-105 hover:bg-black transition-all duration-300 shadow-xl"
           >
             Become a Sponsor
           </a>
