@@ -3,18 +3,18 @@
 import React from 'react'
 import Image from "next/image"
 import { motion } from "framer-motion"
-import { Ticket, Sparkles, ArrowRight } from "lucide-react"
+import { Ticket as PassIcon, Sparkles, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-export default function Tickets() {
+export default function Passes() {
   return (
     <main className="relative min-h-screen bg-neutral-950 text-white overflow-hidden">
       
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/BackgroundImages/TicketBackgroundImage.png"
-          alt="Ticket Background"
+          src="/BackgroundImages/PassBackgroundImage.png"
+          alt="Pass Background"
           fill
           className="object-cover opacity-60"
           priority
@@ -44,7 +44,7 @@ export default function Tickets() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-sm font-medium text-purple-200 mb-4"
           >
             <Sparkles size={16} className="text-yellow-400" />
-            <span>Limited Early Bird Tickets Available</span>
+            <span>Limited Early Bird Passes Available</span>
           </motion.div>
 
           {/* Main Title */}
@@ -71,8 +71,8 @@ export default function Tickets() {
               size="lg" 
               className="group relative px-8 py-8 text-xl bg-white text-black hover:bg-neutral-200 rounded-full transition-all duration-300 shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_-10px_rgba(255,255,255,0.5)] border-2 border-transparent"
             >
-              <Ticket className="mr-3 h-6 w-6 group-hover:rotate-12 transition-transform duration-300" />
-              Get Your Tickets
+              <PassIcon className="mr-3 h-6 w-6 group-hover:rotate-12 transition-transform duration-300" />
+              Get Your Passes
               <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
             

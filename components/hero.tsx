@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import Image from "next/image"
-import { ArrowRight, GalleryHorizontal } from "lucide-react"
+import { Ticket } from "lucide-react"
 
 export function Hero() {
   return (
@@ -36,7 +36,7 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="mb-6 inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-1.5 backdrop-blur-md"
         >
-          <span className="text-xs font-medium tracking-widest text-neutral-200 uppercase">
+          <span className="text-sm md:text-base font-bold tracking-widest text-neutral-200 uppercase">
             Directorate of Student Affairs
           </span>
         </motion.div>
@@ -60,7 +60,7 @@ export function Hero() {
         >
              <p className="text-lg md:text-xl text-neutral-300 leading-relaxed font-light max-w-2xl mx-auto">
                 The iconic national-level cultural festival of <span className="text-purple-300 font-medium">SRM IST</span>. 
-                A four-day extravaganza where <span className="text-white font-medium">creativity meets community spirit</span>, uniting talent from across India.
+                A four-day extravaganza where <span className="text-white font-medium">creativity meets community spirit</span>, uniting talent from across India. <br/><span className="text-purple-200 font-semibold block mt-4 text-xl">Starting from 19th Feb 2026</span>
             </p>
         </motion.div>
 
@@ -72,20 +72,19 @@ export function Hero() {
           className="mt-12 flex flex-col sm:flex-row gap-4 sm:gap-6"
         >
           <a
-            href="/events"
-            className="group relative inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-base font-bold text-black transition-all hover:scale-105 hover:bg-neutral-100 active:scale-95"
+            href="/passes"
+            className="group relative inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-base font-bold text-black transition-all hover:scale-105 hover:bg-neutral-100 active:scale-95 w-56"
           >
-            Explore Events
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            Get Passes
+            <Ticket className="h-4 w-4 transition-transform group-hover:rotate-12" />
             <div className="absolute inset-0 -z-10 rounded-full bg-white blur-xl opacity-0 transition-opacity group-hover:opacity-30" />
           </a>
 
           <a
-            href="/gallery"
-            className="group inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white/5 px-8 py-4 text-base font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/50 hover:scale-105 active:scale-95"
+            href="/events"
+            className="group inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white/5 px-8 py-4 text-base font-bold text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/50 hover:scale-105 active:scale-95 w-56"
           >
-            <GalleryHorizontal className="h-4 w-4" />
-            View Gallery
+            Explore Events
           </a>
         </motion.div>
       </div>

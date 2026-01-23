@@ -4,7 +4,7 @@ import React from 'react'
 import GlassSurface, { GlassSurfaceProps } from '@/components/GlassSurface'
 
 interface MilanGlassSurfaceProps extends Omit<GlassSurfaceProps, 'mixBlendMode'> {
-  variant?: 'default' | 'ticket' | 'card' | 'hero' | 'interactive'
+  variant?: 'default' | 'pass' | 'card' | 'hero' | 'interactive'
   festivalAccent?: boolean
 }
 
@@ -16,7 +16,7 @@ const variantConfigs = {
     borderRadius: 20,
     mixBlendMode: 'difference' as const,
   },
-  ticket: {
+  pass: {
     opacity: 0.95,
     blur: 12,
     brightness: 60,
