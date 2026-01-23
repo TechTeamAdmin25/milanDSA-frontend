@@ -1,5 +1,10 @@
-import { TeamSphere } from "@/components/team-sphere"
+import TeamClient from "./TeamClient";
 
-export default function Team() {
-  return <TeamSphere />
+export const metadata = {
+  title: "Our Team",
+  description: "Meet the team behind the event",
+};
+
+export default function TeamPage() {
+  return <TeamClient />;
 }

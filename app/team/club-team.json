@@ -1,0 +1,390 @@
+{
+  "MAD": {
+    "label": "Movies and Dramatics",
+    "members": [
+      {
+        "code": "MAD1",
+        "name": "Akanksha Pandey",
+        "position": "Convenor",
+        "image": "/Teams/MAD/MAD1.jpg"
+      },
+      {
+        "code": "MAD2",
+        "name": "Rohan Soni",
+        "position": "Convenor",
+        "image": "/Teams/MAD/MAD2.jpg"
+      },
+      {
+        "code": "MAD3",
+        "name": "Adriyan Roy",
+        "position": "Convenor",
+        "image": "/Teams/MAD/MAD3.jpg"
+      },
+      {
+        "code": "MAD4",
+        "name": "Gayathrisri G",
+        "position": "Convenor",
+        "image": "/Teams/MAD/MAD4.jpg"
+      },
+      {
+        "code": "MAD5",
+        "name": "Dhanushwaran",
+        "position": "Convenor",
+        "image": "/Teams/MAD/MAD5.jpg"
+      }
+    ]
+  },
+  "SO": {
+    "label": "Social",
+    "members": [
+      {
+        "code": "SO1",
+        "name": "B Shiv Karthikeyan",
+        "position": "Convenor",
+        "image": "/Teams/SO/SO1.jpg"
+      },
+      {
+        "code": "SO2",
+        "name": "Umasankari.S",
+        "position": "Convenor",
+        "image": "/Teams/SO/SO2.jpg"
+      }
+    ]
+  },
+  "CA": {
+    "label": "Creative arts",
+    "members": [
+      {
+        "code": "CA1",
+        "name": "Sarshini Sree K.G",
+        "position": "Convenor",
+        "image": "/Teams/CA/CA1.jpg"
+      },
+      {
+        "code": "CA2",
+        "name": "Isra Ahsan",
+        "position": "Convenor",
+        "image": "/Teams/CA/CA2.jpg"
+      },
+      {
+        "code": "CA3",
+        "name": "R. Sasikumar",
+        "position": "Convenor",
+        "image": "/Teams/CA/CA3.jpg"
+      },
+      {
+        "code": "CA4",
+        "name": "Madhav Narayanan",
+        "position": "Convenor",
+        "image": "/Teams/CA/CA4.jpg"
+      },
+      {
+        "code": "CA5",
+        "name": "Nivedhitha K",
+        "position": "Convenor",
+        "image": "/Teams/CA/CA5.jpg"
+      },
+      {
+        "code": "CA6",
+        "name": "Gurpavit Kaur Bhatia",
+        "position": "Convenor",
+        "image": "/Teams/CA/CA6.jpg"
+      }
+    ]
+  },
+  "G": {
+    "label": "Gaming",
+    "members": [
+      {
+        "code": "G1",
+        "name": "Jishnu R",
+        "position": "Convenor",
+        "image": "/Teams/G/G1.jpg"
+      },
+      {
+        "code": "G2",
+        "name": "Aryan Baranwal",
+        "position": "Convenor",
+        "image": "/Teams/G/G2.jpg"
+      }
+    ]
+  },
+  "LIT": {
+    "label": "Literary",
+    "members": [
+      {
+        "code": "LIT1",
+        "name": "Anuj Tiwari",
+        "position": "Convenor",
+        "image": "/Teams/LIT/LIT1.jpg"
+      },
+      {
+        "code": "LIT2",
+        "name": "Harsh Tiwari",
+        "position": "Convenor",
+        "image": "/Teams/LIT/LIT2.jpg"
+      },
+      {
+        "code": "LIT3",
+        "name": "S. Vaishnavi",
+        "position": "Convenor",
+        "image": "/Teams/LIT/LIT3.jpg"
+      }
+    ]
+  },
+  "FA": {
+    "label": "Fashion",
+    "members": [
+      {
+        "code": "FA1",
+        "name": "Somil Nayak",
+        "position": "Convenor",
+        "image": "/Teams/FA/FA1.jpg"
+      },
+      {
+        "code": "FA2",
+        "name": "Haider Shah",
+        "position": "Convenor",
+        "image": "/Teams/FA/FA2.jpg"
+      },
+      {
+        "code": "FA3",
+        "name": "Ganesh Aravinth S",
+        "position": "Convenor",
+        "image": "/Teams/FA/FA3.jpg"
+      },
+      {
+        "code": "FA4",
+        "name": "Elavarasan V",
+        "position": "Convenor",
+        "image": "/Teams/FA/FA4.jpg"
+      },
+      {
+        "code": "FA5",
+        "name": "Tharun M A",
+        "position": "Convenor",
+        "image": "/Teams/FA/FA5.jpg"
+      },
+      {
+        "code": "FA6",
+        "name": "Akshayabalaji",
+        "position": "Convenor",
+        "image": "/Teams/FA/FA6.jpg"
+      },
+      {
+        "code": "FA7",
+        "name": "Megha Dua",
+        "position": "Convenor",
+        "image": "/Teams/FA/FA7.jpg"
+      }
+    ]
+  },
+  "FS": {
+    "label": "Festival",
+    "members": [
+      {
+        "code": "FS1",
+        "name": "Tanmay Bhosale",
+        "position": "Convenor",
+        "image": "/Teams/FS/FS1.jpg"
+      },
+      {
+        "code": "FS2",
+        "name": "Aditya Rajendra More",
+        "position": "Convenor",
+        "image": "/Teams/FS/FS2.jpg"
+      },
+      {
+        "code": "FS3",
+        "name": "Sahil Waghmare",
+        "position": "Convenor",
+        "image": "/Teams/FS/FS3.jpg"
+      },
+      {
+        "code": "FS4",
+        "name": "Thakshak N",
+        "position": "Convenor",
+        "image": "/Teams/FS/FS4.jpg"
+      },
+      {
+        "code": "FS5",
+        "name": "Saksham Pathak",
+        "position": "Convenor",
+        "image": "/Teams/FS/FS5.jpg"
+      },
+      {
+        "code": "FS6",
+        "name": "Rahul Bhagat",
+        "position": "Convenor",
+        "image": "/Teams/FS/FS6.jpg"
+      }
+    ]
+  },
+  "AS": {
+    "label": "Astrophilia",
+    "members": [
+      {
+        "code": "AS1",
+        "name": "Jheel Jain",
+        "position": "Convenor",
+        "image": "/Teams/AS/AS1.jpg"
+      },
+      {
+        "code": "AS2",
+        "name": "Adway Chakraborty",
+        "position": "Convenor",
+        "image": "/Teams/AS/AS2.jpg"
+      }
+    ]
+  },
+  "DA": {
+    "label": "Dance",
+    "members": [
+      {
+        "code": "DA1",
+        "name": "Amal Xavier",
+        "position": "Convenor",
+        "image": "/Teams/DA/DA1.jpg"
+      },
+      {
+        "code": "DA2",
+        "name": "Adrija Saha",
+        "position": "Convenor",
+        "image": "/Teams/DA/DA2.jpg"
+      },
+      {
+        "code": "DA3",
+        "name": "Nivaythi Sunil",
+        "position": "Convenor",
+        "image": "/Teams/DA/DA3.jpg"
+      },
+      {
+        "code": "DA4",
+        "name": "K. Guhan",
+        "position": "Convenor",
+        "image": "/Teams/DA/DA4.jpg"
+      },
+      {
+        "code": "DA5",
+        "name": "Arpitha Vasudevan",
+        "position": "Convenor",
+        "image": "/Teams/DA/DA5.jpg"
+      },
+      {
+        "code": "DA6",
+        "name": "Jaiwin Singh Gaur",
+        "position": "Convenor",
+        "image": "/Teams/DA/DA6.jpg"
+      }
+    ]
+  },
+  "MU": {
+    "label": "Music",
+    "members": [
+      {
+        "code": "MU1",
+        "name": "Mani Anurag T",
+        "position": "Convenor",
+        "image": "/Teams/MU/MU1.jpg"
+      },
+      {
+        "code": "MU2",
+        "name": "Avinandan Chakraborty",
+        "position": "Convenor",
+        "image": "/Teams/MU/MU2.jpg"
+      },
+      {
+        "code": "MU3",
+        "name": "Tejas Kumar",
+        "position": "Convenor",
+        "image": "/Teams/MU/MU3.jpg"
+      }
+    ]
+  },
+  "WE": {
+    "label": "Women Empowerment",
+    "members": [
+      {
+        "code": "WE1",
+        "name": "Nandana Shaji",
+        "position": "Convenor",
+        "image": "/Teams/WE/WE1.jpg"
+      }
+    ]
+  },
+  "Q": {
+    "label": "Quiz",
+    "members": [
+      {
+        "code": "Q1",
+        "name": "Mitthilesh D",
+        "position": "Convenor",
+        "image": "/Teams/Q/Q1.jpg"
+      },
+      {
+        "code": "Q2",
+        "name": "Pranav S K",
+        "position": "Convenor",
+        "image": "/Teams/Q/Q2.jpg"
+      },
+      {
+        "code": "Q3",
+        "name": "Adi Amartya Shankar",
+        "position": "Convenor",
+        "image": "/Teams/Q/Q3.jpg"
+      }
+    ]
+  },
+  "RO": {
+    "label": "Rotaract",
+    "members": [
+      {
+        "code": "RO1",
+        "name": "Sharagesh R",
+        "position": "Convenor",
+        "image": "/Teams/RO/RO1.jpg"
+      },
+      {
+        "code": "RO2",
+        "name": "P Siva Murugan",
+        "position": "Convenor",
+        "image": "/Teams/RO/RO2.jpg"
+      },
+      {
+        "code": "RO3",
+        "name": "Saranya Arumugam",
+        "position": "Convenor",
+        "image": "/Teams/RO/RO3.jpg"
+      },
+      {
+        "code": "RO4",
+        "name": "Sabesh S",
+        "position": "Convenor",
+        "image": "/Teams/RO/RO4.jpg"
+      }
+    ]
+  },
+  "SD": {
+    "label": "Self defence",
+    "members": [
+      {
+        "code": "SD1",
+        "name": "Krish Shah",
+        "position": "Convenor",
+        "image": "/Teams/SD/SD1.jpg"
+      },
+      {
+        "code": "SD2",
+        "name": "Arijeet Pratap Singh",
+        "position": "Convenor",
+        "image": "/Teams/SD/SD2.jpg"
+      },
+      {
+        "code": "SD3",
+        "name": "Arindam Chattaraj",
+        "position": "Convenor",
+        "image": "/Teams/SD/SD3.jpg"
+      }
+    ]
+  }
+}
