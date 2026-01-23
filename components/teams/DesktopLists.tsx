@@ -32,28 +32,35 @@ interface Props {
 
 // 🔥 MAP: UI Sidebar Name -> JSON Label Name
 const LABEL_MAP: Record<string, string> = {
-  // Core Mismatches
+  // CORE
   "Operations & Resources": "Operations and Resource Management",
-  "Tech Team": "Tech Team and GD",
-  "Publicity & Social Media": "Publicity", // Maps to 'P' key
+  "Publicity & Social Media": "Publicity",
+  "Public Relations": "Public Relations",
+  Media: "Media",
+  EMCEE: "EMCEE",
+  Hospitality: "Hospitality",
+  Sponsorship: "Sponsorship",
+  Content: "Content",
   "Transport & Acc": "Transportation and Accommodation",
+  "Tech Team and GD": "Tech and Graphic Design",
   "Certificate & Prizes": "Certificate and Prize Distribution",
+  Treasurer: "Treasurer",
+  Discipline: "Discipline",
 
-  // Club Mismatches (Removing ' Club' suffix)
+  // CLUBS
   "Music Club": "Music",
   "Dance Club": "Dance",
-  "Astrophilia Club": "Astrophilia",
-  "Sports Club": "Sports", // Ensure JSON has this Label
+  "Astrophillia Club": "Astrophillia",
   "Quiz Club": "Quiz",
-  "Creative Arts Club": "Creative arts", // JSON uses lowercase 'arts'
+  "Creative Arts Club": "Creative Arts",
   "Gaming Club": "Gaming",
-  "Self Defence Club": "Self defence", // JSON uses lowercase 'defence'
+  "Self Defence Club": "Self Defence",
   "Fashion Club": "Fashion",
   "Movie & Dramatics Club": "Movies and Dramatics",
-  "Rubiks Cube Club": "Rubiks Cube",
-  "Social Club": "Social",
   "Literary Club": "Literary",
   "Rotaract Club": "Rotaract",
+  "Women Empowerment Club": "Women Empowerment",
+  "Festival Club": "Festival",
 };
 
 export default function DesktopLists({

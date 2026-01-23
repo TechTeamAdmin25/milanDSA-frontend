@@ -7,6 +7,7 @@ type Member = {
   code: string;
   name: string;
   position: string;
+  image?: string;
 };
 
 type TeamBlock = {
@@ -17,10 +18,10 @@ type TeamBlock = {
 type TeamJSON = Record<string, TeamBlock>;
 
 // --- CONFIG ---
-const TEAM_JSON_PATHS = ["app/team/club-team.json", "app/team/core-team.json"];
+// We will check multiple possible locations for the files
+const FILE_NAMES = ["club-team.json", "core-team.json"];
 
 // 🔥 CRITICAL: Exact Mapping from JSON Key -> Folder Name
-// verified against your screenshot "Screenshot 2026-01-23 084309.png"
 const KEY_TO_FOLDER: Record<string, string> = {
   // --- CLUBS ---
   MAD: "MOVIES AND DRAMATICS",
@@ -30,16 +31,16 @@ const KEY_TO_FOLDER: Record<string, string> = {
   LIT: "LITERARY",
   FA: "FASHION",
   FS: "FESTIVAL",
-  AS: "ASTROPHILLIA", // Matches folder spelling
+  AS: "ASTROPHILLIA", // User specific spelling
   DA: "DANCE",
   MU: "MUSIC",
   WE: "WOMEN EMPOWERMENT",
   Q: "QUIZ",
-  RO: "ROTRACT", // Matches folder spelling
+  RO: "ROTRACT",
   SD: "SELF DEFENCE",
 
   // --- CORE ---
-  ORM: "OPERATIONS & RESOURCE MANAGEMENT", // Special char & handled below
+  ORM: "OPERATIONS & RESOURCE MANAGEMENT",
   P: "PUBLICITY",
   PR: "PUBLIC RELATIONS",
   M: "MEDIA",
@@ -47,45 +48,59 @@ const KEY_TO_FOLDER: Record<string, string> = {
   H: "HOSPITALITY",
   S: "SPONSORSHIP",
   C: "CONTENT",
-  TA: "TRANSPORT AND ACCODAMATION", // Matches folder spelling
-  TG: "TECH AND GRAPHICS", // Fixed from "TECH TEAM AND GD"
+  TA: "TRANSPORT AND ACCODAMATION", // User specific spelling
+  TG: "TECH AND GRAPHICS",
   CP: "CERTIFICATES AND PRIZE DISTRIBUTION",
   TR: "TREASURER",
+  DS: "DISCIPLINE",
 };
 
 export async function GET() {
   const mergedResult: TeamJSON = {};
+  const cwd = process.cwd();
 
-  for (const jsonPath of TEAM_JSON_PATHS) {
+  for (const fileName of FILE_NAMES) {
     try {
-      const absolutePath = path.join(process.cwd(), jsonPath);
-      // Check if file exists before reading
-      try {
-        await fs.access(absolutePath);
-      } catch {
-        console.warn(`⚠️ Warning: JSON file not found at ${absolutePath}`);
+      // Try to find the file in common locations
+      // 1. app/team/filename
+      // 2. src/app/team/filename
+      const possiblePaths = [
+        path.join(cwd, "app", "team", fileName),
+        path.join(cwd, "src", "app", "team", fileName),
+      ];
+
+      let fileContent = "";
+      let foundPath = "";
+
+      for (const p of possiblePaths) {
+        try {
+          await fs.access(p);
+          fileContent = await fs.readFile(p, "utf-8");
+          foundPath = p;
+          break; // Found it!
+        } catch {
+          // Continue to next path
+        }
+      }
+
+      if (!foundPath) {
+        console.warn(
+          `⚠️ Warning: Could not find ${fileName} in expected paths.`,
+        );
         continue;
       }
 
-      const raw = await fs.readFile(absolutePath, "utf-8");
-      const data: TeamJSON = JSON.parse(raw);
+      const data: TeamJSON = JSON.parse(fileContent);
 
       for (const [teamKey, teamData] of Object.entries(data)) {
         // 1. LOOKUP FOLDER NAME
-        // If key is "H", this returns "HOSPITALITY"
         let folderName = KEY_TO_FOLDER[teamKey];
 
-        // Debugging: If mapping is missing, log it!
         if (!folderName) {
-          console.warn(
-            `⚠️ Missing Folder Mapping for key: "${teamKey}". Using key as folder name.`,
-          );
-          folderName = teamKey;
+          folderName = teamKey; // Fallback
         }
 
         // 2. URL ENCODING
-        // Handles spaces and '&' symbols automatically
-        // "OPERATIONS & RESOURCE MANAGEMENT" -> "OPERATIONS%20%26%20RESOURCE%20MANAGEMENT"
         const encodedFolder = encodeURIComponent(folderName);
 
         mergedResult[teamKey] = {
@@ -98,7 +113,7 @@ export async function GET() {
         };
       }
     } catch (error) {
-      console.error(`❌ Error processing ${jsonPath}:`, error);
+      console.error(`❌ Error processing ${fileName}:`, error);
     }
   }
 

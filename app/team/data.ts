@@ -109,21 +109,22 @@ export const CORE_TEAM_ROLES = [
   "Certificate & Prizes",
   "Sponsorship",
   "Treasurer",
+  "Discipline",
 ];
 
 export const CLUB_CONVENORS = [
   "Music Club",
   "Dance Club",
-  "Astrophilia Club",
-  "Sports Club",
+  "Astrophillia Club",
   "Quiz Club",
   "Creative Arts Club",
   "Gaming Club",
   "Self Defence Club",
   "Fashion Club",
+  "Women Empowerment Club",
   "Movie & Dramatics Club",
-  "Rubiks Cube Club",
   "Social Club",
   "Literary Club",
   "Rotaract Club",
+  "Festival Club",
 ];

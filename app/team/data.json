@@ -1,0 +1,1259 @@
+{
+  "ORM": {
+    "label": "Operations and Resource Management",
+    "members": [
+      {
+        "code": "ORM1",
+        "name": "Abishek D",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/ORM1.jpg"
+      },
+      {
+        "code": "ORM2",
+        "name": "Bugata Chanakya Sri Vinayaka",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/ORM2.jpg"
+      },
+      {
+        "code": "ORM3",
+        "name": "NandhaKumar R",
+        "position": "Convenor",
+        "image": "/Teams/Core/ORM3.jpg"
+      },
+      {
+        "code": "ORM4",
+        "name": "Naveen Kumar S",
+        "position": "Convenor",
+        "image": "/Teams/Core/ORM4.jpg"
+      },
+      {
+        "code": "ORM5",
+        "name": "M.Mohammed Irfan",
+        "position": "Convenor",
+        "image": "/Teams/Core/ORM5.jpg"
+      },
+      {
+        "code": "ORM6",
+        "name": "Sasikanth. A",
+        "position": "Convenor",
+        "image": "/Teams/Core/ORM6.jpg"
+      },
+      {
+        "code": "ORM7",
+        "name": "Jyothi Shasti Dharan S",
+        "position": "Convenor",
+        "image": "/Teams/Core/ORM7.jpg"
+      },
+      {
+        "code": "ORM8",
+        "name": "Mahendiran M",
+        "position": "Convenor",
+        "image": "/Teams/Core/ORM8.jpg"
+      },
+      {
+        "code": "ORM9",
+        "name": "Sanjay P",
+        "position": "Convenor",
+        "image": "/Teams/Core/ORM9.jpg"
+      },
+      {
+        "code": "ORM10",
+        "name": "N.Guru Vishwal Yadav",
+        "position": "Convenor",
+        "image": "/Teams/Core/ORM10.jpg"
+      },
+      {
+        "code": "ORM11",
+        "name": "U Hanuth",
+        "position": "Convenor",
+        "image": "/Teams/Core/ORM11.jpg"
+      },
+      {
+        "code": "ORM12",
+        "name": "S.Sivasainathreddy",
+        "position": "Convenor",
+        "image": "/Teams/Core/ORM12.jpg"
+      },
+      {
+        "code": "ORM13",
+        "name": "Avula Mourya Lakshmikanth Reddy",
+        "position": "Convenor",
+        "image": "/Teams/Core/ORM13.jpg"
+      },
+      {
+        "code": "ORM14",
+        "name": "C Jayaprakash Reddy",
+        "position": "Convenor",
+        "image": "/Teams/Core/ORM14.jpg"
+      },
+      {
+        "code": "ORM15",
+        "name": "Kandanuru Balaji Bhuvan",
+        "position": "Convenor",
+        "image": "/Teams/Core/ORM15.jpg"
+      },
+      {
+        "code": "ORM16",
+        "name": "Hemanth Nutakki",
+        "position": "Convenor",
+        "image": "/Teams/Core/ORM16.jpg"
+      },
+      {
+        "code": "ORM17",
+        "name": "Majeti Pardha Sai Pranav Guptha",
+        "position": "Convenor",
+        "image": "/Teams/Core/ORM17.jpg"
+      }
+    ]
+  },
+  "P": {
+    "label": "Publicity",
+    "members": [
+      {
+        "code": "P1",
+        "name": "Sidharth P M",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/P1.jpg"
+      },
+      {
+        "code": "P2",
+        "name": "Grahisha S",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/P2.jpg"
+      },
+      {
+        "code": "P3",
+        "name": "Thavappriyan Anbalagan",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/P3.jpg"
+      },
+      {
+        "code": "P4",
+        "name": "Jerikka J",
+        "position": "Convenor",
+        "image": "/Teams/Core/P4.jpg"
+      },
+      {
+        "code": "P5",
+        "name": "M Jayavarthean",
+        "position": "Convenor",
+        "image": "/Teams/Core/P5.jpg"
+      },
+      {
+        "code": "P6",
+        "name": "John Maximas JP",
+        "position": "Convenor",
+        "image": "/Teams/Core/P6.jpg"
+      }
+    ]
+  },
+  "PR": {
+    "label": "Public Relations",
+    "members": [
+      {
+        "code": "PR1",
+        "name": "Aruna P",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/PR1.jpg"
+      },
+      {
+        "code": "PR2",
+        "name": "L Gokula Aravind",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/PR2.jpg"
+      },
+      {
+        "code": "PR3",
+        "name": "G Gnaneshwar",
+        "position": "Convenor",
+        "image": "/Teams/Core/PR3.jpg"
+      },
+      {
+        "code": "PR4",
+        "name": "Bharghavi Sarwa Priyankani",
+        "position": "Convenor",
+        "image": "/Teams/Core/PR4.jpg"
+      },
+      {
+        "code": "PR5",
+        "name": "Bharghav A B",
+        "position": "Convenor",
+        "image": "/Teams/Core/PR5.jpg"
+      },
+      {
+        "code": "PR6",
+        "name": "JS Reshma",
+        "position": "Convenor",
+        "image": "/Teams/Core/PR6.jpg"
+      },
+      {
+        "code": "PR7",
+        "name": "S.Subhash",
+        "position": "Convenor",
+        "image": "/Teams/Core/PR7.jpg"
+      }
+    ]
+  },
+  "M": {
+    "label": "Media",
+    "members": [
+      {
+        "code": "M1",
+        "name": "Athul A",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/M1.jpg"
+      },
+      {
+        "code": "M2",
+        "name": "Kanish Kumar",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/M2.jpg"
+      },
+      {
+        "code": "M3",
+        "name": "Suseendiran R",
+        "position": "Convenor",
+        "image": "/Teams/Core/M3.jpg"
+      },
+      {
+        "code": "M4",
+        "name": "Bathrinath G",
+        "position": "Convenor",
+        "image": "/Teams/Core/M4.jpg"
+      },
+      {
+        "code": "M5",
+        "name": "Syam Kumar Oliganti",
+        "position": "Convenor",
+        "image": "/Teams/Core/M5.jpg"
+      }
+    ]
+  },
+  "E": {
+    "label": "EMCEE",
+    "members": [
+      {
+        "code": "E1",
+        "name": "Shreevallabh Shinde",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/E1.jpg"
+      },
+      {
+        "code": "E2",
+        "name": "K Kushi",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/E2.jpg"
+      },
+      {
+        "code": "E3",
+        "name": "Aniketh Menon",
+        "position": "Convenor",
+        "image": "/Teams/Core/E3.jpg"
+      },
+      {
+        "code": "E4",
+        "name": "B Moneesha Reddy",
+        "position": "Convenor",
+        "image": "/Teams/Core/E4.jpg"
+      },
+      {
+        "code": "E5",
+        "name": "Amanpreet Singh Chadha",
+        "position": "Convenor",
+        "image": "/Teams/Core/E5.jpg"
+      },
+      {
+        "code": "E6",
+        "name": "Aditi Mandal",
+        "position": "Convenor",
+        "image": "/Teams/Core/E6.jpg"
+      }
+    ]
+  },
+  "H": {
+    "label": "Hospitality",
+    "members": [
+      {
+        "code": "H1",
+        "name": "Prasath S",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/H1.jpg"
+      },
+      {
+        "code": "H2",
+        "name": "K.Kalyan Saran",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/H2.jpg"
+      },
+      {
+        "code": "H3",
+        "name": "Varshitha.G",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/H3.jpg"
+      },
+      {
+        "code": "H4",
+        "name": "O.Yashwanth Reddy",
+        "position": "Convenor",
+        "image": "/Teams/Core/H4.jpg"
+      },
+      {
+        "code": "H5",
+        "name": "Ambarapu Ganavarun",
+        "position": "Convenor",
+        "image": "/Teams/Core/H5.jpg"
+      },
+      {
+        "code": "H6",
+        "name": "T.Sravya Likitha",
+        "position": "Convenor",
+        "image": "/Teams/Core/H6.jpg"
+      },
+      {
+        "code": "H7",
+        "name": "Rishika Reddy",
+        "position": "Convenor",
+        "image": "/Teams/Core/H7.jpg"
+      },
+      {
+        "code": "H8",
+        "name": "Pradeep R",
+        "position": "Convenor",
+        "image": "/Teams/Core/H8.jpg"
+      },
+      {
+        "code": "H9",
+        "name": "M. Sai Hasya Reddy",
+        "position": "Convenor",
+        "image": "/Teams/Core/H9.jpg"
+      },
+      {
+        "code": "H10",
+        "name": "Hema S",
+        "position": "Convenor",
+        "image": "/Teams/Core/H10.jpg"
+      },
+      {
+        "code": "H12",
+        "name": "Manjusha M",
+        "position": "Convenor",
+        "image": "/Teams/Core/H12.jpg"
+      }
+    ]
+  },
+  "S": {
+    "label": "Sponsorship",
+    "members": [
+      {
+        "code": "S1",
+        "name": "Yugam Bhavin Shah",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/S1.jpg"
+      },
+      {
+        "code": "S2",
+        "name": "Puli Srinish Goud",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/S2.jpg"
+      },
+      {
+        "code": "S3",
+        "name": "Dhanush Mamillapally",
+        "position": "Convenor",
+        "image": "/Teams/Core/S3.jpg"
+      },
+      {
+        "code": "S4",
+        "name": "Dhiya Raj",
+        "position": "Convenor",
+        "image": "/Teams/Core/S4.jpg"
+      },
+      {
+        "code": "S5",
+        "name": "Karthik Sai Ambati",
+        "position": "Convenor",
+        "image": "/Teams/Core/S5.jpg"
+      },
+      {
+        "code": "S6",
+        "name": "Divyansh Singh",
+        "position": "Convenor",
+        "image": "/Teams/Core/S6.jpg"
+      },
+      {
+        "code": "S7",
+        "name": "Aarya Menon",
+        "position": "Convenor",
+        "image": "/Teams/Core/S7.jpg"
+      },
+      {
+        "code": "S8",
+        "name": "Ranjani Doneparthi",
+        "position": "Convenor",
+        "image": "/Teams/Core/S8.jpg"
+      },
+      {
+        "code": "S9",
+        "name": "T Suryateja",
+        "position": "Convenor",
+        "image": "/Teams/Core/S9.jpg"
+      },
+      {
+        "code": "S10",
+        "name": "Sayoni Sharma",
+        "position": "Convenor",
+        "image": "/Teams/Core/S10.jpg"
+      }
+    ]
+  },
+  "C": {
+    "label": "Content",
+    "members": [
+      {
+        "code": "C1",
+        "name": "Deepthiga S",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/C1.jpg"
+      },
+      {
+        "code": "C2",
+        "name": "Dinesh L",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/C2.jpg"
+      },
+      {
+        "code": "C3",
+        "name": "Krishna S R",
+        "position": "Convenor",
+        "image": "/Teams/Core/C3.jpg"
+      },
+      {
+        "code": "C4",
+        "name": "N.V.Deepak",
+        "position": "Convenor",
+        "image": "/Teams/Core/C4.jpg"
+      },
+      {
+        "code": "C5",
+        "name": "Nivetha P",
+        "position": "Convenor",
+        "image": "/Teams/Core/C5.jpg"
+      },
+      {
+        "code": "C6",
+        "name": "Ahaskar",
+        "position": "Convenor",
+        "image": "/Teams/Core/C6.jpg"
+      },
+      {
+        "code": "C7",
+        "name": "Dharshini L",
+        "position": "Convenor",
+        "image": "/Teams/Core/C7.jpg"
+      },
+      {
+        "code": "C8",
+        "name": "Kenisha Surana",
+        "position": "Convenor",
+        "image": "/Teams/Core/C8.jpg"
+      }
+    ]
+  },
+  "TA": {
+    "label": "Transportation and Accommodation",
+    "members": [
+      {
+        "code": "TA1",
+        "name": "Charishma Yadav Palla",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/TA1.jpg"
+      },
+      {
+        "code": "TA2",
+        "name": "Sharagesh R",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/TA2.jpg"
+      },
+      {
+        "code": "TA3",
+        "name": "Narindi Koushik",
+        "position": "Convenor",
+        "image": "/Teams/Core/TA3.jpg"
+      },
+      {
+        "code": "TA4",
+        "name": "N Siva Bhadra",
+        "position": "Convenor",
+        "image": "/Teams/Core/TA4.jpg"
+      }
+    ]
+  },
+  "TG": {
+    "label": "Tech and Graphic Design",
+    "members": [
+      {
+        "code": "TG1",
+        "name": "Gouri Parvathy T.S",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/TG1.jpg"
+      },
+      {
+        "code": "TG2",
+        "name": "Sahil Patel",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/TG2.jpg"
+      },
+      {
+        "code": "TG3",
+        "name": "Sreemayi",
+        "position": "Convenor",
+        "image": "/Teams/Core/TG3.jpg"
+      }
+    ]
+  },
+  "CP": {
+    "label": "Certificate and Prize Distribution",
+    "members": [
+      {
+        "code": "CP1",
+        "name": "Sriharan S A",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/CP1.jpg"
+      },
+      {
+        "code": "CP2",
+        "name": "Mithuna G",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/CP2.jpg"
+      },
+      {
+        "code": "CP3",
+        "name": "Tharun A",
+        "position": "Convenor",
+        "image": "/Teams/Core/CP3.jpg"
+      },
+      {
+        "code": "CP4",
+        "name": "Kota Varshith",
+        "position": "Convenor",
+        "image": "/Teams/Core/CP4.jpg"
+      }
+    ]
+  },
+  "TR": {
+    "label": "Treasurer",
+    "members": [
+      {
+        "code": "TR1",
+        "name": "Harini.R",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/TR1.jpg"
+      },
+      {
+        "code": "TR2",
+        "name": "P.Siddhardh",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/TR2.jpg"
+      },
+      {
+        "code": "TR3",
+        "name": "R.J.S.R.K.Prakash",
+        "position": "Convenor",
+        "image": "/Teams/Core/TR3.jpg"
+      },
+      {
+        "code": "TR4",
+        "name": "Tejaswini Nagaselvam",
+        "position": "Convenor",
+        "image": "/Teams/Core/TR4.jpg"
+      },
+      {
+        "code": "TR5",
+        "name": "Sasikrishna A",
+        "position": "Convenor",
+        "image": "/Teams/Core/TR5.jpg"
+      },
+      {
+        "code": "TR6",
+        "name": "Ameya Bopparaju",
+        "position": "Convenor",
+        "image": "/Teams/Core/TR6.jpg"
+      },
+      {
+        "code": "TR7",
+        "name": "Tamil Arasan",
+        "position": "Convenor",
+        "image": "/Teams/Core/TR7.jpg"
+      },
+      {
+        "code": "TR8",
+        "name": "Vishnu Kovuru",
+        "position": "Convenor",
+        "image": "/Teams/Core/TR8.jpg"
+      }
+    ]
+  },
+  "DS": {
+    "label": "Discipline",
+    "members": [
+      {
+        "code": "DS1",
+        "name": "Rathna Balaji S K",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/DS1.jpg"
+      },
+      {
+        "code": "DS2",
+        "name": "Sri Nidhi A",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/DS2.jpg"
+      },
+      {
+        "code": "DS3",
+        "name": "Rishi Tushaar V",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/DS3.jpg"
+      },
+      {
+        "code": "DS4",
+        "name": "Divya Santhoshi",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/DS4.jpg"
+      },
+      {
+        "code": "DS5",
+        "name": "Gaurav Gupta",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/DS5.jpg"
+      },
+      {
+        "code": "DS6",
+        "name": "Beracah Danny Mishra",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/DS6.jpg"
+      },
+      {
+        "code": "DS7",
+        "name": "Sailikhila",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/DS7.jpg"
+      },
+      {
+        "code": "DS8",
+        "name": "Mohammed Adhil",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/DS8.jpg"
+      },
+      {
+        "code": "DS9",
+        "name": "Anshil Mithr",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/DS9.jpg"
+      },
+      {
+        "code": "DS10",
+        "name": "Tummalapalli Jaswanth Nagasairam",
+        "position": "Domain Secretary",
+        "image": "/Teams/Core/DS10.jpg"
+      },
+      {
+        "code": "DS11",
+        "name": "Sentamil",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS11.jpg"
+      },
+      {
+        "code": "DS12",
+        "name": "Harish K A S",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS12.jpg"
+      },
+      {
+        "code": "DS13",
+        "name": "Ajayraj R",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS13.jpg"
+      },
+      {
+        "code": "DS14",
+        "name": "G Santhosh Nithi",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS14.jpg"
+      },
+      {
+        "code": "DS15",
+        "name": "Prasanth S",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS15.jpg"
+      },
+      {
+        "code": "DS16",
+        "name": "Akash S",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS16.jpg"
+      },
+      {
+        "code": "DS17",
+        "name": "S Trikanth",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS17.jpg"
+      },
+      {
+        "code": "DS18",
+        "name": "Marthala Nithin Reddy",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS18.jpg"
+      },
+      {
+        "code": "DS19",
+        "name": "Rohan Teja",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS19.jpg"
+      },
+      {
+        "code": "DS20",
+        "name": "Bhupati Hemagirisai",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS20.jpg"
+      },
+      {
+        "code": "DS21",
+        "name": "Ravi Teja Prasadam",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS21.jpg"
+      },
+      {
+        "code": "DS22",
+        "name": "Kotha Sairam",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS22.jpg"
+      },
+      {
+        "code": "DS23",
+        "name": "Ansh Singh",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS23.jpg"
+      },
+      {
+        "code": "DS24",
+        "name": "Vaibhav",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS24.jpg"
+      },
+      {
+        "code": "DS25",
+        "name": "Vijay Raja",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS25.jpg"
+      },
+      {
+        "code": "DS26",
+        "name": "Akil Abdul Rehman Haris",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS26.jpg"
+      },
+      {
+        "code": "DS27",
+        "name": "Mithilesh.N",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS27.jpg"
+      },
+      {
+        "code": "DS28",
+        "name": "Vansh Metha",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS28.jpg"
+      },
+      {
+        "code": "DS29",
+        "name": "Garv Singh Rathore",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS29.jpg"
+      },
+      {
+        "code": "DS30",
+        "name": "Vinayak Dhal",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS30.jpg"
+      },
+      {
+        "code": "DS31",
+        "name": "V Harish",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS31.jpg"
+      },
+      {
+        "code": "DS32",
+        "name": "Lishanth J",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS32.jpg"
+      },
+      {
+        "code": "DS33",
+        "name": "Aditi Bajpai",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS33.jpg"
+      },
+      {
+        "code": "DS34",
+        "name": "Riya Fathima",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS34.jpg"
+      },
+      {
+        "code": "DS35",
+        "name": "Samiksha Singh",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS35.jpg"
+      },
+      {
+        "code": "DS36",
+        "name": "S Pavithra",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS36.jpg"
+      },
+      {
+        "code": "DS37",
+        "name": "Ardra E P",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS37.jpg"
+      },
+      {
+        "code": "DS38",
+        "name": "Pajarla Manogna",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS38.jpg"
+      },
+      {
+        "code": "DS39",
+        "name": "Gujjula Bhavana",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS39.jpg"
+      },
+      {
+        "code": "DS40",
+        "name": "Karishma S",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS40.jpg"
+      },
+      {
+        "code": "DS41",
+        "name": "M Pranita",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS41.jpg"
+      },
+      {
+        "code": "DS42",
+        "name": "Ishita Ranjan",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS42.jpg"
+      },
+      {
+        "code": "DS43",
+        "name": "Evangeline Veronica",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS43.jpg"
+      },
+      {
+        "code": "DS44",
+        "name": "Vikraman N",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS44.jpg"
+      },
+      {
+        "code": "DS45",
+        "name": "R Raghul Krishna",
+        "position": "Convenor",
+        "image": "/Teams/Core/DS45.jpg"
+      }
+    ]
+  },
+  "MAD": {
+    "label": "Movies and Dramatics",
+    "members": [
+      {
+        "code": "MAD1",
+        "name": "Akanksha Pandey",
+        "position": "Convenor",
+        "image": "/Teams/MAD/MAD1.jpg"
+      },
+      {
+        "code": "MAD2",
+        "name": "Rohan Soni",
+        "position": "Convenor",
+        "image": "/Teams/MAD/MAD2.jpg"
+      },
+      {
+        "code": "MAD3",
+        "name": "Adriyan Roy",
+        "position": "Convenor",
+        "image": "/Teams/MAD/MAD3.jpg"
+      },
+      {
+        "code": "MAD4",
+        "name": "Gayathrisri G",
+        "position": "Convenor",
+        "image": "/Teams/MAD/MAD4.jpg"
+      },
+      {
+        "code": "MAD5",
+        "name": "Dhanushwaran",
+        "position": "Convenor",
+        "image": "/Teams/MAD/MAD5.jpg"
+      }
+    ]
+  },
+  "SO": {
+    "label": "Social",
+    "members": [
+      {
+        "code": "SO1",
+        "name": "B Shiv Karthikeyan",
+        "position": "Convenor",
+        "image": "/Teams/SO/SO1.jpg"
+      },
+      {
+        "code": "SO2",
+        "name": "Umasankari.S",
+        "position": "Convenor",
+        "image": "/Teams/SO/SO2.jpg"
+      }
+    ]
+  },
+  "CA": {
+    "label": "Creative arts",
+    "members": [
+      {
+        "code": "CA1",
+        "name": "Sarshini Sree K.G",
+        "position": "Convenor",
+        "image": "/Teams/CA/CA1.jpg"
+      },
+      {
+        "code": "CA2",
+        "name": "Isra Ahsan",
+        "position": "Convenor",
+        "image": "/Teams/CA/CA2.jpg"
+      },
+      {
+        "code": "CA3",
+        "name": "R. Sasikumar",
+        "position": "Convenor",
+        "image": "/Teams/CA/CA3.jpg"
+      },
+      {
+        "code": "CA4",
+        "name": "Madhav Narayanan",
+        "position": "Convenor",
+        "image": "/Teams/CA/CA4.jpg"
+      },
+      {
+        "code": "CA5",
+        "name": "Nivedhitha K",
+        "position": "Convenor",
+        "image": "/Teams/CA/CA5.jpg"
+      },
+      {
+        "code": "CA6",
+        "name": "Gurpavit Kaur Bhatia",
+        "position": "Convenor",
+        "image": "/Teams/CA/CA6.jpg"
+      }
+    ]
+  },
+  "G": {
+    "label": "Gaming",
+    "members": [
+      {
+        "code": "G1",
+        "name": "Jishnu R",
+        "position": "Convenor",
+        "image": "/Teams/G/G1.jpg"
+      },
+      {
+        "code": "G2",
+        "name": "Aryan Baranwal",
+        "position": "Convenor",
+        "image": "/Teams/G/G2.jpg"
+      }
+    ]
+  },
+  "LIT": {
+    "label": "Literary",
+    "members": [
+      {
+        "code": "LIT1",
+        "name": "Anuj Tiwari",
+        "position": "Convenor",
+        "image": "/Teams/LIT/LIT1.jpg"
+      },
+      {
+        "code": "LIT2",
+        "name": "Harsh Tiwari",
+        "position": "Convenor",
+        "image": "/Teams/LIT/LIT2.jpg"
+      },
+      {
+        "code": "LIT3",
+        "name": "S. Vaishnavi",
+        "position": "Convenor",
+        "image": "/Teams/LIT/LIT3.jpg"
+      }
+    ]
+  },
+  "FA": {
+    "label": "Fashion",
+    "members": [
+      {
+        "code": "FA1",
+        "name": "Somil Nayak",
+        "position": "Convenor",
+        "image": "/Teams/FA/FA1.jpg"
+      },
+      {
+        "code": "FA2",
+        "name": "Haider Shah",
+        "position": "Convenor",
+        "image": "/Teams/FA/FA2.jpg"
+      },
+      {
+        "code": "FA3",
+        "name": "Ganesh Aravinth S",
+        "position": "Convenor",
+        "image": "/Teams/FA/FA3.jpg"
+      },
+      {
+        "code": "FA4",
+        "name": "Elavarasan V",
+        "position": "Convenor",
+        "image": "/Teams/FA/FA4.jpg"
+      },
+      {
+        "code": "FA5",
+        "name": "Tharun M A",
+        "position": "Convenor",
+        "image": "/Teams/FA/FA5.jpg"
+      },
+      {
+        "code": "FA6",
+        "name": "Akshayabalaji",
+        "position": "Convenor",
+        "image": "/Teams/FA/FA6.jpg"
+      },
+      {
+        "code": "FA7",
+        "name": "Megha Dua",
+        "position": "Convenor",
+        "image": "/Teams/FA/FA7.jpg"
+      }
+    ]
+  },
+  "FS": {
+    "label": "Festival",
+    "members": [
+      {
+        "code": "FS1",
+        "name": "Tanmay Bhosale",
+        "position": "Convenor",
+        "image": "/Teams/FS/FS1.jpg"
+      },
+      {
+        "code": "FS2",
+        "name": "Aditya Rajendra More",
+        "position": "Convenor",
+        "image": "/Teams/FS/FS2.jpg"
+      },
+      {
+        "code": "FS3",
+        "name": "Sahil Waghmare",
+        "position": "Convenor",
+        "image": "/Teams/FS/FS3.jpg"
+      },
+      {
+        "code": "FS4",
+        "name": "Thakshak N",
+        "position": "Convenor",
+        "image": "/Teams/FS/FS4.jpg"
+      },
+      {
+        "code": "FS5",
+        "name": "Saksham Pathak",
+        "position": "Convenor",
+        "image": "/Teams/FS/FS5.jpg"
+      },
+      {
+        "code": "FS6",
+        "name": "Rahul Bhagat",
+        "position": "Convenor",
+        "image": "/Teams/FS/FS6.jpg"
+      }
+    ]
+  },
+  "AS": {
+    "label": "Astrophilia",
+    "members": [
+      {
+        "code": "AS1",
+        "name": "Jheel Jain",
+        "position": "Convenor",
+        "image": "/Teams/AS/AS1.jpg"
+      },
+      {
+        "code": "AS2",
+        "name": "Adway Chakraborty",
+        "position": "Convenor",
+        "image": "/Teams/AS/AS2.jpg"
+      }
+    ]
+  },
+  "DA": {
+    "label": "Dance",
+    "members": [
+      {
+        "code": "DA1",
+        "name": "Amal Xavier",
+        "position": "Convenor",
+        "image": "/Teams/DA/DA1.jpg"
+      },
+      {
+        "code": "DA2",
+        "name": "Adrija Saha",
+        "position": "Convenor",
+        "image": "/Teams/DA/DA2.jpg"
+      },
+      {
+        "code": "DA3",
+        "name": "Nivaythi Sunil",
+        "position": "Convenor",
+        "image": "/Teams/DA/DA3.jpg"
+      },
+      {
+        "code": "DA4",
+        "name": "K. Guhan",
+        "position": "Convenor",
+        "image": "/Teams/DA/DA4.jpg"
+      },
+      {
+        "code": "DA5",
+        "name": "Arpitha Vasudevan",
+        "position": "Convenor",
+        "image": "/Teams/DA/DA5.jpg"
+      },
+      {
+        "code": "DA6",
+        "name": "Jaiwin Singh Gaur",
+        "position": "Convenor",
+        "image": "/Teams/DA/DA6.jpg"
+      }
+    ]
+  },
+  "MU": {
+    "label": "Music",
+    "members": [
+      {
+        "code": "MU1",
+        "name": "Mani Anurag T",
+        "position": "Convenor",
+        "image": "/Teams/MU/MU1.jpg"
+      },
+      {
+        "code": "MU2",
+        "name": "Avinandan Chakraborty",
+        "position": "Convenor",
+        "image": "/Teams/MU/MU2.jpg"
+      },
+      {
+        "code": "MU3",
+        "name": "Tejas Kumar",
+        "position": "Convenor",
+        "image": "/Teams/MU/MU3.jpg"
+      }
+    ]
+  },
+  "WE": {
+    "label": "Women Empowerment",
+    "members": [
+      {
+        "code": "WE1",
+        "name": "Nandana Shaji",
+        "position": "Convenor",
+        "image": "/Teams/WE/WE1.jpg"
+      }
+    ]
+  },
+  "Q": {
+    "label": "Quiz",
+    "members": [
+      {
+        "code": "Q1",
+        "name": "Mitthilesh D",
+        "position": "Convenor",
+        "image": "/Teams/Q/Q1.jpg"
+      },
+      {
+        "code": "Q2",
+        "name": "Pranav S K",
+        "position": "Convenor",
+        "image": "/Teams/Q/Q2.jpg"
+      },
+      {
+        "code": "Q3",
+        "name": "Adi Amartya Shankar",
+        "position": "Convenor",
+        "image": "/Teams/Q/Q3.jpg"
+      }
+    ]
+  },
+  "RO": {
+    "label": "Rotaract",
+    "members": [
+      {
+        "code": "RO1",
+        "name": "Sharagesh R",
+        "position": "Convenor",
+        "image": "/Teams/RO/RO1.jpg"
+      },
+      {
+        "code": "RO2",
+        "name": "P Siva Murugan",
+        "position": "Convenor",
+        "image": "/Teams/RO/RO2.jpg"
+      },
+      {
+        "code": "RO3",
+        "name": "Saranya Arumugam",
+        "position": "Convenor",
+        "image": "/Teams/RO/RO3.jpg"
+      },
+      {
+        "code": "RO4",
+        "name": "Sabesh S",
+        "position": "Convenor",
+        "image": "/Teams/RO/RO4.jpg"
+      }
+    ]
+  },
+  "SD": {
+    "label": "Self defence",
+    "members": [
+      {
+        "code": "SD1",
+        "name": "Krish Shah",
+        "position": "Convenor",
+        "image": "/Teams/SD/SD1.jpg"
+      },
+      {
+        "code": "SD2",
+        "name": "Arijeet Pratap Singh",
+        "position": "Convenor",
+        "image": "/Teams/SD/SD2.jpg"
+      },
+      {
+        "code": "SD3",
+        "name": "Arindam Chattaraj",
+        "position": "Convenor",
+        "image": "/Teams/SD/SD3.jpg"
+      }
+    ]
+  }
+}
