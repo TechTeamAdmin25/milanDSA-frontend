@@ -1,0 +1,468 @@
+milanDSA-frontend
+├── .git/
+├── .gitattributes
+├── .gitignore
+├── .next/
+├── app
+│   ├── api
+│   │   ├── explore
+│   │   │   ├── posts
+│   │   │   │   └── route.ts
+│   │   │   ├── trending
+│   │   │   │   └── route.ts
+│   │   │   └── upload
+│   │   │       └── route.ts
+│   │   ├── gallery
+│   │   │   └── route.ts
+│   │   └── teams
+│   │       └── route.ts
+│   ├── events
+│   │   └── page.tsx
+│   ├── explore
+│   │   └── page.tsx
+│   ├── favicon.ico
+│   ├── fonts
+│   │   ├── Grotesk-Bold.ttf
+│   │   ├── Grotesk-DemiBold.ttf
+│   │   └── Grotesk-Regular.ttf
+│   ├── gallery
+│   │   └── page.tsx
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── page.tsx
+│   ├── passes
+│   │   └── page.tsx
+│   ├── sponsors
+│   │   └── page.tsx
+│   ├── styles
+│   │   └── team-sphere.css
+│   └── team
+│       ├── club-team.json
+│       ├── core-team.json
+│       ├── data.json
+│       ├── data.ts
+│       ├── image.ts
+│       ├── page.tsx
+│       ├── styles.css
+│       └── TeamClient.tsx
+├── components
+│   ├── conditional-layout.tsx
+│   ├── CustomImageTrail.tsx
+│   ├── directors-managers-section.tsx
+│   ├── draggable-canvas.tsx
+│   ├── explore
+│   │   ├── ai-generator-modal.tsx
+│   │   ├── explore-feed.tsx
+│   │   └── upload-modal.tsx
+│   ├── footer.tsx
+│   ├── GlassSurface.css
+│   ├── GlassSurface.tsx
+│   ├── guest-showcase.tsx
+│   ├── hero.tsx
+│   ├── hooks
+│   │   └── use-mouse-vector.ts
+│   ├── ImageTrail.css
+│   ├── ImageTrail.tsx
+│   ├── introduction-section.tsx
+│   ├── milan-timeline-section.tsx
+│   ├── navbar.tsx
+│   ├── providers
+│   │   └── smooth-scroll-provider.tsx
+│   ├── sponsors-section.tsx
+│   ├── team-intro-animation.tsx
+│   ├── team-sphere.tsx
+│   ├── teams
+│   │   ├── ConvenorModal.tsx
+│   │   ├── DesktopLists.tsx
+│   │   ├── ExpandableItem.tsx
+│   │   ├── HoverPreview.tsx
+│   │   ├── MobileLists.tsx
+│   │   ├── TeamHeading.tsx
+│   │   ├── TeamLists.tsx
+│   │   └── TeamSphere.tsx
+│   └── ui
+│       ├── bento-gallery-grid.tsx
+│       ├── bento-grid.tsx
+│       ├── button.tsx
+│       ├── CustomCursor.tsx
+│       ├── framer-carousel.tsx
+│       ├── image-gallery.tsx
+│       ├── image-trail.tsx
+│       ├── img-sphere.tsx
+│       ├── kinetic-cursor.tsx
+│       ├── milan-glass-surface.tsx
+│       ├── mobile-header.tsx
+│       ├── scroll-velocity.tsx
+│       └── timeline.tsx
+├── components.json
+├── docker-compose.yml
+├── Dockerfile
+├── eslint.config.mjs
+├── EXPLORE_NEW_IMPLEMENTATION.md
+├── lib
+│   ├── circular-placement.ts
+│   ├── memberToImage.ts
+│   ├── sessionShuffle.ts
+│   ├── team-image.ts
+│   └── utils.ts
+├── next-env.d.ts
+├── next.config.ts
+├── node_modules/
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── public
+│   ├── Audios
+│   │   └── DumMasala.mp3
+│   ├── BackgroundImages
+│   │   ├── AccountBackground.png
+│   │   ├── PassBackgroundImage.png
+│   │   └── PassProShowBackground.jpg
+│   ├── Directors_Images
+│   │   ├── NishaAshokan.png
+│   │   ├── PrinceKalyanasundaram.png
+│   │   └── SPradeep.png
+│   ├── fonts
+│   │   ├── Grotesk-Bold.ttf
+│   │   ├── Grotesk-DemiBold.ttf
+│   │   └── Grotesk-Regular.ttf
+│   ├── GalleryPage
+│   │   ├── events
+│   │   │   ├── DSC00075.JPG
+│   │   │   ├── DSC05297.JPG
+│   │   │   ├── DSC05320.JPG
+│   │   │   ├── DSC05506.JPG
+│   │   │   ├── DSC05523.JPG
+│   │   │   ├── DSC_0003.JPG
+│   │   │   ├── DSC_0019.JPG
+│   │   │   ├── DSC_0029.JPG
+│   │   │   ├── DSC_0068.JPG
+│   │   │   ├── DSC_0105.JPG
+│   │   │   ├── DSC_0119.JPG
+│   │   │   ├── DSC_0124.JPG
+│   │   │   ├── DSC_0251.JPG
+│   │   │   ├── DSC_0547.JPG
+│   │   │   ├── DSC_0933.JPG
+│   │   │   ├── DSC_0958.JPG
+│   │   │   ├── IMG_0177.JPG
+│   │   │   ├── IMG_1164.JPG
+│   │   │   ├── IMG_1203.JPG
+│   │   │   ├── IMG_1401.JPG
+│   │   │   ├── IMG_1450.JPG
+│   │   │   ├── IMG_1500.JPG
+│   │   │   ├── IMG_2258.JPG
+│   │   │   ├── IMG_4741.JPG
+│   │   │   ├── IMG_4823.JPG
+│   │   │   ├── IMG_4888.JPG
+│   │   │   ├── IMG_9030.JPG
+│   │   │   ├── IMG_9170.JPG
+│   │   │   ├── IMG_9188.JPG
+│   │   │   ├── SHY04172.JPG
+│   │   │   ├── SHY04328.JPG
+│   │   │   ├── SHY04348.JPG
+│   │   │   ├── SHY04411.JPG
+│   │   │   ├── SHY04556.JPG
+│   │   │   ├── YOG04694.JPG
+│   │   │   ├── YOG04727.JPG
+│   │   │   ├── YOG04856.JPG
+│   │   │   ├── YOG04908.JPG
+│   │   │   ├── YOG04909.JPG
+│   │   │   ├── YOG04940.JPG
+│   │   │   ├── YOG07090.JPG
+│   │   │   ├── YOG07451.JPG
+│   │   │   ├── YOG07454.JPG
+│   │   │   ├── YOG07462.JPG
+│   │   │   ├── YOG07480.JPG
+│   │   │   ├── YOG07548.JPG
+│   │   │   ├── YOG07706.JPG
+│   │   │   ├── YOG07775.JPG
+│   │   │   ├── _CSK0015.JPG
+│   │   │   ├── _CSK0021.JPG
+│   │   │   ├── _CSK9752.JPG
+│   │   │   ├── _CSK9798.JPG
+│   │   │   ├── _CSK9981.JPG
+│   │   │   ├── _DSC9424.JPG
+│   │   │   ├── _DSC9431.JPG
+│   │   │   └── _DSC9589.JPG
+│   │   └── proshow
+│   │       ├── JKR00018.JPG
+│   │       ├── JKR00091.JPG
+│   │       ├── JKR00110.JPG
+│   │       ├── JKR00117.JPG
+│   │       ├── JKR00129.JPG
+│   │       ├── JKR00144.JPG
+│   │       ├── SHY02555.JPG
+│   │       ├── SHY02574.JPG
+│   │       ├── SHY02584.JPG
+│   │       ├── SHY02604.JPG
+│   │       ├── SHY02611.JPG
+│   │       ├── SHY02612.JPG
+│   │       ├── SHY02614.JPG
+│   │       ├── SHY02644.JPG
+│   │       ├── SHY02659.JPG
+│   │       ├── story1 (2).jpg
+│   │       ├── story1.jpg
+│   │       ├── story2.jpg
+│   │       ├── YOG04511.JPG
+│   │       ├── YOG04554.JPG
+│   │       ├── YOG04988.JPG
+│   │       ├── YOG04993.JPG
+│   │       ├── YOG05001.JPG
+│   │       ├── YOG05041.JPG
+│   │       ├── YOG05047.JPG
+│   │       ├── YOG05052.JPG
+│   │       ├── YOG05070.JPG
+│   │       ├── YOG05114.JPG
+│   │       ├── YOG05118.JPG
+│   │       ├── YOG05136.JPG
+│   │       ├── _CSK8212.JPG
+│   │       ├── _CSK8225.JPG
+│   │       ├── _CSK8230.JPG
+│   │       ├── _CSK8256.JPG
+│   │       ├── _CSK8292.JPG
+│   │       ├── _CSK8411.JPG
+│   │       ├── _CSK8428.JPG
+│   │       └── _CSK8448.JPG
+│   ├── Managers_Images
+│   │   ├── Dhandayuthapani.png
+│   │   └── RajivD.png
+│   ├── milan
+│   │   ├── hero-main.png
+│   │   └── timeline
+│   │       ├── 2022.png
+│   │       ├── 2023.png
+│   │       ├── 2024.png
+│   │       └── 2025.png
+│   ├── ProShowPasses
+│   │   ├── Thaman
+│   │   │   ├── FinalShowcase
+│   │   │   │   ├── image1.png
+│   │   │   │   ├── image2.png
+│   │   │   │   └── image3.png
+│   │   │   ├── ThamanCD.png
+│   │   │   ├── ThamanFullTransparent.png
+│   │   │   ├── ThamanLeft1.png
+│   │   │   └── ThamanRight1.png
+│   │   └── Thriple
+│   │       ├── ThripleCD.png
+│   │       ├── ThripleFullTransparent.png
+│   │       ├── ThripleLeft1.png
+│   │       └── ThripleRight1.png
+│   ├── Sprites
+│   │   ├── BookNowButton.png
+│   │   └── MilanLogo.png
+│   └── Teams
+│       ├── ASTROPHILLIA
+│       │   └── AS2.JPG
+│       ├── CERTIFICATES AND PRIZE DISTRIBUTION
+│       │   ├── CP1.JPG
+│       │   ├── CP3.JPG
+│       │   └── CP4.JPG
+│       ├── CONTENT
+│       │   ├── C1.JPG
+│       │   ├── C2.JPG
+│       │   ├── C3.JPG
+│       │   ├── C4.JPG
+│       │   ├── C5.JPG
+│       │   ├── C6.JPG
+│       │   ├── C7.JPG
+│       │   └── C8.JPG
+│       ├── CREATIVE ARTS
+│       │   ├── CA1.JPG
+│       │   ├── CA2.JPG
+│       │   ├── CA3.JPG
+│       │   ├── CA4.JPG
+│       │   ├── CA5.JPG
+│       │   └── CA6.JPG
+│       ├── DANCE
+│       │   ├── DA1.JPG
+│       │   ├── DA2.JPG
+│       │   ├── DA3.JPG
+│       │   ├── DA4.JPG
+│       │   └── DA6.JPG
+│       ├── DISCIPLINE
+│       │   ├── DS1.JPG
+│       │   ├── DS10.JPG
+│       │   ├── DS11.JPG
+│       │   ├── DS12.JPG
+│       │   ├── DS13.JPG
+│       │   ├── DS14.JPG
+│       │   ├── DS15.JPG
+│       │   ├── DS16.JPG
+│       │   ├── DS17.JPG
+│       │   ├── DS18.JPG
+│       │   ├── DS19.JPG
+│       │   ├── DS2.JPG
+│       │   ├── DS20.JPG
+│       │   ├── DS21.JPG
+│       │   ├── DS22.JPG
+│       │   ├── DS23.JPG
+│       │   ├── DS24.JPG
+│       │   ├── DS25.JPG
+│       │   ├── DS26.JPG
+│       │   ├── DS27.JPG
+│       │   ├── DS28.HEIC
+│       │   ├── DS29.JPG
+│       │   ├── DS3.JPG
+│       │   ├── DS30.JPG
+│       │   ├── DS31.JPG
+│       │   ├── DS33.JPG
+│       │   ├── DS34.JPG
+│       │   ├── DS35.JPG
+│       │   ├── DS36.JPG
+│       │   ├── DS38.JPG
+│       │   ├── DS39.JPG
+│       │   ├── DS4.JPG
+│       │   ├── DS40.JPG
+│       │   ├── DS41.JPG
+│       │   ├── DS42.JPG
+│       │   ├── DS43.JPG
+│       │   ├── DS44.JPG
+│       │   ├── DS45.JPG
+│       │   ├── DS5.JPG
+│       │   ├── DS6.JPG
+│       │   ├── DS8.JPG
+│       │   └── DS9.JPG
+│       ├── EMCEE
+│       │   ├── E1.JPG
+│       │   ├── E2.JPG
+│       │   ├── E3.JPG
+│       │   ├── E4.JPG
+│       │   ├── E5.JPG
+│       │   └── E6.JPG
+│       ├── FASHION
+│       │   ├── FA1.JPG
+│       │   ├── FA2.HEIC
+│       │   ├── FA3.JPG
+│       │   ├── FA4.JPG
+│       │   ├── FA5.JPG
+│       │   ├── FA6.JPG
+│       │   └── FA7.JPG
+│       ├── FESTIVAL
+│       │   ├── FS1.JPG
+│       │   ├── FS2.JPG
+│       │   ├── FS3.JPG
+│       │   ├── FS4.JPG
+│       │   ├── FS5.JPG
+│       │   └── FS6.JPG
+│       ├── GAMING
+│       │   ├── G1.JPG
+│       │   └── G2.JPG
+│       ├── HOSPITALITY
+│       │   ├── H1.JPG
+│       │   ├── H10.JPG
+│       │   ├── H12.JPG
+│       │   ├── H2.JPG
+│       │   ├── H3.JPG
+│       │   ├── H4.JPG
+│       │   ├── H5.JPG
+│       │   ├── H6.JPG
+│       │   ├── H7.JPG
+│       │   ├── H8.JPG
+│       │   └── H9.JPG
+│       ├── LITERARY
+│       │   ├── LIT2.JPG
+│       │   └── LIT3.JPG
+│       ├── MEDIA
+│       │   ├── M1.JPG
+│       │   ├── M2 (2).JPG
+│       │   ├── M2.JPG
+│       │   ├── M3.JPG
+│       │   └── M4.JPG
+│       ├── MOVIES AND DRAMATICS
+│       │   ├── MAD1.JPG
+│       │   ├── MAD2.JPG
+│       │   ├── MAD3.JPG
+│       │   ├── MAD4.JPG
+│       │   └── MAD5.jpg
+│       ├── MUSIC
+│       │   ├── MU1.JPG
+│       │   ├── MU2.JPG
+│       │   └── MU3.JPG
+│       ├── OPERATIONS & RESOURCE MANAGEMENT
+│       │   ├── ORM1.JPG
+│       │   ├── ORM10.JPG
+│       │   ├── ORM11.JPG
+│       │   ├── ORM12.JPG
+│       │   ├── ORM13.JPG
+│       │   ├── ORM14.JPG
+│       │   ├── ORM15.JPG
+│       │   ├── ORM16.JPG
+│       │   ├── ORM17.JPG
+│       │   ├── ORM2.JPG
+│       │   ├── ORM3.JPG
+│       │   ├── ORM4.JPG
+│       │   ├── ORM5.JPG
+│       │   ├── ORM6.JPG
+│       │   ├── ORM7.JPG
+│       │   ├── ORM8.JPG
+│       │   └── ORM9.JPG
+│       ├── PUBLIC RELATIONS
+│       │   ├── PR1.JPG
+│       │   ├── PR2.JPG
+│       │   ├── PR3.JPG
+│       │   ├── PR4.JPG
+│       │   ├── PR5.JPG
+│       │   ├── PR6 (2).JPG
+│       │   ├── PR6.JPG
+│       │   └── PR7.JPG
+│       ├── PUBLICITY
+│       │   ├── P1.JPG
+│       │   ├── P2.JPG
+│       │   ├── P3.JPG
+│       │   ├── P4.JPG
+│       │   ├── P5.JPG
+│       │   └── P6.JPG
+│       ├── QUIZ
+│       │   ├── Q1.JPG
+│       │   ├── Q2.JPG
+│       │   └── Q3.JPG
+│       ├── ROTRACT
+│       │   ├── RO1.JPG
+│       │   ├── RO2.JPG
+│       │   ├── RO3.JPG
+│       │   └── RO4.JPG
+│       ├── SELF DEFENCE
+│       │   ├── SD1.JPG
+│       │   ├── SD2.JPG
+│       │   └── SD3.JPG
+│       ├── SOCIAL
+│       │   └── SO1.JPG
+│       ├── SPONSORSHIP
+│       │   ├── S1.JPG
+│       │   ├── S10.JPG
+│       │   ├── S2.JPG
+│       │   ├── S3.JPG
+│       │   ├── S4.JPG
+│       │   ├── S5.JPG
+│       │   ├── S6.JPG
+│       │   ├── S7.JPG
+│       │   ├── S8.JPG
+│       │   └── S9.JPG
+│       ├── TECH AND GRAPHICS
+│       │   ├── TG1.JPG
+│       │   ├── TG2.JPG
+│       │   └── TG3.JPG
+│       ├── TRANSPORT AND ACCODAMATION
+│       │   ├── TA1.JPG
+│       │   ├── TA2.JPG
+│       │   ├── TA3.JPG
+│       │   └── TA4.JPG
+│       ├── TREASURARY
+│       │   ├── TR1.JPG
+│       │   ├── TR2.JPG
+│       │   ├── TR3.JPG
+│       │   ├── TR4.png
+│       │   ├── TR5.JPG
+│       │   ├── TR6.JPG
+│       │   ├── TR7.JPG
+│       │   └── TR8.JPG
+│       └── WOMEN EMPOWERMENT
+│           └── WE1.JPG
+├── README.md
+├── supabase
+│   └── migrations
+│       └── 20241204031400_initial_schema.sql
+├── tsconfig.json
+└── types
+    └── member.ts

@@ -4,8 +4,18 @@
 import React, { useState, useRef, useMemo, useEffect } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { motion, AnimatePresence, useSpring } from 'framer-motion'
-// ADDED: Pass import
-import { Home, Image as ImageIcon, Users, Calendar, Menu, Handshake, Compass, Ticket as PassIcon } from 'lucide-react'
+// ADDED: LogIn import
+import { 
+  Home, 
+  Image as ImageIcon, 
+  Users, 
+  Calendar, 
+  Menu, 
+  Handshake, 
+  Compass, 
+  Ticket as PassIcon,
+  LogIn 
+} from 'lucide-react'
 
 interface NavItem {
   label: string
@@ -40,7 +50,7 @@ export const PillBase = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [expanded])
 
-  // FIX: Reordered items and added Passes
+  // UPDATE: Added Login to the list
   const navItems: NavItem[] = useMemo(() => [
     { label: 'Home', id: 'home', path: '/', icon: Home },
     { label: 'Events', id: 'events', path: '/events', icon: Calendar },
@@ -49,6 +59,7 @@ export const PillBase = () => {
     { label: 'Explore', id: 'explore', path: '/explore', icon: Compass },
     { label: 'Gallery', id: 'gallery', path: '/gallery', icon: ImageIcon },
     { label: 'Team', id: 'team', path: '/team', icon: Users },
+    { label: 'Login', id: 'login', path: '/login', icon: LogIn },
   ], [])
 
   const activeItem = navItems.find((i) => i.path === pathname) || navItems[0]
@@ -63,8 +74,8 @@ export const PillBase = () => {
 
   useEffect(() => {
     if (expanded) {
-      // Adjusted width to fit the extra items
-      width.set(isMobile ? 260 : 850) 
+      // UPDATE: Increased desktop width to 980 to fit the new Login button
+      width.set(isMobile ? 260 : 980) 
       height.set(isMobile ? navItems.length * 50 + 24 : 56)
     } else {
       width.set(160)
@@ -111,6 +122,8 @@ export const PillBase = () => {
               >
                 {navItems.map((item) => {
                   const isActive = pathname === item.path
+                  const isLogin = item.id === 'login' // Check if it's the login button
+
                   return (
                     <button
                       key={item.id}
@@ -119,11 +132,14 @@ export const PillBase = () => {
                         handleNavigate(item.path)
                       }}
                       className={`
-                        flex items-center gap-2 px-3 py-2 rounded-full transition-all duration-300
+                        flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300
                         ${isMobile ? 'w-[90%]' : ''}
-                        ${isActive 
-                            ? 'bg-white/20 text-white font-medium' 
-                            : 'text-white/60 hover:text-white hover:bg-white/10'}
+                        ${isLogin 
+                           ? 'bg-white text-black font-bold hover:bg-gray-200' // Distinct Login Style
+                           : isActive 
+                              ? 'bg-white/20 text-white font-medium' 
+                              : 'text-white/60 hover:text-white hover:bg-white/10'
+                        }
                       `}
                     >
                       <item.icon size={18} />
