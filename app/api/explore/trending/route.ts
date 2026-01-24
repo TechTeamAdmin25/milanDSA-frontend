@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 
@@ -12,7 +12,7 @@ const MOCK_TRENDING = [
   { hashtag: 'food', count: 150 },
 ];
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
      return NextResponse.json({
         success: true,

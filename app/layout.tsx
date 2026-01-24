@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ConditionalLayout } from "@/components/conditional-layout";
 import { Footer } from "@/components/footer";
+import { AuthProvider } from "@/context/auth-context";
 
 const grotesk = localFont({
   src: [
@@ -31,9 +32,11 @@ export default function RootLayout({
       suppressHydrationWarning
       className={grotesk.variable}>
       <body className="antialiased font-sans">
-        <ConditionalLayout />
-        {children}
-        <Footer />
+        <AuthProvider>
+          <ConditionalLayout />
+          {children}
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );

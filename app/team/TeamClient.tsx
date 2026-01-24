@@ -136,6 +136,7 @@ export default function TeamClient() {
           getRandomImage={getMemberImage} // ✅ Pass the new function
           setSelectedConvenor={setSelectedConvenor}
           setSelectedSphereImage={setSelectedSphereImage}
+          teamData={teamData}
         />
       )}
 
