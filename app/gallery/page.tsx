@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Sparkles, GalleryHorizontal } from "lucide-react";
+import { GalleryHorizontal } from "lucide-react";
 import { BentoGalleryGrid } from "@/components/ui/bento-gallery-grid";
 import { sessionShuffle } from "@/lib/sessionShuffle";
 
