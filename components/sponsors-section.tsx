@@ -1,72 +1,274 @@
 "use client";
 
 
+import { useState, ComponentType } from "react";
 import { motion } from "framer-motion";
-import { Sparkles, Zap, Star, Globe, Heart } from "lucide-react";
+import { Sparkles, Zap, Star, Globe, Heart, Music, DollarSign, Coffee, ShoppingBag, BookOpen, Radio, Gamepad2, Utensils, Feather, Monitor } from "lucide-react";
 
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 import { ScrollVelocity } from "@/components/ui/scroll-velocity";
 
-// Placeholder Sponsor Data
+// Helper to create logo component with fallback
+const createLogo = (src: string, Fallback: ComponentType<{ className?: string }>) => {
+  return function Logo({ className }: { className?: string }) {
+    const [error, setError] = useState(false);
+    if (error) return <Fallback className={className} />;
+    return (
+      <img
+        src={src}
+        alt="Sponsor Logo"
+        className={`${className} object-contain`}
+        onError={() => setError(true)}
+      />
+    );
+  };
+};
+
 const TITLE_SPONSORS = [
   {
-    name: "TechGiant Corp",
-    description:
-      "Leading the way in innovation and technology solutions worldwide.",
-    href: "#",
-    cta: "Visit Website",
+    name: "The Hindu",
+    description: "India's National Newspaper since 1878.",
+    href: "https://www.thehindu.com/",
+    cta: "Read News",
     className: "col-span-3 lg:col-span-2",
     background: (
-      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 opacity-50" />
+      <div className="absolute inset-0 bg-gradient-to-br from-red-500/20 to-orange-500/20 opacity-50" />
     ),
-    Icon: Zap,
+    Icon: createLogo("/sponsors/the-hindu.png", Feather),
   },
   {
-    name: "Global Bank",
-    description: "Trusted financial partner for millions.",
-    href: "#",
-    cta: "Learn More",
+    name: "Coca-Cola",
+    description: "Real Magic.",
+    href: "https://www.coca-cola.com/",
+    cta: "Visit",
     className: "col-span-3 lg:col-span-1",
     background: (
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 opacity-50" />
+      <div className="absolute inset-0 bg-gradient-to-br from-red-600/20 to-pink-600/20 opacity-50" />
     ),
-    Icon: Globe,
+    Icon: createLogo("/sponsors/coca-cola.png", Heart),
+  },
+  {
+    name: "JioSaavn",
+    description: "Music for everyone.",
+    href: "https://www.jiosaavn.com/",
+    cta: "Listen",
+    className: "col-span-3 lg:col-span-1",
+    background: (
+      <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 opacity-50" />
+    ),
+    Icon: createLogo("/sponsors/jiosaavn.png", Music),
+  },
+  {
+    name: "Red Bull",
+    description: "Gives You Wiings.",
+    href: "https://www.redbull.com/",
+    cta: "Explore",
+    className: "col-span-3 lg:col-span-2",
+    background: (
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 opacity-50" />
+    ),
+    Icon: createLogo("/sponsors/red-bull.png", Zap),
+  },
+  {
+    name: "The Times of India",
+    description: "Let Truth Prevail.",
+    href: "https://timesofindia.indiatimes.com/",
+    cta: "News",
+    className: "col-span-3 lg:col-span-1",
+    background: (
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-500/20 to-gray-500/20 opacity-50" />
+    ),
+    Icon: createLogo("/sponsors/toi.png", Globe),
+  },
+  {
+    name: "Subway",
+    description: "Eat Fresh.",
+    href: "https://www.subway.com/",
+    cta: "Order",
+    className: "col-span-3 lg:col-span-1",
+    background: (
+      <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-yellow-500/20 opacity-50" />
+    ),
+    Icon: createLogo("/sponsors/subway.png", Utensils),
+  },
+  {
+    name: "McDonald's",
+    description: "I'm Lovin' It.",
+    href: "https://www.mcdonalds.com/",
+    cta: "Visit",
+    className: "col-span-3 lg:col-span-1",
+    background: (
+      <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/20 to-red-500/20 opacity-50" />
+    ),
+    Icon: createLogo("/sponsors/mcdonalds.png", Utensils),
+  },
+  {
+    name: "Snapchat",
+    description: "Share the moment.",
+    href: "https://www.snapchat.com/",
+    cta: "Snap",
+    className: "col-span-3 lg:col-span-1",
+    background: (
+      <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-orange-400/20 opacity-50" />
+    ),
+    Icon: createLogo("/sponsors/snapchat.png", Star),
   },
 ];
 
 const GOLD_SPONSORS = [
   {
-    name: "Future Foods",
-    description: "Sustainable nutrition for the next generation.",
+    name: "Green Trends",
+    description: "Styling India.",
     href: "#",
     cta: "Visit",
     className: "col-span-3 lg:col-span-1",
     background: (
-      <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 to-yellow-500/20 opacity-50" />
+      <div className="absolute inset-0 bg-gradient-to-br from-lime-500/20 to-green-500/20 opacity-50" />
     ),
-    Icon: Heart,
+    Icon: createLogo("/sponsors/green-trends.png", Sparkles),
   },
   {
-    name: "Pixel Studios",
-    description: "Creative design and digital experiences.",
+    name: "Payed",
+    description: "Payment Solutions.",
     href: "#",
-    cta: "Portfolio",
+    cta: "More",
     className: "col-span-3 lg:col-span-1",
     background: (
-      <div className="absolute inset-0 bg-gradient-to-br from-pink-500/20 to-rose-500/20 opacity-50" />
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-cyan-400/20 opacity-50" />
     ),
-    Icon: Sparkles,
+    Icon: createLogo("/sponsors/payed.png", DollarSign),
   },
   {
-    name: "Urban Gear",
-    description: "Streetwear and lifestyle apparel.",
+    name: "Fever 104 FM",
+    description: "The sound of the city.",
+    href: "#",
+    cta: "Listen",
+    className: "col-span-3 lg:col-span-1",
+    background: (
+      <div className="absolute inset-0 bg-gradient-to-br from-red-500/20 to-orange-500/20 opacity-50" />
+    ),
+    Icon: createLogo("/sponsors/fever-fm.png", Radio),
+  },
+  {
+    name: "Zebronics",
+    description: "Premium Audio.",
     href: "#",
     cta: "Shop",
     className: "col-span-3 lg:col-span-1",
     background: (
-      <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-emerald-500/20 opacity-50" />
+      <div className="absolute inset-0 bg-gradient-to-br from-zinc-500/20 to-stone-500/20 opacity-50" />
     ),
-    Icon: Star,
+    Icon: createLogo("/sponsors/zebronics.png", Music),
+  },
+  {
+    name: "Eazydiner",
+    description: "Book tables easily.",
+    href: "#",
+    cta: "Book",
+    className: "col-span-3 lg:col-span-1",
+    background: (
+      <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 to-red-500/20 opacity-50" />
+    ),
+    Icon: createLogo("/sponsors/eazydiner.png", Utensils),
+  },
+  {
+    name: "Snitch",
+    description: "Men's Fashion.",
+    href: "#",
+    cta: "Shop",
+    className: "col-span-3 lg:col-span-1",
+    background: (
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-800/20 to-black/20 opacity-50" />
+    ),
+    Icon: createLogo("/sponsors/snitch.png", ShoppingBag),
+  },
+  {
+    name: "WCC",
+    description: "World Cricket Championship.",
+    href: "#",
+    cta: "Play",
+    className: "col-span-3 lg:col-span-1",
+    background: (
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-sky-600/20 opacity-50" />
+    ),
+    Icon: createLogo("/sponsors/wcc.png", Gamepad2),
+  },
+  {
+    name: "Dabur Honey",
+    description: "Purity guaranteed.",
+    href: "#",
+    cta: "Visit",
+    className: "col-span-3 lg:col-span-1",
+    background: (
+      <div className="absolute inset-0 bg-gradient-to-br from-amber-500/20 to-yellow-500/20 opacity-50" />
+    ),
+    Icon: createLogo("/sponsors/dabur-honey.png", Heart),
+  },
+  {
+    name: "Unschool",
+    description: "Learn anything.",
+    href: "#",
+    cta: "Learn",
+    className: "col-span-3 lg:col-span-1",
+    background: (
+      <div className="absolute inset-0 bg-gradient-to-br from-violet-500/20 to-purple-500/20 opacity-50" />
+    ),
+    Icon: createLogo("/sponsors/unschool.png", BookOpen),
+  },
+  {
+    name: "Drunken Monkey",
+    description: "Naturally High.",
+    href: "#",
+    cta: "Drink",
+    className: "col-span-3 lg:col-span-1",
+    background: (
+      <div className="absolute inset-0 bg-gradient-to-br from-green-600/20 to-emerald-600/20 opacity-50" />
+    ),
+    Icon: createLogo("/sponsors/drunken-monkey.png", Coffee),
+  },
+  {
+    name: "Dabur Gulabari",
+    description: "Rose Glow.",
+    href: "#",
+    cta: "Visit",
+    className: "col-span-3 lg:col-span-1",
+    background: (
+      <div className="absolute inset-0 bg-gradient-to-br from-pink-400/20 to-rose-400/20 opacity-50" />
+    ),
+    Icon: createLogo("/sponsors/dabur-gulabari.png", Sparkles),
+  },
+  {
+    name: "ComicByte",
+    description: "Gaming & Accessories.",
+    href: "#",
+    cta: "Shop",
+    className: "col-span-3 lg:col-span-1",
+    background: (
+      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-blue-500/20 opacity-50" />
+    ),
+    Icon: createLogo("/sponsors/comic-byte.png", Gamepad2),
+  },
+  {
+    name: "Mr. Burger",
+    description: "Fresh & Juicy.",
+    href: "#",
+    cta: "Eat",
+    className: "col-span-3 lg:col-span-1",
+    background: (
+      <div className="absolute inset-0 bg-gradient-to-br from-orange-600/20 to-red-600/20 opacity-50" />
+    ),
+    Icon: createLogo("/sponsors/mr-burger.png", Utensils),
+  },
+  {
+    name: "Coding Ninjas",
+    description: "Be a Coding Ninja.",
+    href: "#",
+    cta: "Code",
+    className: "col-span-3 lg:col-span-1",
+    background: (
+      <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 to-amber-500/20 opacity-50" />
+    ),
+    Icon: createLogo("/sponsors/coding-ninjas.png", Monitor),
   },
 ];
 
