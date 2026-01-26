@@ -1,36 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
-import { X } from "lucide-react";
-
-/**
- * SphereImageGrid - Interactive 3D Image Sphere Component
- *
- * A React TypeScript component that displays images arranged in a 3D sphere layout.
- * Images are distributed using Fibonacci sphere distribution for optimal coverage.
- * Supports drag-to-rotate, momentum physics, auto-rotation, and modal image viewing.
- *
- * Features:
- * - 3D sphere layout with Fibonacci distribution for even image placement
- * - Smooth drag-to-rotate interaction with momentum physics
- * - Auto-rotation capability with configurable speed
- * - Dynamic scaling based on position and visibility
- * - Collision detection to prevent image overlap
- * - Modal view for enlarged image display
- * - Touch support for mobile devices
- * - Customizable appearance and behavior
- * - Performance optimized with proper z-indexing and visibility culling
- *
- * Usage:
- * ```tsx
- * <SphereImageGrid
- *   images={imageArray}
- *   containerSize={600}
- *   sphereRadius={200}
- *   autoRotate={true}
- *   dragSensitivity={0.8}
- * />
- * ```
- */
 
 // ==========================================
 // TYPES & INTERFACES
@@ -148,7 +117,8 @@ const SphereImageGrid: React.FC<SphereImageGridProps> = ({
   autoRotateSpeed = 0.3,
   className = "",
   onImageSelect,
-  selectedImage: controlledSelectedImage,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  selectedImage, // We accept this prop but DO NOT use it to render a modal internally
 }) => {
   // ==========================================
   // STATE & REFS
@@ -162,23 +132,7 @@ const SphereImageGrid: React.FC<SphereImageGridProps> = ({
   });
   const [velocity, setVelocity] = useState<VelocityState>({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState<boolean>(false);
-  const [internalSelectedImage, setInternalSelectedImage] =
-    useState<ImageData | null>(null);
 
-  // Use controlled prop if provided, otherwise use internal state
-  const selectedImage =
-    controlledSelectedImage !== undefined
-      ? controlledSelectedImage
-      : internalSelectedImage;
-  const setSelectedImage = useCallback(
-    (image: ImageData | null) => {
-      if (controlledSelectedImage === undefined) {
-        setInternalSelectedImage(image);
-      }
-      onImageSelect?.(image);
-    },
-    [controlledSelectedImage, onImageSelect],
-  );
   const [imagePositions, setImagePositions] = useState<SphericalPosition[]>([]);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
@@ -546,9 +500,6 @@ const SphereImageGrid: React.FC<SphereImageGridProps> = ({
   useEffect(() => {
     if (!isMounted) return;
 
-    const container = containerRef.current;
-    if (!container) return;
-
     // Mouse events
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
@@ -603,8 +554,9 @@ const SphereImageGrid: React.FC<SphereImageGridProps> = ({
           }}
           onMouseEnter={() => setHoveredIndex(index)}
           onMouseLeave={() => setHoveredIndex(null)}
-          onClick={() => {
-            setSelectedImage(image);
+          onClick={(e) => {
+            // Stop propagation to prevent unintended clicks elsewhere
+            e.stopPropagation();
             onImageSelect?.(image);
           }}>
           <div className="relative w-full h-full rounded-full overflow-hidden shadow-lg border-2 border-white/20">
@@ -621,60 +573,8 @@ const SphereImageGrid: React.FC<SphereImageGridProps> = ({
         </div>
       );
     },
-    [
-      worldPositions,
-      baseImageSize,
-      containerSize,
-      hoveredIndex,
-      onImageSelect,
-      setSelectedImage,
-    ],
+    [worldPositions, baseImageSize, containerSize, hoveredIndex, onImageSelect],
   );
-
-  const renderSpotlightModal = () => {
-    if (!selectedImage) return null;
-
-    return (
-      <div
-        className="fixed bottom-6 left-6 z-50"
-        style={{
-          animation: "scaleIn 0.3s ease-out",
-        }}>
-        <div className="bg-white rounded-xl max-w-md w-full overflow-hidden shadow-2xl border-2 border-gray-200">
-          <div className="relative aspect-square">
-            <Image
-              src={selectedImage.src}
-              alt={selectedImage.alt}
-              width={400}
-              height={400}
-              className="w-full h-full object-cover"
-            />
-            <button
-              onClick={() => {
-                setSelectedImage(null);
-                onImageSelect?.(null);
-              }}
-              className="absolute top-2 right-2 w-8 h-8 bg-black bg-opacity-50 rounded-full text-white flex items-center justify-center hover:bg-opacity-70 transition-all cursor-pointer">
-              <X size={16} />
-            </button>
-          </div>
-
-          {(selectedImage.title || selectedImage.description) && (
-            <div className="p-6">
-              {selectedImage.title && (
-                <h3 className="text-xl font-bold mb-2">
-                  {selectedImage.title}
-                </h3>
-              )}
-              {selectedImage.description && (
-                <p className="text-gray-600">{selectedImage.description}</p>
-              )}
-            </div>
-          )}
-        </div>
-      </div>
-    );
-  };
 
   // ==========================================
   // EARLY RETURNS
@@ -737,7 +637,7 @@ const SphereImageGrid: React.FC<SphereImageGridProps> = ({
         </div>
       </div>
 
-      {renderSpotlightModal()}
+      {/* 🔥 DELETED: internal renderSpotlightModal() call */}
     </>
   );
 };
