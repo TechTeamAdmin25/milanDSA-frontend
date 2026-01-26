@@ -58,6 +58,7 @@ const LABEL_MAP: Record<string, string> = {
   "Movie & Dramatics Club": "Movies and Dramatics",
   "Literary Club": "Literary",
   "Rotaract Club": "Rotaract",
+  "Social Club": "Social",
   "Women Empowerment Club": "Women Empowerment",
   "Festival Club": "Festival",
 };

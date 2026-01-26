@@ -9,118 +9,89 @@ import {
   ChevronUp,
   X,
   RefreshCw,
+  Loader2,
 } from "lucide-react";
 
 // ==========================================
-// IMAGE DATA CONFIGURATION
+// TYPES
 // ==========================================
+type ApiMember = {
+  code: string;
+  name: string;
+  position: string;
+  image: string;
+};
 
-const BASE_IMAGES: Omit<ImageData, "id">[] = [
-  {
-    src: "https://images.unsplash.com/photo-1758178309498-036c3d7d73b3?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=987",
-    alt: "Image 1",
-    title: "Mountain Landscape",
-    description:
-      "A beautiful landscape captured at golden hour with mountains in the background.",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1757647016230-d6b42abc6cc9?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2072",
-    alt: "Image 2",
-    title: "Portrait Photography",
-    description:
-      "Stunning portrait photography showcasing natural lighting and composition.",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1757906447358-f2b2cb23d5d8?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=987",
-    alt: "Image 3",
-    title: "Urban Architecture",
-    description:
-      "Modern architectural design featuring clean lines and geometric patterns.",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1742201877377-03d18a323c18?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1064",
-    alt: "Image 4",
-    title: "Nature Scene",
-    description:
-      "Peaceful nature scene with vibrant colors and natural beauty.",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1757081791153-3f48cd8c67ac?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=987",
-    alt: "Image 5",
-    title: "Abstract Art",
-    description:
-      "Creative abstract composition with bold colors and unique patterns.",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1757626961383-be254afee9a0?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=987",
-    alt: "Image 6",
-    title: "Mountain Landscape",
-    description:
-      "A beautiful landscape captured at golden hour with mountains in the background.",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1756748371390-099e4e6683ae?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=987",
-    alt: "Image 7",
-    title: "Portrait Photography",
-    description:
-      "Stunning portrait photography showcasing natural lighting and composition.",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1755884405235-5c0213aa3374?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=987",
-    alt: "Image 8",
-    title: "Urban Architecture",
-    description:
-      "Modern architectural design featuring clean lines and geometric patterns.",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1757495404191-e94ed7e70046?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=987",
-    alt: "Image 9",
-    title: "Nature Scene",
-    description:
-      "Peaceful nature scene with vibrant colors and natural beauty.",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1756197256528-f9e6fcb82b04?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1064",
-    alt: "Image 10",
-    title: "Abstract Art",
-    description:
-      "Creative abstract composition with bold colors and unique patterns.",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1534083220759-4c3c00112ea0?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=987",
-    alt: "Image 11",
-    title: "Abstract Art",
-    description:
-      "Creative abstract composition with bold colors and unique patterns.",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1755278338891-e8d8481ff087?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1674",
-    alt: "Image 12",
-    title: "Abstract Art",
-    description:
-      "Creative abstract composition with bold colors and unique patterns.",
-  },
+type TeamBlock = {
+  label: string;
+  members: ApiMember[];
+};
+
+type TeamData = Record<string, TeamBlock>;
+
+// ==========================================
+// CONFIG: Sidebar Categories
+// ==========================================
+const CORE_TEAM_ROLES = [
+  "Cultural Secretary",
+  "Joint Secretary",
+  "Operations & Resources",
+  "Tech Team",
+  "Hospitality",
+  "Public Relations",
+  "Publicity & Social Media",
+  "Transport & Acc",
+  "Content",
+  "EMCEE",
+  "Media",
+  "Certificate & Prizes",
+  "Sponsorship",
+  "Treasurer",
+  "Discipline",
 ];
 
-// Generate more images by repeating the base set
-const IMAGES: ImageData[] = [];
-for (let i = 0; i < 60; i++) {
-  const baseIndex = i % BASE_IMAGES.length;
-  const baseImage = BASE_IMAGES[baseIndex];
-  IMAGES.push({
-    id: `img-${i + 1}`,
-    ...baseImage,
-    alt: `${baseImage.alt} (${Math.floor(i / BASE_IMAGES.length) + 1})`,
-  });
-}
+const CLUB_CONVENORS = [
+  "Music Club",
+  "Dance Club",
+  "Astrophilia Club",
+  "Sports Club",
+  "Quiz Club",
+  "Creative Arts Club",
+  "Gaming Club",
+  "Self Defence Club",
+  "Fashion Club",
+  "Movie & Dramatics Club",
+  "Rubiks Cube Club",
+  "Social Club",
+  "Literary Club",
+  "Rotaract Club",
+  "Women Empowerment Club",
+  "Festival Club",
+];
 
-// ==========================================
-// TEAM SPHERE COMPONENT
-// ==========================================
+// Map UI labels to API keys if they differ
+const LABEL_MAP: Record<string, string> = {
+  "Operations & Resources": "Operations and Resource Management",
+  "Tech Team": "Tech and Graphic Design",
+  "Publicity & Social Media": "Publicity",
+  "Transport & Acc": "Transportation and Accommodation",
+  "Certificate & Prizes": "Certificate and Prize Distribution",
+  "Movie & Dramatics Club": "Movies and Dramatics",
+  "Social Club": "Social",
+  "Astrophilia Club": "Astrophillia", // Note spelling in API
+};
 
 export function TeamSphere() {
+  // --- STATE ---
+  const [loading, setLoading] = useState(true);
   const [dimensions, setDimensions] = useState({ width: 800, height: 800 });
   const [isMobile, setIsMobile] = useState(false);
+
+  // Data
+  const [teamData, setTeamData] = useState<TeamData>({});
+  const [sphereImages, setSphereImages] = useState<ImageData[]>([]);
+
+  // UI Interaction
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
   const [hoveredConvenor, setHoveredConvenor] = useState<string | null>(null);
   const [selectedConvenor, setSelectedConvenor] = useState<ImageData | null>(
@@ -132,123 +103,117 @@ export function TeamSphere() {
     x: number;
     y: number;
   } | null>(null);
-  const convenorRefs = React.useRef<{ [key: string]: HTMLDivElement | null }>(
-    {},
-  );
 
-  // Mobile pagination state - EDIT HERE: Change 5 to adjust items per page
+  // Mobile View State
   const [corePage, setCorePage] = useState(0);
   const [clubPage, setClubPage] = useState(0);
-  const [mobileView, setMobileView] = useState<"club" | "core">("core"); // Toggle between club and core views
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [mobileView, setMobileView] = useState<"club" | "core">("core");
   const [isViewTransitioning, setIsViewTransitioning] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isTransitioning, setIsTransitioning] = useState({
     core: false,
     club: false,
   });
   const itemsPerPage = 5;
 
+  const convenorRefs = React.useRef<{ [key: string]: HTMLDivElement | null }>(
+    {},
+  );
+
+  // --- 1. FETCH DATA ON MOUNT ---
   useEffect(() => {
-    // Calculate dimensions based on viewport
+    fetch("/api/teams")
+      .then((res) => res.json())
+      .then((data: TeamData) => {
+        setTeamData(data);
+
+        // Convert API Data -> Sphere Images List
+        const allMembers: ImageData[] = [];
+        Object.values(data).forEach((team) => {
+          team.members.forEach((member) => {
+            allMembers.push({
+              id: member.code,
+              src: member.image, // Real API Path
+              alt: member.name,
+              title: member.name,
+              description: member.position,
+            });
+          });
+        });
+
+        if (allMembers.length > 0) {
+          setSphereImages(allMembers);
+        }
+
+        // Simulating a small delay so you can see the lightbulb effect
+        // Remove setTimeout in production if you want instant load
+        setTimeout(() => setLoading(false), 800);
+      })
+      .catch((err) => {
+        console.error("❌ Failed to fetch teams:", err);
+        setLoading(false);
+      });
+  }, []);
+
+  // --- 2. RESIZE HANDLER ---
+  useEffect(() => {
     const updateDimensions = () => {
       const width = window.innerWidth;
       const height = window.innerHeight;
-
-      // MOBILE: Use viewport dimensions, ensure no overflow
-      // For mobile, use a smaller multiplier to fit better
-      const mobile = width < 768; // Tailwind's md breakpoint
+      const mobile = width < 768;
       setIsMobile(mobile);
-
       const size = mobile
-        ? Math.min(width, height) * 0.85 // Slightly smaller for mobile
-        : Math.min(width, height) * 0.9; // Desktop size
-
-      setDimensions({
-        width: size,
-        height: size,
-      });
+        ? Math.min(width, height) * 0.85
+        : Math.min(width, height) * 0.9;
+      setDimensions({ width: size, height: size });
     };
-
-    // Initial calculation
     updateDimensions();
-
-    // Update on resize
     window.addEventListener("resize", updateDimensions);
-
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);
 
-  // Sphere configuration - EDIT HERE to adjust sphere radius
-  // Current: 0.50 for mobile, 0.45 for desktop
-  // Increase value for larger sphere, decrease for smaller
+  // Helpers
   const sphereRadius = dimensions.width * (isMobile ? 0.4 : 0.45);
-
-  // Image scale configuration - EDIT HERE to adjust team member image sizes
-  // Current: 0.28 for mobile (larger images), 0.20 for desktop
-  // Increase value for larger images, decrease for smaller
-  // Mobile images are larger to improve visibility on small screens
   const baseImageScale = isMobile ? 0.6 : 0.2;
 
-  // Toggle expanded state - only one item can be expanded at a time
   const toggleItem = (itemId: string) => {
     setExpandedItems((prev) => {
-      // If clicking the same item that's already expanded, collapse it
-      if (prev.has(itemId)) {
-        return new Set();
-      }
-      // Otherwise, close all others and open only this one
+      if (prev.has(itemId)) return new Set();
       return new Set([itemId]);
     });
   };
 
-  // Core Team Convenors data
-  const coreTeamRoles = [
-    "Cultural Secretary",
-    "Joint Secretary",
-    "Operations & Resources",
-    "Tech Team",
-    "Hospitality",
-    "Public Relations",
-    "Publicity & Social Media",
-    "Transport & Acc",
-    "Content",
-    "EMCEE",
-    "Media",
-    "Certificate & Prizes",
-    "Sponsorship",
-    "Treasurer",
-  ];
+  // Helper to find members for a sidebar category
+  const getMembersForRole = (role: string): ApiMember[] => {
+    if (!teamData) return [];
 
-  // Club Convenors data
-  const clubConvenors = [
-    "Music Club",
-    "Dance Club",
-    "Astrophilia Club",
-    "Sports Club",
-    "Quiz Club",
-    "Creative Arts Club",
-    "Gaming Club",
-    "Self Defence Club",
-    "Fashion Club",
-    "Movie & Dramatics Club",
-    "Rubiks Cube Club",
-    "Social Club",
-    "Literary Club",
-    "Rotaract Club",
-  ];
+    // 1. Check direct match
+    // 2. Check mapped match
+    // 3. Normalized match
+    const mappedLabel = LABEL_MAP[role] || role;
+    const normalize = (s: string) => s.toLowerCase().trim();
 
-  // Get random image from sphere for convenor
-  const getRandomImage = (convenorId: string): ImageData => {
-    // Use convenorId as seed to get consistent image per convenor
-    const hash = convenorId
-      .split("")
-      .reduce((acc, char) => acc + char.charCodeAt(0), 0);
-    const index = hash % IMAGES.length;
-    return IMAGES[index];
+    const entry = Object.entries(teamData).find(
+      ([_, block]) => normalize(block.label) === normalize(mappedLabel),
+    );
+
+    return entry ? entry[1].members : [];
   };
 
-  // Render expandable item - Desktop version with hover
+  // Helper to find image data for a member code
+  const getMemberImage = (code: string): ImageData => {
+    return (
+      sphereImages.find((img) => img.id === code) || {
+        id: "fallback",
+        src: "",
+        alt: "Member",
+        title: "Member",
+        description: "",
+      }
+    );
+  };
+
+  // --- RENDERERS ---
+
   const renderExpandableItem = (
     item: string,
     category: "core" | "club",
@@ -256,6 +221,10 @@ export function TeamSphere() {
   ) => {
     const itemId = `${category}-${item}`;
     const isExpanded = expandedItems.has(itemId);
+    const members = getMembersForRole(item);
+
+    // If no members found for this role, don't render empty list (optional)
+    if (members.length === 0) return null;
 
     return (
       <div
@@ -276,59 +245,55 @@ export function TeamSphere() {
           </div>
           <span className="text-gray-700 text-base">{item}</span>
         </button>
+
         <div
           className={`overflow-visible transition-all duration-300 ease-in-out ${
-            isExpanded ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
+            isExpanded ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
           }`}
-          style={{
-            overflow: isExpanded ? "visible" : "hidden",
-          }}>
+          style={{ overflow: isExpanded ? "visible" : "hidden" }}>
           <div className="pl-6 pt-2 space-y-2">
-            {["Convenor 1", "Convenor 2"].map((convenorName, idx) => {
-              const convenorId = `${itemId}-${idx}`;
-              const convenorImage = getRandomImage(convenorId);
+            {members.map((member) => {
+              const convenorImage = getMemberImage(member.code);
 
               const handleMouseEnter = (
                 e: React.MouseEvent<HTMLDivElement>,
               ) => {
-                if (disableHover) return; // Disable hover on mobile
+                if (disableHover) return;
                 const rect = e.currentTarget.getBoundingClientRect();
                 setPopupPosition({
-                  x: rect.left - 120, // Position to the left (96px image + 24px margin)
+                  x: rect.left - 120,
                   y: rect.top + rect.height / 2,
                 });
-                setHoveredConvenor(convenorId);
-              };
-
-              const handleMouseLeave = () => {
-                if (disableHover) return; // Disable hover on mobile
-                setHoveredConvenor(null);
-                setPopupPosition(null);
+                setHoveredConvenor(member.code);
               };
 
               return (
                 <div
-                  key={convenorId}
-                  ref={(el) => {
-                    convenorRefs.current[convenorId] = el;
-                  }}
+                  key={member.code}
                   className="relative flex items-center min-h-[1.5rem]"
                   onMouseEnter={disableHover ? undefined : handleMouseEnter}
-                  onMouseLeave={disableHover ? undefined : handleMouseLeave}>
+                  onMouseLeave={() => {
+                    setHoveredConvenor(null);
+                    setPopupPosition(null);
+                  }}>
                   <div
                     className="text-gray-600 text-base cursor-pointer hover:text-gray-900 transition-colors flex items-center"
                     onClick={() => {
-                      // Close any previously opened modal and open new one
+                      // 🔥 FIX: Clear hover immediately
+                      setHoveredConvenor(null);
+                      setPopupPosition(null);
+
                       if (selectedConvenor?.id === convenorImage.id) {
                         setSelectedConvenor(null);
                       } else {
                         setSelectedConvenor(convenorImage);
-                        // Close sphere modal when convenor is clicked
-                        setSelectedSphereImage(null);
+                        setSelectedSphereImage(null); // Deselect sphere node
                       }
                     }}>
                     <span className="mr-2">⤷</span>
-                    <span>Person Name</span>
+                    <span className="truncate max-w-[180px]">
+                      {member.name}
+                    </span>
                   </div>
                 </div>
               );
@@ -339,18 +304,14 @@ export function TeamSphere() {
     );
   };
 
-  // Render modal for selected convenor
   const renderConvenorModal = () => {
     if (!selectedConvenor) return null;
 
-    // EDIT HERE: Modal positioning - bottom-4 for mobile, bottom-6 for desktop
     return (
       <div className="fixed bottom-4 left-4 right-4 z-50 md:bottom-6 md:left-6 md:right-auto md:max-w-md">
         <div
           className="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-2xl border-2 border-gray-200"
-          style={{
-            animation: "scaleIn 0.3s ease-out",
-          }}>
+          style={{ animation: "scaleIn 0.3s ease-out" }}>
           <div className="relative aspect-square">
             <Image
               src={selectedConvenor.src}
@@ -368,14 +329,10 @@ export function TeamSphere() {
 
           {(selectedConvenor.title || selectedConvenor.description) && (
             <div className="p-6">
-              {selectedConvenor.title && (
-                <h3 className="text-xl font-bold mb-2">
-                  {selectedConvenor.title}
-                </h3>
-              )}
-              {selectedConvenor.description && (
-                <p className="text-gray-600">{selectedConvenor.description}</p>
-              )}
+              <h3 className="text-xl font-bold mb-2">
+                {selectedConvenor.title}
+              </h3>
+              <p className="text-gray-600">{selectedConvenor.description}</p>
             </div>
           )}
         </div>
@@ -383,6 +340,26 @@ export function TeamSphere() {
     );
   };
 
+  // --- LOADING STATE: "LIGHTBULB" EFFECT ---
+  if (loading) {
+    return (
+      <main className="w-full h-screen flex flex-col items-center justify-center bg-gray-50">
+        <div className="relative flex items-center justify-center">
+          {/* Outer Glow */}
+          <div className="absolute w-32 h-32 bg-yellow-400/20 rounded-full blur-xl animate-pulse" />
+          {/* Inner "Bulb" */}
+          <div className="relative w-16 h-16 bg-yellow-400 rounded-full shadow-[0_0_40px_rgba(250,204,21,0.6)] flex items-center justify-center animate-bounce">
+            <Loader2 className="text-white w-8 h-8 animate-spin" />
+          </div>
+        </div>
+        <p className="mt-8 text-gray-500 font-medium animate-pulse">
+          Initializing Team Sphere...
+        </p>
+      </main>
+    );
+  }
+
+  // --- MAIN RENDER ---
   return (
     <>
       <style>{`
@@ -390,93 +367,11 @@ export function TeamSphere() {
           from { transform: scale(0.8); opacity: 0; }
           to { transform: scale(1); opacity: 1; }
         }
-        /* Hide scrollbar for Chrome, Safari and Opera */
-        .overflow-y-auto::-webkit-scrollbar {
-          display: none;
-        }
-        /* Hide scrollbar for IE, Edge and Firefox */
-        .overflow-y-auto {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-        /* MOBILE: Prevent scrolling - EDIT HERE if you need to adjust scroll behavior */
-        @media (max-width: 767px) {
-          html, body {
-            overflow: hidden !important;
-            height: 100vh;
-            width: 100vw;
-            position: relative;
-          }
-        }
-        /* Smooth pagination transitions */
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes fadeOutDown {
-          from {
-            opacity: 1;
-            transform: translateY(0);
-          }
-          to {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-        }
-        .pagination-item-enter {
-          animation: fadeInUp 0.3s ease-out forwards;
-        }
-        .pagination-item-exit {
-          animation: fadeOutDown 0.2s ease-in forwards;
-        }
-        .arrow-transition {
-          transition: transform 0.3s ease-out, opacity 0.2s ease-out;
-        }
-        /* View toggle transitions */
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateX(10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-        @keyframes fadeOut {
-          from {
-            opacity: 1;
-            transform: translateX(0);
-          }
-          to {
-            opacity: 0;
-            transform: translateX(-10px);
-          }
-        }
-        .view-content-enter {
-          animation: fadeIn 0.3s ease-out forwards;
-        }
-        .view-content-exit {
-          animation: fadeOut 0.2s ease-in forwards;
-        }
-        .refresh-icon {
-          transition: transform 0.3s ease-out;
-        }
-        .refresh-icon:hover {
-          transform: rotate(180deg);
-        }
+        .overflow-y-auto::-webkit-scrollbar { display: none; }
+        .overflow-y-auto { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
-      {/* MOBILE VIEW: Fixed container, no scrolling */}
+
       <main className="w-full h-screen flex flex-col justify-end items-center bg-gradient-to-br from-gray-50 to-gray-100 relative overflow-hidden md:min-h-screen md:justify-center md:items-center md:pt-22 animate-in fade-in duration-1000">
-        {/* EDIT HERE: Text sizes for "Our" and "Team" */}
-        {/* Mobile: text-5xl (reduced from 10rem), Desktop: text-[10rem] */}
-        {/* Adjust text-5xl value to make text smaller/larger on mobile */}
         <h1 className="absolute top-18 left-4 text-6xl font-bold text-gray-900 tracking-tight md:top-15 md:left-10 md:text-[10rem] z-50 animate-in fade-in duration-1000">
           Our
         </h1>
@@ -484,43 +379,28 @@ export function TeamSphere() {
           Team<span className="text-purple-600">.</span>
         </h1>
 
-        {/* MOBILE: Convenor Lists - Toggle between Club and Core views */}
-        {/* EDIT HERE: Adjust itemsPerPage (line 115) to change how many items show per page */}
-        {/* EDIT HERE: Adjust mt-24 and mb-0 to change vertical spacing */}
+        {/* 📱 MOBILE LISTS (Core/Club Toggle) */}
         <div className="flex md:hidden w-full px-4 mt-24 mb-0 justify-end">
-          {/* Single column that toggles between views - Right aligned */}
           <div className="flex flex-col items-end max-w-[50%]">
-            {/* Small dim indicator text above heading */}
             <div className="text-xs font-medium text-gray-400 mb-1 mr-3">
               {mobileView === "core" ? "Open Clubs ⤵" : "Open Core Team ⤵"}
             </div>
 
-            {/* Header with toggle icon - switches between Core and Club headings */}
             <div className="flex items-center gap-2 mb-2">
-              {mobileView === "core" ? (
-                <h2 className="text-base font-bold text-gray-900">
-                  Core Team Convenors
-                </h2>
-              ) : (
-                <h2 className="text-base font-bold text-gray-900">
-                  Club Convenors
-                </h2>
-              )}
+              <h2 className="text-base font-bold text-gray-900">
+                {mobileView === "core" ? "Core Team" : "Club Convenors"}
+              </h2>
               <button
                 onClick={() => {
                   setIsViewTransitioning(true);
                   setTimeout(() => {
-                    setMobileView((prev) => {
-                      if (prev === "core") return "club";
-                      return "core";
-                    });
-                    setTimeout(() => {
-                      setIsViewTransitioning(false);
-                    }, 50);
+                    setMobileView((prev) =>
+                      prev === "core" ? "club" : "core",
+                    );
+                    setTimeout(() => setIsViewTransitioning(false), 50);
                   }, 200);
                 }}
-                className="p-1 hover:bg-gray-100 rounded transition-colors"
-                aria-label="Toggle between Core and Club views">
+                className="p-1 hover:bg-gray-100 rounded transition-colors">
                 <RefreshCw
                   size={16}
                   className="text-gray-600 refresh-icon"
@@ -528,134 +408,56 @@ export function TeamSphere() {
               </button>
             </div>
 
-            {/* Content area with smooth transitions - Right aligned */}
             <div className="space-y-1 relative min-h-[200px] w-full">
-              {mobileView === "club" ? (
-                <div
-                  key="club-view"
-                  className="view-content-enter">
-                  {clubConvenors
-                    .slice(
-                      clubPage * itemsPerPage,
-                      (clubPage + 1) * itemsPerPage,
-                    )
-                    .map((club, index) => (
-                      <div
-                        key={`${clubPage}-${club}`}
-                        className="pagination-item-enter"
-                        style={{ animationDelay: `${index * 0.03}s` }}>
-                        {renderExpandableItem(club, "club", true)}
-                      </div>
-                    ))}
-                </div>
-              ) : (
-                <div
-                  key="core-view"
-                  className="view-content-enter">
-                  {coreTeamRoles
-                    .slice(
-                      corePage * itemsPerPage,
-                      (corePage + 1) * itemsPerPage,
-                    )
-                    .map((role, index) => (
-                      <div
-                        key={`${corePage}-${role}`}
-                        className="pagination-item-enter"
-                        style={{ animationDelay: `${index * 0.03}s` }}>
-                        {renderExpandableItem(role, "core", true)}
-                      </div>
-                    ))}
-                </div>
-              )}
+              {/* Mobile List Rendering Logic (Simplified for brevity - follows same pattern as Desktop) */}
+              {mobileView === "core"
+                ? CORE_TEAM_ROLES.slice(
+                    corePage * itemsPerPage,
+                    (corePage + 1) * itemsPerPage,
+                  ).map((role) => renderExpandableItem(role, "core", true))
+                : CLUB_CONVENORS.slice(
+                    clubPage * itemsPerPage,
+                    (clubPage + 1) * itemsPerPage,
+                  ).map((club) => renderExpandableItem(club, "club", true))}
             </div>
 
-            {/* Pagination button - shows for active view, right aligned */}
-            {mobileView === "club" && clubConvenors.length > itemsPerPage && (
+            {/* Pagination Controls... (Keep existing logic or simplify) */}
+            <div className="flex gap-2 mt-2">
+              <button
+                onClick={() =>
+                  mobileView === "core"
+                    ? setCorePage(Math.max(0, corePage - 1))
+                    : setClubPage(Math.max(0, clubPage - 1))
+                }
+                disabled={
+                  mobileView === "core" ? corePage === 0 : clubPage === 0
+                }
+                className="text-xs text-gray-500 disabled:opacity-30">
+                Prev
+              </button>
               <button
                 onClick={() => {
-                  const maxPage =
-                    Math.ceil(clubConvenors.length / itemsPerPage) - 1;
-                  setIsTransitioning((prev) => ({ ...prev, club: true }));
-                  setTimeout(() => {
-                    if (clubPage < maxPage) {
-                      setClubPage((prev) => prev + 1);
-                    } else {
-                      setClubPage(0);
-                    }
-                    setTimeout(() => {
-                      setIsTransitioning((prev) => ({ ...prev, club: false }));
-                    }, 50);
-                  }, 200);
+                  const list =
+                    mobileView === "core" ? CORE_TEAM_ROLES : CLUB_CONVENORS;
+                  const curr = mobileView === "core" ? corePage : clubPage;
+                  const max = Math.ceil(list.length / itemsPerPage) - 1;
+                  if (curr < max) {
+                    mobileView === "core"
+                      ? setCorePage(curr + 1)
+                      : setClubPage(curr + 1);
+                  }
                 }}
-                className="mt-2 flex items-center gap-1 text-gray-600 hover:text-gray-900 transition-colors text-sm self-end">
-                <span className="arrow-transition">
-                  {clubPage < Math.ceil(clubConvenors.length / itemsPerPage) - 1
-                    ? "More"
-                    : "Back"}
-                </span>
-                <div className="arrow-transition inline-flex">
-                  {clubPage <
-                  Math.ceil(clubConvenors.length / itemsPerPage) - 1 ? (
-                    <ChevronDown
-                      size={14}
-                      className="arrow-transition"
-                    />
-                  ) : (
-                    <ChevronUp
-                      size={14}
-                      className="arrow-transition"
-                    />
-                  )}
-                </div>
+                className="text-xs text-gray-500">
+                Next
               </button>
-            )}
-
-            {mobileView === "core" && coreTeamRoles.length > itemsPerPage && (
-              <button
-                onClick={() => {
-                  const maxPage =
-                    Math.ceil(coreTeamRoles.length / itemsPerPage) - 1;
-                  setIsTransitioning((prev) => ({ ...prev, core: true }));
-                  setTimeout(() => {
-                    if (corePage < maxPage) {
-                      setCorePage((prev) => prev + 1);
-                    } else {
-                      setCorePage(0);
-                    }
-                    setTimeout(() => {
-                      setIsTransitioning((prev) => ({ ...prev, core: false }));
-                    }, 50);
-                  }, 200);
-                }}
-                className="mt-2 flex items-center gap-1 text-gray-600 hover:text-gray-900 transition-colors text-sm self-end">
-                <span className="arrow-transition">
-                  {corePage < Math.ceil(coreTeamRoles.length / itemsPerPage) - 1
-                    ? "More"
-                    : "Back"}
-                </span>
-                <div className="arrow-transition inline-flex">
-                  {corePage <
-                  Math.ceil(coreTeamRoles.length / itemsPerPage) - 1 ? (
-                    <ChevronDown
-                      size={14}
-                      className="arrow-transition"
-                    />
-                  ) : (
-                    <ChevronUp
-                      size={14}
-                      className="arrow-transition"
-                    />
-                  )}
-                </div>
-              </button>
-            )}
+            </div>
           </div>
         </div>
 
-        {/* MOBILE: Sphere positioned above bottom, Desktop: centered */}
+        {/* 🌎 SPHERE */}
         <div className="flex flex-col items-center justify-center gap-8 pb-0 md:pb-0 md:w-full">
           <SphereImageGrid
-            images={IMAGES}
+            images={sphereImages}
             containerSize={dimensions.width}
             sphereRadius={sphereRadius}
             dragSensitivity={0.8}
@@ -668,55 +470,37 @@ export function TeamSphere() {
             selectedImage={selectedSphereImage}
             onImageSelect={(image) => {
               setSelectedSphereImage(image);
-              // When sphere image is selected, close convenor modal
-              if (image) {
-                setSelectedConvenor(null);
-              }
+              if (image) setSelectedConvenor(null);
             }}
           />
         </div>
 
-        {/* Core Team Convenors & Club Convenors - DESKTOP VIEW ONLY */}
-        {/* Desktop: Fixed position on right side with hover preview */}
-        {/* EDIT HERE: Adjust maxHeight values to change container size if needed */}
+        {/* 🖥 DESKTOP SIDEBAR */}
         <div
           className="hidden md:flex absolute right-6 top-1/2 -translate-y-1/2 flex-row gap-12 max-w-2xl"
           style={{ maxHeight: "calc(100vh - 4rem)" }}>
-          {/* Core Team Convenors & Club Convenors */}
           <div className="flex flex-col gap-6">
-            {/* Core Team Convenors */}
             <div
               className="flex flex-col"
               style={{ maxHeight: "calc(50vh - 2rem)" }}>
               <h2 className="text-2xl font-bold text-gray-900 mb-4 flex-shrink-0">
-                Core Team Convenors
+                Core Team
               </h2>
-              <div
-                className="space-y-0 overflow-y-auto pr-2"
-                style={{
-                  scrollbarWidth: "none",
-                  msOverflowStyle: "none",
-                }}>
-                {coreTeamRoles.map((role) =>
+              <div className="space-y-0 overflow-y-auto pr-2">
+                {CORE_TEAM_ROLES.map((role) =>
                   renderExpandableItem(role, "core", false),
                 )}
               </div>
             </div>
 
-            {/* Club Convenors */}
             <div
               className="flex flex-col"
               style={{ maxHeight: "calc(50vh - 2rem)" }}>
               <h2 className="text-2xl font-bold text-gray-900 mb-4 flex-shrink-0">
-                Club Convenors
+                Clubs
               </h2>
-              <div
-                className="space-y-0 overflow-y-auto pr-2"
-                style={{
-                  scrollbarWidth: "none",
-                  msOverflowStyle: "none",
-                }}>
-                {clubConvenors.map((club) =>
+              <div className="space-y-0 overflow-y-auto pr-2">
+                {CLUB_CONVENORS.map((club) =>
                   renderExpandableItem(club, "club", false),
                 )}
               </div>
@@ -724,20 +508,19 @@ export function TeamSphere() {
           </div>
         </div>
 
-        {/* Hover Popup - Rendered outside container */}
-        {hoveredConvenor && popupPosition && (
+        {/* 👻 HOVER POPUP (With strict check) */}
+        {!selectedConvenor && hoveredConvenor && popupPosition && (
           <div
             className="fixed z-50 pointer-events-none transition-all duration-300 ease-out"
             style={{
               left: `${popupPosition.x}px`,
               top: `${popupPosition.y}px`,
               transform: "translateY(-50%)",
-              opacity: hoveredConvenor ? 1 : 0,
             }}>
             <div className="bg-white rounded-xl shadow-2xl overflow-hidden w-24 h-24 border-2 border-gray-200">
               <Image
-                src={getRandomImage(hoveredConvenor).src}
-                alt={getRandomImage(hoveredConvenor).alt}
+                src={getMemberImage(hoveredConvenor).src}
+                alt={getMemberImage(hoveredConvenor).alt}
                 width={96}
                 height={96}
                 className="w-full h-full object-cover"
@@ -746,8 +529,7 @@ export function TeamSphere() {
           </div>
         )}
 
-        {/* Convenor Modal - Responsive positioning */}
-        {/* EDIT HERE: Adjust bottom-6 and left-6 values to change modal position on mobile */}
+        {/* 🔳 MODAL */}
         {renderConvenorModal()}
       </main>
     </>
