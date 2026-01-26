@@ -45,111 +45,114 @@ export function DirectorsManagersSection() {
   const directors = people.filter(p => p.type === "director");
   const managers = people.filter(p => p.type === "manager");
 
+  // Re-order directors to put Featured (Nisha) in the middle for visual symmetry
+  const sortedDirectors = [
+    directors.find(d => !d.featured && d.name.includes("Prince")),
+    directors.find(d => d.featured),
+    directors.find(d => !d.featured && d.name.includes("Pradeep"))
+  ].filter(Boolean);
+
   return (
-    <section className="relative w-full py-24 bg-white dark:bg-neutral-950 overflow-hidden">
-        {/* Background Decorative Elements */}
-        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-purple-200/30 dark:bg-purple-900/10 rounded-full blur-[100px]" />
-            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-200/30 dark:bg-blue-900/10 rounded-full blur-[100px]" />
+    <section className="relative w-full py-24 bg-neutral-50 text-neutral-900 overflow-hidden">
+        {/* Background Gradients - Adjusted for Light Mode */}
+        <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-200/40 rounded-full blur-[128px]" />
+            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-200/40 rounded-full blur-[128px]" />
         </div>
 
       <div className="container mx-auto px-4 relative z-10">
         
-        {/* Directors Section */}
-        <div className="mb-24">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 to-neutral-500 dark:from-white dark:to-neutral-400">
-              The Visionaries
-            </h2>
-            <p className="mt-4 text-neutral-600 dark:text-neutral-400">Guiding the spirit of Milan</p>
-          </motion.div>
-
-          <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16">
-             {/* Render Featured (Middle) Director First on Mobile if needed, but here we keep logical order or specific design */}
-             {/* We can map them. The middle one in the array (Nisha) is featured. */}
-             {/* Let's reorder for visual hierarchy: Prince, Nisha (Center/Largest), Pradeep */}
-             
-             {/* Re-arranging for display: Prince, Nisha, Pradeep. */}
-             {directors.map((person, idx) => (
-               <motion.div
-                 key={person.name}
-                 initial={{ opacity: 0, scale: 0.9 }}
-                 whileInView={{ opacity: 1, scale: 1 }}
-                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                 viewport={{ once: true }}
-                 className={`flex flex-col items-center group ${person.featured ? 'order-first md:order-none' : ''}`}
-               >
-                 <div className={`relative ${person.featured ? 'w-56 h-56 md:w-72 md:h-72' : 'w-44 h-44 md:w-56 md:h-56'} mb-6`}>
-                   <div className="absolute inset-0 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 blur-lg opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
-                   <Image
-                     src={person.image}
-                     alt={person.name}
-                     fill
-                     className={`rounded-full object-cover border-4 border-white dark:border-neutral-800 shadow-xl transition-transform duration-500 group-hover:scale-105`}
-                   />
-                 </div>
-                 <div className="text-center">
-                   <h3 className={`font-bold text-neutral-900 dark:text-white ${person.featured ? 'text-xl md:text-2xl' : 'text-lg md:text-xl'}`}>
-                     {person.name}
-                   </h3>
-                   <p className="text-purple-600 dark:text-purple-400 font-medium mt-1">{person.role}</p>
-                   {person.subRole && (
-                     <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">{person.subRole}</p>
-                   )}
-                 </div>
-               </motion.div>
-             ))}
-          </div>
+        {/* Section Header */}
+        <div className="text-center mb-20 space-y-4">
+            <motion.h2 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-4xl md:text-6xl font-black tracking-tighter uppercase"
+            >
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-neutral-800 to-blue-600">
+                    The Visionaries
+                </span>
+            </motion.h2>
+            <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                viewport={{ once: true }}
+                className="text-neutral-600 max-w-2xl mx-auto text-lg font-light"
+            >
+                The architects behind the grand spectacle of Milan.
+            </motion.p>
         </div>
 
-        {/* Managers Section */}
-        <div>
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-             <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white">
-              Event Managers
-            </h2>
-          </motion.div>
-
-          <div className="flex flex-wrap justify-center gap-12 md:gap-24">
-            {managers.map((person, idx) => (
-              <motion.div
-                key={person.name}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                viewport={{ once: true }}
-                className="flex flex-col items-center group"
-              >
-                <div className="relative w-40 h-40 md:w-48 md:h-48 mb-6">
-                   <div className="absolute inset-0 rounded-full bg-gradient-to-br from-pink-500 to-orange-500 blur-lg opacity-20 group-hover:opacity-40 transition-opacity duration-500" />
-                   <Image
-                     src={person.image}
-                     alt={person.name}
-                     fill
-                     className="rounded-full object-cover border-4 border-white dark:border-neutral-800 shadow-lg transition-transform duration-500 group-hover:scale-105"
-                   />
-                </div>
-                <div className="text-center">
-                  <h3 className="text-lg md:text-xl font-bold text-neutral-900 dark:text-white">
-                    {person.name}
-                  </h3>
-                  <p className="text-pink-600 dark:text-pink-400 font-medium mt-1">{person.role}</p>
-                </div>
-              </motion.div>
+        {/* Directors Row */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-24">
+            {sortedDirectors.map((person, idx) => (
+                <motion.div
+                    key={person?.name}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.1 }}
+                    viewport={{ once: true }}
+                    className={`relative p-1 rounded-2xl bg-gradient-to-b from-white/10 to-transparent group ${person?.featured ? 'md:-mt-12 md:mb-12 z-20' : 'z-10'}`}
+                >
+                    <div className="absolute inset-0 bg-gradient-to-b from-purple-200/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl blur-xl" />
+                    
+                    <div className="relative h-full bg-white rounded-xl overflow-hidden border border-neutral-200 shadow-xl shadow-neutral-200/50 p-6 flex flex-col items-center text-center hover:border-purple-300 transition-all duration-300 hover:-translate-y-1">
+                        <div className={`relative mb-6 rounded-full overflow-hidden border-2 border-neutral-100 group-hover:border-purple-400/50 transition-all duration-300 shadow-md ${person?.featured ? 'w-48 h-48' : 'w-32 h-32'}`}>
+                            <Image
+                                src={person?.image || ''}
+                                alt={person?.name || ''}
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                            />
+                        </div>
+                        
+                        <h3 className={`font-bold text-neutral-900 mb-2 ${person?.featured ? 'text-2xl' : 'text-xl'}`}>
+                            {person?.name}
+                        </h3>
+                        
+                        <div className="h-0.5 w-12 bg-gradient-to-r from-purple-500 to-blue-500 mb-4 group-hover:w-24 transition-all duration-300" />
+                        
+                        <p className="text-purple-600 font-medium tracking-wide uppercase text-sm mb-1">{person?.role}</p>
+                        {person?.subRole && (
+                            <p className="text-neutral-500 text-xs">{person?.subRole}</p>
+                        )}
+                    </div>
+                </motion.div>
             ))}
-          </div>
+        </div>
+
+        <div className="relative border-t border-neutral-200 pt-16">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-6 py-1 text-neutral-500 text-sm tracking-widest uppercase font-semibold border border-neutral-200 rounded-full shadow-sm">
+                Event Operations
+            </div>
+
+            <div className="flex flex-wrap justify-center gap-8 md:gap-16">
+                {managers.map((person, idx) => (
+                    <motion.div
+                        key={person.name}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.2 + (idx * 0.1) }}
+                        viewport={{ once: true }}
+                        className="flex items-center gap-6 group bg-white border border-neutral-200 shadow-lg shadow-neutral-100/50 rounded-full pr-12 py-4 pl-4 hover:border-purple-200 hover:shadow-purple-100 transiton-all duration-300"
+                    >
+                        <div className="relative w-32 h-32 rounded-full overflow-hidden border border-neutral-100">
+                            <Image
+                                src={person.image}
+                                alt={person.name}
+                                fill
+                                className="object-cover transition-all duration-500"
+                            />
+                        </div>
+                        <div className="text-left">
+                            <h4 className="text-neutral-900 font-bold text-xl group-hover:text-purple-600 transition-colors">{person.name}</h4>
+                            <p className="text-neutral-500 text-sm uppercase tracking-wider">{person.role}</p>
+                        </div>
+                    </motion.div>
+                ))}
+            </div>
         </div>
 
       </div>
