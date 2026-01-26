@@ -14,7 +14,6 @@ export default function ConvenorModal({
   if (!convenor) return null;
 
   return (
-    // 🔥 UPDATED: Changed 'bottom-4 left-4' to 'bottom-6 left-6' (or larger) to push it away from the screen edge
     <div className="fixed bottom-6 left-6 z-50 max-w-md w-full animate-in fade-in slide-in-from-bottom-4 duration-300">
       <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
         {/* IMAGE */}
