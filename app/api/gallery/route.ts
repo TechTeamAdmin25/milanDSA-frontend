@@ -2,6 +2,11 @@ import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 
+/**
+ * Explicitly mark this route as dynamic
+ * (prevents static optimization during build)
+ */
+export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
 const IMAGE_REGEX = /\.(png|jpe?g|webp|avif)$/i;
