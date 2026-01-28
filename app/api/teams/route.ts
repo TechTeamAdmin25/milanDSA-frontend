@@ -1,13 +1,23 @@
 import { NextResponse } from "next/server";
-import path from "path";
-import fs from "fs/promises";
+
+// 1. DIRECT IMPORTS
+import clubTeamData from "../../team/club-team.json";
+import coreTeamData from "../../team/core-team.json";
 
 // --- TYPES ---
-type Member = {
+type RawMember = {
   code: string;
   name: string;
   position: string;
-  image: string; // Image is now required, because we filter out those without it
+};
+
+type RawTeamBlock = {
+  label: string;
+  members: RawMember[];
+};
+
+type Member = RawMember & {
+  image: string;
 };
 
 type TeamBlock = {
@@ -18,9 +28,11 @@ type TeamBlock = {
 type TeamJSON = Record<string, TeamBlock>;
 
 // --- CONFIG ---
-const FILE_NAMES = ["club-team.json", "core-team.json"];
+const RAW_DATA: Record<string, RawTeamBlock> = {
+  ...clubTeamData,
+  ...coreTeamData,
+} as unknown as Record<string, RawTeamBlock>;
 
-// 🔥 CRITICAL: Exact Mapping from JSON Key -> Folder Name
 const KEY_TO_FOLDER: Record<string, string> = {
   // --- CLUBS ---
   MAD: "MOVIES AND DRAMATICS",
@@ -56,93 +68,44 @@ const KEY_TO_FOLDER: Record<string, string> = {
 
 export async function GET() {
   const mergedResult: TeamJSON = {};
-  const cwd = process.cwd();
 
-  // Define public directory path
-  const publicDir = path.join(cwd, "public");
+  try {
+    for (const [teamKey, teamData] of Object.entries(RAW_DATA)) {
+      // 1. Resolve Folder Name
+      let folderName = KEY_TO_FOLDER[teamKey];
+      if (!folderName) folderName = teamKey;
 
-  for (const fileName of FILE_NAMES) {
-    try {
-      // 1. Locate JSON File
-      const possiblePaths = [
-        path.join(cwd, "app", "team", fileName),
-        path.join(cwd, "src", "app", "team", fileName),
-      ];
+      const encodedFolder = encodeURIComponent(folderName);
 
-      let fileContent = "";
-      let foundPath = "";
+      // 2. Process Members
+      // Note: We cannot use fs.access here in Vercel production.
+      // We generate the path assuming the file exists.
+      // If the file is missing, the Frontend <SphereNode> must handle the 404
+      // by returning null (hiding the node).
+      const validMembers: Member[] = teamData.members.map((member) => {
+        // 🔥 CHANGED to .JPG (Uppercase) based on your request
+        const imageFilename = `${member.code}.JPG`;
 
-      for (const p of possiblePaths) {
-        try {
-          await fs.access(p);
-          fileContent = await fs.readFile(p, "utf-8");
-          foundPath = p;
-          break;
-        } catch {
-          continue;
-        }
+        return {
+          ...member,
+          image: `/Teams/${encodedFolder}/${imageFilename}`,
+        };
+      });
+
+      if (validMembers.length > 0) {
+        mergedResult[teamKey] = {
+          label: teamData.label,
+          members: validMembers,
+        };
       }
-
-      if (!foundPath) {
-        console.warn(`⚠️ Warning: Could not find ${fileName}`);
-        continue;
-      }
-
-      const data: TeamJSON = JSON.parse(fileContent);
-
-      for (const [teamKey, teamData] of Object.entries(data)) {
-        // 2. Resolve Folder Name
-        let folderName = KEY_TO_FOLDER[teamKey];
-        if (!folderName) folderName = teamKey;
-
-        // 3. Process Members & FILTER OUT missing images
-        // We map to (Member | null), then filter out the nulls
-        const validMembersPromise = teamData.members.map(async (member) => {
-          const imageFilename = `${member.code}.jpg`;
-
-          // Construct absolute path to check existence
-          const fsPath = path.join(
-            publicDir,
-            "Teams",
-            folderName,
-            imageFilename,
-          );
-
-          try {
-            // Check if file exists
-            await fs.access(fsPath);
-
-            // If we are here, the file exists!
-            const encodedFolder = encodeURIComponent(folderName);
-            return {
-              ...member,
-              image: `/Teams/${encodedFolder}/${imageFilename}`,
-            };
-          } catch (err) {
-            // File does not exist.
-            // Return null so we can filter this person out later.
-            return null;
-          }
-        });
-
-        // Wait for all checks to finish
-        const results = await Promise.all(validMembersPromise);
-
-        // Filter: Keep only the entries that are NOT null
-        const validMembers = results.filter((m): m is Member => m !== null);
-
-        // Only add this team if it has at least one valid member (optional)
-        if (validMembers.length > 0) {
-          mergedResult[teamKey] = {
-            label: teamData.label,
-            members: validMembers,
-          };
-        }
-      }
-    } catch (error) {
-      console.error(`❌ Error processing ${fileName}:`, error);
     }
-  }
 
-  return NextResponse.json(mergedResult);
+    return NextResponse.json(mergedResult);
+  } catch (error) {
+    console.error(`❌ Error processing team data:`, error);
+    return NextResponse.json(
+      { error: "Failed to load team data" },
+      { status: 500 },
+    );
+  }
 }
