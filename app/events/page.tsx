@@ -253,7 +253,7 @@ export default function EventsPage() {
       </section>
 
       {/* Host an Event CTA */}
-      <section className="relative z-10 py-24 px-6 bg-[#F5F5F7]">
+      <section className="relative py-24 px-6 bg-[#F5F5F7]">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 mb-6 tracking-tight">
             Have an idea for an event?
